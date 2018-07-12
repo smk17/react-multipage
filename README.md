@@ -6,5 +6,5 @@
 
 - assets 静态资源目录
 - components 组件目录
-- pages 页面目录，多页面构造基于该目录每个文件，请保证该目录下至少有一个目录，并且index是必须的，blank是一个空白模版
+- pages 页面目录，多页面构造基于该目录每个文件，请保证该目录下至少有一个目录，并且`index`是必须的，`blank`是一个空白模版
 - typings 声明文件，这是为以后`Flow`或`TypeScript`预留的

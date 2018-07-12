@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex } from 'antd-mobile';
 import './index.less';
 
 class YdyScrollView extends React.Component {
 
   render () {
     return (
-      <Flex direction="column"
-        wrap={this.props.wrap}
-        justify={this.props.justify}
-        align={this.props.align}
-        alignContent={this.props.alignContent}
-      >
-        <Flex.Item>
-          {this.props.children}
-        </Flex.Item>
-      </Flex>
+      // <div className="scroll" direction="column"
+      //   wrap={this.props.wrap}
+      //   justify={this.props.justify}
+      //   align={this.props.align}
+      //   alignContent={this.props.alignContent}
+      // >
+      <div>
+        {this.props.children}
+      </div>
     );
   }
 }
