@@ -55,7 +55,7 @@ class App extends React.Component {
         />
         <YdyImagePicker
           files={files}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           selectable={files.length < 5}
           multiple={this.state.multiple}
         />

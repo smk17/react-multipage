@@ -11,12 +11,12 @@ const icon = 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.pn
 
 class Components extends React.Component {
   onClick = (el, index) => {
-    DingTalk.openLink(window.location.origin + el.url + window.location.search);
+    DingTalk.open(el.url);
   }
   render () {
     const data = [
-      { icon, text: 'blank', url: '/blank.html' },
-      { icon, text: '图片选择器', url: '/ImagePickerExample.html' }
+      { icon, text: 'blank', url: 'blank' },
+      { icon, text: '图片选择器', url: 'ImagePickerExample' }
     ]
     return (<Grid data={data} activeStyle={false} onClick={this.onClick}/>);
   }

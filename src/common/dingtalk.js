@@ -23,8 +23,8 @@ export class DingTalk {
     }
   }
   /**
-   * 打开一个链接
-   * @param {string} url 
+   * 打开一个外部链接
+   * @param {string} url 外部链接
    */
   static openLink (url) {
     if (!(window.dd.version === null)) {
@@ -44,6 +44,14 @@ export class DingTalk {
     } else {
       window.location = url
     }
+  }
+  /**
+   * 打开应用内页面
+   * @param {string} url 内部页面名称
+   * @param {string} params 需要传递的参数，格式：&id=1&userid=10000
+   */
+  static open (url, params = '') {
+    DingTalk.openLink(`${window.location.origin}/${url}.html${window.location.search}${params}`)
   }
   /**
    * 设置当前页面的标题

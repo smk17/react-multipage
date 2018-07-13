@@ -52,6 +52,7 @@ class YdyImagePicker extends React.Component {
                 }),
               });
             }
+            this.props.onChange(this.state.files)
           },
           onFail : (err) => {
             window.baseConfig.development && window.alert(JSON.stringify(err))
@@ -109,6 +110,7 @@ YdyImagePicker.propTypes = {
 }
 YdyImagePicker.defaultProps = {
   files: [],
+  onChange: () => {},
   compression: true,
   max: 9,
   quality: 50,
