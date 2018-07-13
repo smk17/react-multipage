@@ -1,5 +1,5 @@
-import * as moment from "moment"
-
+import * as moment from "moment";
+import 'whatwg-fetch';
 /**
  * 数据模式枚举
  */
@@ -130,7 +130,7 @@ function _toParamString(val) {
                 return moment(val).format("yyyy-MM-dd HH:mm:ss");
             }
             if (val.data && val.data instanceof Blob
-                && typeof (val.fileName) == "string") {
+                && typeof (val.fileName) === "string") {
                 return val;
             }
 
@@ -185,13 +185,11 @@ export class Utility {
             case "BusinessException":
                 switch (ex.type) {
                     case "ReferencedDataException":
-                        {
-                            var datas = ex.referencedDatas;
-                            if (datas.length > 5) {
-                                datas[5] = "等";
-                            }
-                            //Dialog.showMessageDialog(ex.message, "被使用的数据：" + datas.join("，"), DialogStatusEnum.error);
+                        var datas = ex.referencedDatas;
+                        if (datas.length > 5) {
+                            datas[5] = "等";
                         }
+                        //Dialog.showMessageDialog(ex.message, "被使用的数据：" + datas.join("，"), DialogStatusEnum.error);
                         break;
                     default:
                         //Dialog.showMessage(ex.message, DialogStatusEnum.error);
@@ -280,14 +278,14 @@ export class Service {
         if (!isFormData) {
             headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
-        return fetch(baseConfig.host + service.name, {
+        return fetch(window.baseConfig.host + service.name, {
             method: "POST",
             cache: "no-cache",
             credentials: "include",
             headers: headers,
             body: formData
         }).then(_ajxResultPreprocessing).then(function (result) {
-            if(service.name == "/anonymity/writelog"){
+            if(service.name === "/anonymity/writelog"){
                 return;
             }
             var ex = result.ex;
@@ -309,7 +307,7 @@ export class Service {
             }
             return;
         }).catch(function (ex) {
-            if(service.name == "/anonymity/writelog"){
+            if(service.name === "/anonymity/writelog"){
                 return;
             }
             if (handlingErrorLevel >= ServiceErrorLevelEnum.fail) {

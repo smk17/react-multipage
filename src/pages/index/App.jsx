@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { ImagePicker, WingBlank, SegmentedControl } from 'antd-mobile';
 import YdyTabBar from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";
 import './App.less';
