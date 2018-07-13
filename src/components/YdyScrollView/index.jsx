@@ -12,7 +12,7 @@ class YdyScrollView extends React.Component {
       //   align={this.props.align}
       //   alignContent={this.props.alignContent}
       // >
-      <div>
+      <div className="ScrollView">
         {this.props.children}
       </div>
     );
