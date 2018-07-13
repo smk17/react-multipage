@@ -17,10 +17,32 @@ export class DingTalk {
         window.dd.config(res.data);
         window.dd.error(error => {
           // this.development && console.log(error);
-          this.state.development && alert('dd error: ' + JSON.stringify(error));
+          window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
         });
-        // window.alert(JSON.stringify(res.data));
       })
+    }
+  }
+  /**
+   * 打开一个链接
+   * @param {string} url 
+   */
+  static openLink (url) {
+    if (!(window.dd.version === null)) {
+      window.dd.ready(() => {
+        window.dd.biz.util.openLink({
+            url: url,//要打开链接的地址
+            onSuccess : result => {
+              this.development && console.log(result)
+              
+            },
+            onFail : err => {
+              // window.location = url
+              this.development &&  console.log(err)
+            }
+        });
+      });
+    } else {
+      window.location = url
     }
   }
   /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
 import YdyScrollView from "@/components/YdyScrollView";
-import loading from '@/assets/img/load.gif'
+import loading from '@/assets/img/load.gif';
 import './App.less';
 
 class App extends React.Component {
@@ -9,7 +9,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       load: false,
-      development: true,
       width: window.innerWidth,
       height: window.innerHeight
     };

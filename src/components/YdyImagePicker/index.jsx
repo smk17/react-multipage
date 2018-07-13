@@ -6,14 +6,18 @@ import './index.less';
 class YdyImagePicker extends React.Component {
   constructor(props) {
     super(props);
+    let imgs = []
+    for (let index = 0; index < props.files.length; index++) {
+      const img = props.files[index].url;
+      imgs.push(img)
+    }
     this.state = {
-      imgs: [],
+      imgs: imgs,
       files: props.files,
     };
   }
   
   onChange = (files, type, index) => {
-    // window.alert(JSON.stringify(type))
     let imgs = []
     for (let index = 0; index < files.length; index++) {
       const img = files[index].url;
@@ -50,7 +54,7 @@ class YdyImagePicker extends React.Component {
             }
           },
           onFail : (err) => {
-            window.alert(JSON.stringify(err))
+            window.baseConfig.development && window.alert(JSON.stringify(err))
           }
         })
       });
@@ -64,10 +68,10 @@ class YdyImagePicker extends React.Component {
           urls: this.state.imgs,
           current: this.state.imgs[index],//当前显示的图片链接
           onSuccess : (result) => {
-            window.alert(JSON.stringify(result))
+            window.baseConfig.development && window.alert(JSON.stringify(result))
           },
           onFail : (err) => {
-            window.alert(JSON.stringify(err))
+            window.baseConfig.development && window.alert(JSON.stringify(err))
           }
         })
       })
@@ -106,15 +110,10 @@ YdyImagePicker.propTypes = {
 YdyImagePicker.defaultProps = {
   files: [],
   compression: true,
-  max: 3,
+  max: 9,
   quality: 50,
   resize: 50,
-  stickers: {
-    time: "08:35",
-    dateWeather: "2016.05.06 周六·晴转多云 16℃",
-    username: "王晓",
-    address: "西湖·杭州"
-  },
+  stickers: {},
   selectable: true,
   multiple: false,
   accept: 'image/*',

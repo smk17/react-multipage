@@ -28,4 +28,8 @@ YdyImagePicker.propTypes = {
 
 - 需要实现在H5模式下的预览图片功能
 
+## 已知Bug
+
+- 单选添加图片会变形
+
 PS: 基于[ImagePicker](https://mobile.ant.design/components/image-picker-cn/)实现
