@@ -23,9 +23,25 @@
 
 > 核心文件，主要使用其中的 `Service.executeService` 请求后端API
 
+#### 引用
+
+~~~ js
+import { Service } from '@/common/code';
+
+Service.executeService(...);
+~~~
+
 ### dingtalk.js
 
 > 基于官方 `dingtalk.js` 的一个封装
+
+#### 引用
+
+~~~ js
+import { DingTalk } from '@/common/dingtalk';
+
+DingTalk.init();
+~~~
 
 ## <span id="components">components 组件</span>
 

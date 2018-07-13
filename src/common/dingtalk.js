@@ -23,7 +23,10 @@ export class DingTalk {
       })
     }
   }
-  /** 设置当前页面的标题 */
+  /**
+   * 设置当前页面的标题
+   * @param {string} title 
+   */
   static setTitle (title) {
     if (!(window.dd.version === null)) {
       window.dd.ready(() => {

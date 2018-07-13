@@ -67,7 +67,7 @@ class App extends React.Component {
     ];
     return (
       <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px', textAlign: 'center' }}>
-      <YdyTabBar ref="YdyTabBar" tabBarItems={tabBarItems} />
+      <YdyTabBar ref="YdyTabBar" tabBarItems={tabBarItems} selectedTab="blueTab"/>
       </div>
     );
   }

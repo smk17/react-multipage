@@ -72,7 +72,7 @@ class YdyTabBarExample extends React.Component {
     ];
     return (
       <div className="App">
-      <YdyTabBar ref="YdyTabBar" tabBarItems={tabBarItems} />
+      <YdyTabBar ref="YdyTabBar" tabBarItems={tabBarItems} selectedTab="blueTab"/>
       </div>
     );
   }

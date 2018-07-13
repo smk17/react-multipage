@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TabBar } from 'antd-mobile';
+import { DingTalk } from '@/common/dingtalk';
 import './index.less';
 
 class YdyTabBar extends React.Component {
   static propTypes = {
+    onPress: PropTypes.func, // 点击tab时触发的事件
+    selectedTab: PropTypes.string.isRequired, // 默认要选中的tab
     prefixCls: PropTypes.string, // 样式前缀
     unselectedTintColor: PropTypes.string, // 未选中的字体颜色
     tintColor: PropTypes.string, // 选中的字体颜色
@@ -17,6 +20,8 @@ class YdyTabBar extends React.Component {
   };
 
   static defaultProps = {
+    onPress: () => {},
+    selectedTab: '',
     prefixCls: 'am-tab-bar',
     tabBarPosition: 'bottom',
     prerenderingSiblingsNumber: 1,
@@ -30,42 +35,47 @@ class YdyTabBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'redTab'
+      selectedTab: this.props.selectedTab
     };
   }
 
   render() {
-    const tabItems = this.props.tabBarItems.map((Item) =>
-      <TabBar.Item
-        data-id={Item.id}
-        title={Item.name}
-        key={Item.id}
-        icon={<div style={{
-          width: Item.size,
-          height: Item.size,
-          background: `url(${Item.icon}) center center /  ${Item.size} ${Item.size} no-repeat` }}
-        />
-        }
-        selectedIcon={<div style={{
-          width: Item.size,
-          height: Item.size,
-          background: `url(${Item.selectedIcon}) center center /  ${Item.size} ${Item.size} no-repeat` }}
-        />
-        }
-        selected={this.state.selectedTab === Item.selectedTab}
-        badge={Item.badge}
-        dot={Item.dot}
-        onPress={() => {
-          if (this.state.selectedTab !== Item.selectedTab) {
-            this.setState({
-              selectedTab: Item.selectedTab,
-            });
+    const tabItems = this.props.tabBarItems.map((Item) => {
+      this.state.selectedTab === Item.selectedTab && DingTalk.setTitle(Item.name)
+      return (
+        <TabBar.Item
+          data-id={Item.id}
+          title={Item.name}
+          key={Item.id}
+          icon={<div style={{
+            width: Item.size,
+            height: Item.size,
+            background: `url(${Item.icon}) center center /  ${Item.size} ${Item.size} no-repeat` }}
+          />
           }
-        }}
-      >
-        {Item.renderContent}
-      </TabBar.Item>
-    );
+          selectedIcon={<div style={{
+            width: Item.size,
+            height: Item.size,
+            background: `url(${Item.selectedIcon}) center center /  ${Item.size} ${Item.size} no-repeat` }}
+          />
+          }
+          selected={this.state.selectedTab === Item.selectedTab}
+          badge={Item.badge}
+          dot={Item.dot}
+          onPress={() => {
+            if (this.state.selectedTab !== Item.selectedTab) {
+              this.setState({
+                selectedTab: Item.selectedTab,
+              });
+              DingTalk.setTitle(Item.name);
+              this.props.onPress();
+            }
+          }}
+        >
+          {Item.renderContent}
+        </TabBar.Item>
+      );
+    });
     return (
       <TabBar style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}
         prefixCls={this.props.prefixCls}
