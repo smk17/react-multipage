@@ -135,7 +135,7 @@ interface chooseContactCallback extends Callback{
     multiple: boolean, // 是否多选： true多选 false单选； 默认true
     users: string[], // 默认选中的用户列表，userid；成功回调中应包含该信息
     disabledUsers: string[], // 不能选中的用户列表，员工userid
-    corpId: String, //企业id
+    corpId: string, //企业id
     max: number, //人数限制，当multiple为true才生效，可选范围1-1500
     limitTips: string, //超过人数限制的提示语可以用这个字段自定义
     isNeedSearch: boolean, // 是否需要搜索功能
