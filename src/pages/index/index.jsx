@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.less';
 import App from './App';
 import registerServiceWorker from '@/registerServiceWorker';
 
@@ -10,7 +10,7 @@ window.baseConfig = {
   "development": false
 }
 axios.get('/config.json').then(res => {
-  window.baseConfig = res.data
+  window.baseConfig = res.data;
+  ReactDOM.render((<App />), document.getElementById('root'));
 })
-ReactDOM.render((<App />), document.getElementById('root'));
 registerServiceWorker();

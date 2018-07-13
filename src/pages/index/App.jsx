@@ -1,10 +1,10 @@
-import axios from 'axios';
-import React, { Component } from 'react';
+import React from 'react';
+import { DingTalk } from '@/common/dingtalk';
 import YdyTabBar from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";
 import './App.less';
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,25 +15,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    if (!(window.dd.version === null) && window.location.search.length > 0 ) {
-      let corpid =  window.location.search;
-      corpid = corpid.substring(1).split('&', 1)[0];
-      corpid = corpid.split('=')[1];
-      let url = 'http://dd.smk17.cn/getConfig.php?corpid=' + corpid;
-      url += '&url=' + encodeURIComponent(window.location.href.split('#')[0]);
-      axios.get(url).then(res => {
-        res.data['jsApiList'] = [ 'runtime.info', 'biz.contact.choose', 'biz.util.uploadImage',
-            'device.notification.confirm', 'device.notification.alert',
-            'device.notification.prompt', 'biz.ding.post', 'biz.util.scanCard',
-            'biz.util.openLink' ]
-        window.dd.config(res.data);
-        window.dd.error(error => {
-          // this.development && console.log(error);
-          this.state.development && alert('dd error: ' + JSON.stringify(error));
-        });
-        // window.alert(JSON.stringify(res.data));
-      })
-    }
+    DingTalk.init()
   }
   
   render() {
