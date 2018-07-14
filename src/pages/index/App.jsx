@@ -27,7 +27,7 @@ class Api extends React.Component {
     console.log(key);
   }
   onClick = (url, params = '') => {
-    console.log(url);
+    DingTalk.open(url, params ? `&type=${params}` : '');
   }
   render() {
     return (
@@ -35,7 +35,7 @@ class Api extends React.Component {
         <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange}>
           <Accordion.Panel header="开放接口">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'PayUtils')}>支付接口</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'PayUtils', '')}>支付接口</List.Item>
               <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'UserInfo')}>获取用户信息</List.Item>
               <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'requestAuthCode')}>获取微应用免登授权码</List.Item>
               <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'requestOperateAuthCode')}>获取微应用反馈式操作的临时授权码</List.Item>
@@ -43,10 +43,10 @@ class Api extends React.Component {
           </Accordion.Panel>
           <Accordion.Panel header="导航栏">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'Navigation')}>导航</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetTitle')}>设置界面标题</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetIcon')}>标题栏添加问号Icon</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetMenu')}>设置导航栏按钮</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'Navigation', '')}>导航</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'SetTitle', '')}>设置界面标题</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'SetIcon', '')}>标题栏添加问号Icon</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'SetMenu', '')}>设置导航栏按钮</List.Item>
             </List>
           </Accordion.Panel>
           <Accordion.Panel header="设备">
@@ -62,27 +62,27 @@ class Api extends React.Component {
           </Accordion.Panel>
           <Accordion.Panel header="界面">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'UIUtils')}>界面</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'UIUtils', '')}>界面</List.Item>
             </List>
           </Accordion.Panel>
           <Accordion.Panel header="钉盘">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'CspaceUtils')}>钉盘</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'CspaceUtils', '')}>钉盘</List.Item>
             </List>
           </Accordion.Panel>
           <Accordion.Panel header="媒体">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'MediaUtils')}>媒体</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'MediaUtils', '')}>媒体</List.Item>
             </List>
           </Accordion.Panel>
           <Accordion.Panel header="地图">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'MapUtils')}>地图</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'MapUtils', '')}>地图</List.Item>
             </List>
           </Accordion.Panel>
           <Accordion.Panel header="数据">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'DataUtils')}>数据</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'DataUtils', '')}>数据</List.Item>
             </List>
           </Accordion.Panel>
         </Accordion>
