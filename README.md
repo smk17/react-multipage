@@ -2,6 +2,16 @@
 
 > 基于react的多页面构建，不使用路由等第三方插件，UI库使用`antd-mobile`,主要用于钉钉应用开发
 
+## 开始使用
+
+~~~ shell
+# bash
+git clone https://github.com/smk17/react-multipage.git
+cd react-multipage
+yarn
+yarn start
+~~~
+
 ## 如何更新
 
 若你之前已经使用该项目创建了新的项目，而该项目又更新了一系列组件和类，这个时候你只要重新获取[common](#common)和[components](#components)的内容并更新即可，对应[pages](#pages)的更新，目前还没有很好的策略，如果你有好的方案请[Issues](https://github.com/smk17/react-multipage/issues)我们。
@@ -84,7 +94,3 @@ PS： `blank`空白模板一般不会有太大的变化
 - index.html 页面html入口
 
 每个页面文件夹，可以是一个单纯的页面，也可以做成一个SPA，目前编译规则是不论pages目录嵌套多少层文件夹，最终只会在站点根目录生成相应的html
-
-### 页面文件夹的命名规范
-
-每个项目必备一个
