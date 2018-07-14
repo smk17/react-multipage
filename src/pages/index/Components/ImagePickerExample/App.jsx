@@ -30,7 +30,7 @@ class App extends React.Component {
     this.setState({
       load: true,
     })
-    DingTalk.setTitle('图片选择器示例');
+    DingTalk.setTitle('图片选择器演示');
   }
   onChange = (files) => {
     this.setState({
