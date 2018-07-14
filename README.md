@@ -53,6 +53,10 @@ import { DingTalk } from '@/common/dingtalk';
 DingTalk.init();
 ~~~
 
+#### 封装规范
+
+> 封装的每个函数必须留有 `onSuccess` 和 `onFail，` 具体可以参考已有的实现
+
 ## <span id="components">components 组件</span>
 
 > 组件，基于 `antd-mobile` 再次封装，让其更简单的使用和更好的在钉钉容器上使用
