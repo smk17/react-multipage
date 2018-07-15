@@ -1,8 +1,39 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
-import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import { DatePickerView } from 'antd-mobile';
+import enUs from 'antd-mobile/lib/date-picker-view/locale/en_US';
+
+class DatePickerViewExample extends React.Component {
+  state = {
+    value: null,
+  };
+  onChange = (value) => {
+    console.log(value);
+    this.setState({ value });
+  };
+  onValueChange = (...args) => {
+    console.log(args);
+  };
+  render() {
+    return (<div>
+      <div className="sub-title">Start datetime</div>
+      <DatePickerView
+        value={this.state.value}
+        onChange={this.onChange}
+        onValueChange={this.onValueChange}
+      />
+      <div className="sub-title">End datetime</div>
+      <DatePickerView
+        locale={enUs}
+        value={this.state.value}
+        onChange={this.onChange}
+        onValueChange={this.onValueChange}
+      />
+    </div>);
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -25,12 +56,12 @@ class App extends React.Component {
     this.setState({
       load: true,
     })
-    DingTalk.setTitle('开始吧');
+    DingTalk.setTitle('DatePickerView 日期选择器');
   }
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>新的页面从这里开始吧！</YdyScrollView>
+      <DatePickerViewExample />
     );
   }
   

@@ -14,11 +14,75 @@ class Components extends React.Component {
     DingTalk.open(el.url);
   }
   render () {
-    const data = [
-      { icon, text: 'blank', url: 'blank' },
-      { icon, text: '图片选择器', url: 'ImagePickerExample' }
+    const dataLayout = [
+      { icon, text: 'Flex布局', url: 'Flex' },
+      { icon, text: '两翼留白', url: 'WingBlank' },
+      { icon, text: '上下留白', url: 'WhiteSpace' }
     ]
-    return (<Grid data={data} activeStyle={false} onClick={this.onClick}/>);
+    const dataNavigation = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    const dataDataEntry = [
+      { icon, text: '按钮', url: 'Button' },
+      { icon, text: '日历', url: 'Calendar' },
+      { icon, text: '复选框', url: 'Checkbox' },
+      { icon, text: '日期选择器(弹窗)', url: 'DatePicker' },
+      { icon, text: '日期选择器', url: 'DatePickerView' },
+      { icon, text: '图片选择器', url: 'ImagePickerExample' },
+      { icon, text: '文本输入', url: 'InputItem' },
+      { icon, text: '选择器', url: 'PickerView' },
+      { icon, text: '选择器(弹窗)', url: 'Picker' },
+      { icon, text: '区域选择', url: 'Range' },
+      { icon, text: '单选框', url: 'Radio' },
+      { icon, text: '滑动开关', url: 'Switch' },
+      { icon, text: '搜索栏', url: 'SearchBar' },
+      { icon, text: '滑动输入条', url: 'Slider' },
+      { icon, text: '步进器', url: 'Stepper' },
+      { icon, text: '多行输入', url: 'TextareaItem' }
+    ]
+    const dataDataDisplay = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    const dataFeedback = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    const dataGesture = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    const dataCombination = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    const dataOther = [
+      { icon, text: 'blank', url: 'blank' },
+    ]
+    return (
+      <YdyScrollView>
+        <div className="sub-title">Layout </div>
+        <Grid data={dataLayout} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Navigation </div>
+        <Grid data={dataNavigation} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Data Entry </div>
+        <Grid data={dataDataEntry} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Data Display </div>
+        <Grid data={dataDataDisplay} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Feedback </div>
+        <Grid data={dataFeedback} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Gesture </div>
+        <Grid data={dataGesture} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Combination </div>
+        <Grid data={dataCombination} activeStyle={false} onClick={this.onClick}/>
+
+        <div className="sub-title">Other </div>
+        <Grid data={dataOther} activeStyle={false} onClick={this.onClick}/>
+      </YdyScrollView>
+      
+    );
   }
 }
 

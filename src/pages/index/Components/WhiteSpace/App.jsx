@@ -1,8 +1,12 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
-import YdyScrollView from "@/components/YdyScrollView";
+import { WhiteSpace } from 'antd-mobile';
 import loading from '@/assets/img/load.gif';
 import './App.less';
+
+const PlaceHolder = ({ className = '', ...restProps }) => (
+  <div className={`${className} placeholder`} {...restProps}>Block</div>
+);
 
 class App extends React.Component {
   constructor(props) {
@@ -25,12 +29,27 @@ class App extends React.Component {
     this.setState({
       load: true,
     })
-    DingTalk.setTitle('开始吧');
+    DingTalk.setTitle('WhiteSpace 上下留白');
   }
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>新的页面从这里开始吧！</YdyScrollView>
+      <div>
+        <WhiteSpace size="xs" />
+        <PlaceHolder />
+
+        <WhiteSpace size="sm" />
+        <PlaceHolder />
+
+        <WhiteSpace />
+        <PlaceHolder />
+
+        <WhiteSpace size="lg" />
+        <PlaceHolder />
+
+        <WhiteSpace size="xl" />
+        <PlaceHolder />
+      </div>
     );
   }
   
