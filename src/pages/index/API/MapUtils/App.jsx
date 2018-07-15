@@ -29,10 +29,10 @@ class App extends React.Component {
   getGeoLocation = () => {
     if (!(window.dd.version === null)) {
       window.dd.device.geolocation.get({
-        // targetAccuracy : 200, // 期望定位精度半径
-        // coordinate : 1, // 1：获取高德坐标， 0：获取标准坐标；
-        // withReGeocode : false, // 是否需要带有逆地理编码信息；
-        // useCache:true, //默认是true，如果需要频繁获取地理位置，请设置false
+        targetAccuracy : 200, // 期望定位精度半径
+        coordinate : 1, // 1：获取高德坐标， 0：获取标准坐标；
+        withReGeocode : false, // 是否需要带有逆地理编码信息；
+        useCache:true, //默认是true，如果需要频繁获取地理位置，请设置false
         onSuccess : (result) => {
           // alert(JSON.stringify(result));
           if (result.location) {
