@@ -2,8 +2,11 @@ import axios from 'axios';
 import jsApiList from './jsApiList';
 
 export class DingTalk {
-  /** 初始化钉钉容器，配置jsApiList方可有权限使用其中的API */
-  static init () {
+  /**
+   * 初始化钉钉容器，配置jsApiList方可有权限使用其中的API
+   * @param {Function} onSuccess 成功回调函数
+   */
+  static init (onSuccess = null) {
     if (!(window.dd.version === null) && window.location.search.length > 0 ) {
       let corpid =  window.location.search;
       corpid = corpid.substring(1).split('&', 1)[0];
@@ -17,6 +20,7 @@ export class DingTalk {
           // this.development && console.log(error);
           window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
         });
+        typeof onSuccess === 'function' && onSuccess()
       })
     }
   }
