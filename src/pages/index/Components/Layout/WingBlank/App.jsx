@@ -1,6 +1,7 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
-import { WhiteSpace } from 'antd-mobile';
+import { WingBlank, WhiteSpace } from 'antd-mobile';
+import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
 
@@ -29,27 +30,20 @@ class App extends React.Component {
     this.setState({
       load: true,
     })
-    DingTalk.setTitle('WhiteSpace 上下留白');
+    DingTalk.setTitle('WingBlank 两翼留白');
   }
   
   renderContent () {
     return (
-      <div>
-        <WhiteSpace size="xs" />
-        <PlaceHolder />
-
-        <WhiteSpace size="sm" />
-        <PlaceHolder />
-
-        <WhiteSpace />
-        <PlaceHolder />
+      <YdyScrollView style={{ padding: '15px 0' }}>
+        <WingBlank><PlaceHolder /></WingBlank>
 
         <WhiteSpace size="lg" />
-        <PlaceHolder />
+        <WingBlank size="md"><PlaceHolder /></WingBlank>
 
-        <WhiteSpace size="xl" />
-        <PlaceHolder />
-      </div>
+        <WhiteSpace size="lg" />
+        <WingBlank size="sm"><PlaceHolder /></WingBlank>
+      </YdyScrollView>
     );
   }
   

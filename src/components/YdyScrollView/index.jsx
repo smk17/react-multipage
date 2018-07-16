@@ -12,19 +12,21 @@ class YdyScrollView extends React.Component {
       //   align={this.props.align}
       //   alignContent={this.props.alignContent}
       // >
-      <div className="ScrollView">
+      <div className="ScrollView" style={this.props.style}>
         {this.props.children}
       </div>
     );
   }
 }
 YdyScrollView.propTypes = {
+  style: PropTypes.object,
   wrap: PropTypes.string,
   justify: PropTypes.string,
   align: PropTypes.string,
   alignContent: PropTypes.string,
 }
 YdyScrollView.defaultProps = {
+  style: {},
   wrap: 'nowrap',
   justify: 'start',
   align: 'center',
