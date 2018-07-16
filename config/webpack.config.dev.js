@@ -315,6 +315,7 @@ for (const key in pages) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       inject: true,
+      multihtmlCatch: true,
       template: element.template,
       filename: element.filename,
       chunks: [

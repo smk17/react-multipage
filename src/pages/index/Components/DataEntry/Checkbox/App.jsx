@@ -1,4 +1,5 @@
 import React from 'react';
+import YdyScrollView from "@/components/YdyScrollView";
 import { DingTalk } from '@/common/dingtalk';
 import loading from '@/assets/img/load.gif';
 import './App.less';
@@ -66,7 +67,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <Test />
+      <YdyScrollView><Test /></YdyScrollView>
     );
   }
   

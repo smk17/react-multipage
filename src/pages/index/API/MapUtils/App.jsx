@@ -19,11 +19,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('地图演示');
     })
-    DingTalk.setTitle('地图演示');
   }
 
   getGeoLocation = () => {
@@ -126,7 +127,7 @@ class App extends React.Component {
 
   locate = () => {
     if (!(window.dd.version === null)) {
-      window.biz.map.locate({
+      window.dd.biz.map.locate({
         latitude: this.state.latitude, // 纬度
         longitude: this.state.longitude, // 经度
         onSuccess : (result) => {
@@ -171,12 +172,29 @@ class App extends React.Component {
     }
   }
 
+  onAddImage = (e) => {
+    if (!(window.dd.version === null)) {
+      e.preventDefault();
+      window.dd.ready( () => {
+        window.dd.biz.util.uploadImage({
+          onSuccess : (result) => {
+            window.baseConfig.development && window.alert(JSON.stringify(result))
+          },
+          onFail : (err) => {
+            window.baseConfig.development && window.alert(JSON.stringify(err))
+          }
+        })
+      });
+    }
+  }
+
   renderContent () {
     return (
       <YdyScrollView>
         <WhiteSpace />
         <span>{ this.state.geolocation }</span><WhiteSpace />
         <WingBlank>
+          {/* <Button onClick={this.onAddImage}>添加图片</Button><WhiteSpace /> */}
           <Button type="primary" onClick={this.getGeoLocation}>获取当前地理位置</Button><WhiteSpace />
           <Button onClick={this.startGeoLocation}>连续获取当前地理位置信息</Button><WhiteSpace />
           <Button onClick={this.stopGeoLocation}>停止连续定位</Button><WhiteSpace />

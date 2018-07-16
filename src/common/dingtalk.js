@@ -17,11 +17,13 @@ export class DingTalk {
         res.data['jsApiList'] = jsApiList
         window.dd.config(res.data);
         window.dd.error(error => {
-          // this.development && console.log(error);
+          // window.baseConfig.development && console.log(error);
           window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
         });
         typeof onSuccess === 'function' && onSuccess()
       })
+    } else {
+      typeof onSuccess === 'function' && onSuccess()
     }
   }
   /**
@@ -36,12 +38,12 @@ export class DingTalk {
         window.dd.biz.util.openLink({
             url: url,//要打开链接的地址
             onSuccess : result => {
-              this.development && alert('openLink result: ' + JSON.stringify(result));
+              window.baseConfig.development && alert('openLink result: ' + JSON.stringify(result));
               typeof onSuccess === 'function' && onSuccess(result)
             },
             onFail : err => {
               // window.location = url
-              this.development &&  alert('openLink err: ' + JSON.stringify(err));
+              window.baseConfig.development &&  alert('openLink err: ' + JSON.stringify(err));
               typeof onFail === 'function' && onSuccess(err)
             }
         });
@@ -72,12 +74,12 @@ export class DingTalk {
         window.dd.biz.navigation.setTitle({
           title : title, 
           onSuccess : result => {
-            this.development && alert('openLink result: ' + JSON.stringify(result));
+            window.baseConfig.development && alert('openLink result: ' + JSON.stringify(result));
             typeof onSuccess === 'function' && onSuccess(result)
           },
           onFail : err => {
             // window.location = url
-            this.development &&  alert('openLink err: ' + JSON.stringify(err));
+            window.baseConfig.development &&  alert('openLink err: ' + JSON.stringify(err));
             typeof onFail === 'function' && onSuccess(err)
           }
         });

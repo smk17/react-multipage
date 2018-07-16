@@ -4,9 +4,11 @@ import { Flex, WhiteSpace } from 'antd-mobile';
 import loading from '@/assets/img/load.gif';
 import './App.less';
 
-const PlaceHolder = ({ className = '', ...restProps }) => (
-  <div className={`${className} placeholder`} {...restProps}>Block</div>
-);
+class PlaceHolder extends React.Component {
+  render () {
+    return (<div className={`${this.props.className} placeholder`}>Block</div>);
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +21,6 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
     this.setState({
       load: true,
     })

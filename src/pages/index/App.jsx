@@ -47,7 +47,9 @@ class Components extends React.Component {
       { icon, text: 'blank', url: 'blank' },
     ]
     const dataGesture = [
-      { icon, text: 'blank', url: 'blank' },
+      { icon, text: 'PullToRefresh 拉动刷新', url: 'PullToRefresh' },
+      { icon, text: 'ListView 下拉刷新', url: 'PullToRefreshListView' },
+      { icon, text: 'SwipeAction 滑动操作', url: 'SwipeAction' },
     ]
     const dataCombination = [
       { icon, text: 'blank', url: 'blank' },

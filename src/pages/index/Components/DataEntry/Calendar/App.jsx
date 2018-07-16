@@ -1,6 +1,7 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
 import { List, Switch, Calendar } from 'antd-mobile';
+import YdyScrollView from "@/components/YdyScrollView";
 import enUS from 'antd-mobile/lib/calendar/locale/en_US';
 import zhCN from 'antd-mobile/lib/calendar/locale/zh_CN';
 import loading from '@/assets/img/load.gif';
@@ -158,7 +159,9 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <Test />
+      <YdyScrollView>
+        <Test />
+      </YdyScrollView>
     );
   }
   

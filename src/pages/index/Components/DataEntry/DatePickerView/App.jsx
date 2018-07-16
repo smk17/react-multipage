@@ -1,4 +1,5 @@
 import React from 'react';
+import YdyScrollView from "@/components/YdyScrollView";
 import { DingTalk } from '@/common/dingtalk';
 import loading from '@/assets/img/load.gif';
 import './App.less';
@@ -6,9 +7,13 @@ import { DatePickerView } from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker-view/locale/en_US';
 
 class DatePickerViewExample extends React.Component {
-  state = {
-    value: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+  
   onChange = (value) => {
     console.log(value);
     this.setState({ value });
@@ -61,7 +66,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <DatePickerViewExample />
+      <YdyScrollView><DatePickerViewExample /></YdyScrollView>
     );
   }
   
