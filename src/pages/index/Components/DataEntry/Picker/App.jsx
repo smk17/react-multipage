@@ -234,7 +234,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init(() => {
+    DingTalk.init().then(() => {
       this.setState({
         load: true,
       })

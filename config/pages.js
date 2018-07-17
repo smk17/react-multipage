@@ -10,7 +10,7 @@ const getPages = (() => {
     tempSet  
   ] = [  
     ['src/pages/**/index.html', 'template'], // 入口模板正则  
-    ['src/pages/**/index.jsx', 'entry'], // 入口脚本正则  
+    ['src/pages/**/index.{tsx,jsx}', 'entry'], // 入口脚本正则  
     Object.create(null),  
     new Set()  
   ]  

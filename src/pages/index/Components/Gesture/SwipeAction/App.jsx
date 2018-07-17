@@ -16,12 +16,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init(() => {
+    DingTalk.init().then(() => {
       this.setState({
         load: true,
       })
       DingTalk.setTitle('SwipeAction 滑动操作');
-    });
+    })
   }
   
   renderContent () {

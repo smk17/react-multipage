@@ -18,12 +18,15 @@ yarn start
 
 ## 目录结构
 
-- assets 静态资源目录
-- [common 公共服务目录](#common)
-- [components 组件目录](#components)
-- [pages](#pages) 页面目录
+- src 源码目录
+  - assets 静态资源目录
+  - [common 公共服务目录](#common)
+  - [components 组件目录](#components)
+  - [pages](#pages) 页面目录
+  - typings 声明文件，这是为以后`Flow`或`TypeScript`预留的
 - [template 页面模板目录](/src/template/README.md)
-- typings 声明文件，这是为以后`Flow`或`TypeScript`预留的
+- public 公共资源目录
+  - config.json APP全局配置文件，该文件主要作用是APP编译后还可以提供该配置文件修复对应配置而不用再次编译
 
 ## <span id="common">common 公共服务</span>
 

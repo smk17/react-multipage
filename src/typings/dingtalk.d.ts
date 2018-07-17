@@ -1,5 +1,7 @@
 declare var dd: DingtalkModule;
-
+interface Window {
+    dd: DingtalkModule
+  }
 interface DingtalkModule {
     /**
      * 获取容器版本号
@@ -109,6 +111,7 @@ interface UtilModule{
     chosen(param: chosenCallback): void;
     uploadImage(param: uploadImageCallback): void;
     previewImage(param: previewImageCallback): void;
+    openLink(param: openLinkCallback): void;
 }
 interface WebViewBounceModule{
     /**
@@ -150,12 +153,17 @@ interface previewImageCallback extends Callback{
     urls: string[];
     current: string;
 }
+
+interface openLinkCallback extends Callback {
+    url: string;
+}
 interface uploadImageCallback extends Callback{
-    compression: boolean; // (是否压缩，默认为true)
-    multiple: boolean; // 是否多选，默认false
-    max: number; // 最多可选个数
-    quality: number; // 图片压缩质量
-    resize: number; // 图片缩放率
+    compression?: boolean; // (是否压缩，默认为true)
+    multiple?: boolean; // 是否多选，默认false
+    max?: number; // 最多可选个数
+    quality?: number; // 图片压缩质量
+    resize?: number; // 图片缩放率
+    stickers?: object; // 水印信息
     onSuccess: (result: string[]) => void;
 }
 interface chosenCallback extends Callback{

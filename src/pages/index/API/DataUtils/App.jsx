@@ -18,11 +18,11 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init(() => {
+    DingTalk.init().then(() => {
       this.setState({
         load: true,
       })
-      DingTalk.setTitle('地图演示');
+      DingTalk.setTitle('数据存储演示');
     })
   }
 

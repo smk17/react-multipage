@@ -15,12 +15,11 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init(() => {
+    DingTalk.init().then(() => {
       this.setState({
         load: true,
       })
-      DingTalk.setTitle('开始吧');
-    });
+    })
   }
   
   renderContent () {
