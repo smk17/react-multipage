@@ -5,33 +5,6 @@ import { DingTalk } from '@/common/dingtalk';
 import './index.less';
 
 class YdyTabBar extends React.Component {
-  static propTypes = {
-    onPress: PropTypes.func, // 点击tab时触发的事件
-    selectedTab: PropTypes.string.isRequired, // 默认要选中的tab
-    prefixCls: PropTypes.string, // 样式前缀
-    unselectedTintColor: PropTypes.string, // 未选中的字体颜色
-    tintColor: PropTypes.string, // 选中的字体颜色
-    barTintColor: PropTypes.string, // tabbar 背景色
-    hidden: PropTypes.bool, // 是否隐藏	
-    noRenderContent: PropTypes.bool, // 不渲染内容部分
-    prerenderingSiblingsNumber: PropTypes.number, // 预加载相邻的tab内容, Infinity: 加载所有的tab内容, 0: 仅加载当前tab内容, 当页面较复杂时，建议设为0，提升页面加载性能
-    tabBarPosition: PropTypes.string, // tabbar 位置 'top'|'bottom'
-    tabBarItems: PropTypes.array.isRequired
-  };
-
-  static defaultProps = {
-    onPress: () => {},
-    selectedTab: '',
-    prefixCls: 'am-tab-bar',
-    tabBarPosition: 'bottom',
-    prerenderingSiblingsNumber: 1,
-    noRenderContent: false,
-    unselectedTintColor: '#949494',
-    tintColor: '#33A3F4',
-    barTintColor: 'white',
-    hidden: false,
-    tabBarItems: []
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -91,5 +64,31 @@ class YdyTabBar extends React.Component {
       </TabBar>
     );
   }
+}
+YdyTabBar.propTypes = {
+  onPress: PropTypes.func, // 点击tab时触发的事件
+  selectedTab: PropTypes.string.isRequired, // 默认要选中的tab
+  prefixCls: PropTypes.string, // 样式前缀
+  unselectedTintColor: PropTypes.string, // 未选中的字体颜色
+  tintColor: PropTypes.string, // 选中的字体颜色
+  barTintColor: PropTypes.string, // tabbar 背景色
+  hidden: PropTypes.bool, // 是否隐藏	
+  noRenderContent: PropTypes.bool, // 不渲染内容部分
+  prerenderingSiblingsNumber: PropTypes.number, // 预加载相邻的tab内容, Infinity: 加载所有的tab内容, 0: 仅加载当前tab内容, 当页面较复杂时，建议设为0，提升页面加载性能
+  tabBarPosition: PropTypes.string, // tabbar 位置 'top'|'bottom'
+  tabBarItems: PropTypes.array.isRequired
+};
+YdyTabBar.defaultProps = {
+  onPress: () => {},
+  selectedTab: '',
+  prefixCls: 'am-tab-bar',
+  tabBarPosition: 'bottom',
+  prerenderingSiblingsNumber: 1,
+  noRenderContent: false,
+  unselectedTintColor: '#949494',
+  tintColor: '#33A3F4',
+  barTintColor: 'white',
+  hidden: false,
+  tabBarItems: []
 }
 export default YdyTabBar;

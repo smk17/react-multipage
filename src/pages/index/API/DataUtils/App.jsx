@@ -26,7 +26,7 @@ class App extends React.Component {
     })
   }
 
-  setItem = () => {
+  setItem () {
     if (!(window.dd.version === null)) {
       window.dd.util.domainStorage.setItem({
         name: this.state.key , // 存储信息的key值
@@ -43,7 +43,7 @@ class App extends React.Component {
     }
   }
 
-  getItem = () => {
+  getItem () {
     if (!(window.dd.version === null)) {
       window.dd.util.domainStorage.getItem({
         name: this.state.key, // 存储信息的key值
@@ -59,7 +59,7 @@ class App extends React.Component {
     }
   }
 
-  removeItem = () => {
+  removeItem () {
     if (!(window.dd.version === null)) {
       window.dd.util.domainStorage.removeItem({
         name: this.state.key , // 存储信息的key值
@@ -93,9 +93,9 @@ class App extends React.Component {
           >value</InputItem>
         </List><WhiteSpace />
         <WingBlank>
-          <Button type="primary" onClick={this.setItem}>存储数据</Button><WhiteSpace />
-          <Button onClick={this.getItem}>读取数据</Button><WhiteSpace />
-          <Button onClick={this.removeItem}>清理数据</Button><WhiteSpace />
+          <Button type="primary" onClick={this.setItem.bind(this)}>存储数据</Button><WhiteSpace />
+          <Button onClick={this.getItem.bind(this)}>读取数据</Button><WhiteSpace />
+          <Button onClick={this.removeItem.bind(this)}>清理数据</Button><WhiteSpace />
         </WingBlank>
       </YdyScrollView>
     );

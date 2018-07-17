@@ -42,14 +42,18 @@ const CustomChildren = ({ extra, onClick, children }) => (
 );
 
 class Demo extends React.Component {
-  state = {
-    date: now,
-    time: now,
-    utcDate: utcNow,
-    dpValue: null,
-    customChildValue: null,
-    visible: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: now,
+      time: now,
+      utcDate: utcNow,
+      dpValue: null,
+      customChildValue: null,
+      visible: false,
+    }
   }
+  
   render() {
     return (
       <List className="date-picker-list" style={{ backgroundColor: 'white' }}>
@@ -129,11 +133,15 @@ const utcOffset = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
 // console.log(now, utcOffset, now.toISOString(), utcOffset.toISOString());
 
 class Test extends React.Component {
-  state = {
-    dpValue: now,
-    idt: utcOffset.toISOString().slice(0, 10),
+  constructor(props) {
+    super(props);
+    this.state = {
+      dpValue: now,
+      idt: utcOffset.toISOString().slice(0, 10),
+    }
   }
-  onSubmit = () => {
+  
+  onSubmit () {
     this.props.form.validateFields({ force: true }, (error) => {
       if (!error) {
         console.log(this.props.form.getFieldsValue());
@@ -143,11 +151,11 @@ class Test extends React.Component {
       }
     });
   }
-  onReset = () => {
+  onReset () {
     this.props.form.resetFields();
     setTimeout(() => console.log(this.state), 0);
   }
-  validateIdp = (rule, date, callback) => {
+  validateIdp(rule, date, callback) {
     if (isNaN(Date.parse(date))) {
       callback(new Error('Invalid Date'));
     } else {
@@ -161,7 +169,7 @@ class Test extends React.Component {
       callback();
     }
   }
-  validateDatePicker = (rule, date, callback) => {
+  validateDatePicker(rule, date, callback) {
     if (date && date.getMinutes() !== 15) {
       callback();
     } else {
@@ -181,7 +189,7 @@ class Test extends React.Component {
           {...getFieldProps('idp', {
             initialValue: this.state.idt,
             rules: [
-              { validator: this.validateIdp },
+              { validator: this.validateIdp.bind(this) },
             ],
           })}
         >Input date</InputItem>
@@ -190,15 +198,15 @@ class Test extends React.Component {
             initialValue: this.state.dpValue,
             rules: [
               { required: true, message: 'Must select a date' },
-              { validator: this.validateDatePicker },
+              { validator: this.validateDatePicker.bind(this) },
             ],
           })}
         >
           <List.Item arrow="horizontal">Date</List.Item>
         </DatePicker>
         <List.Item>
-          <Button type="primary" size="small" inline onClick={this.onSubmit}>Submit</Button>
-          <Button size="small" inline style={{ marginLeft: '2.5px' }} onClick={this.onReset}>Reset</Button>
+          <Button type="primary" size="small" inline onClick={this.onSubmit.bind(this)}>Submit</Button>
+          <Button size="small" inline style={{ marginLeft: '2.5px' }} onClick={this.onReset.bind(this)}>Reset</Button>
         </List.Item>
       </List>
     </form>);
@@ -218,17 +226,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('DatePicker 日期选择器(弹窗)');
     })
-    DingTalk.setTitle('DatePicker 日期选择器(弹窗)');
   }
   
   renderContent () {

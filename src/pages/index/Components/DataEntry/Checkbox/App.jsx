@@ -9,7 +9,7 @@ const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
 
 class Test extends React.Component {
-  onChange = (val) => {
+  onChange(val) {
     console.log(val);
   }
   render() {
@@ -21,7 +21,7 @@ class Test extends React.Component {
     return (<div>
       <List renderHeader={() => 'CheckboxItem demo'}>
         {data.map(i => (
-          <CheckboxItem key={i.value} onChange={() => this.onChange(i.value)}>
+          <CheckboxItem key={i.value} onChange={() => this.onChange.bind(this, i.value)}>
             {i.label}
           </CheckboxItem>
         ))}
@@ -52,17 +52,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('Checkbox 复选框');
     })
-    DingTalk.setTitle('Checkbox 复选框');
   }
   
   renderContent () {

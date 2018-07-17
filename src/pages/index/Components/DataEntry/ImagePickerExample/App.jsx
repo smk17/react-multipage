@@ -26,18 +26,19 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('图片选择器演示');
     })
-    DingTalk.setTitle('图片选择器演示');
   }
-  onChange = (files) => {
+  onChange(files) {
     this.setState({
       files,
     });
   }
-  onSegChange = (e) => {
+  onSegChange (e) {
     const index = e.nativeEvent.selectedSegmentIndex;
     this.setState({
       multiple: index === 1,
@@ -51,7 +52,7 @@ class App extends React.Component {
         <SegmentedControl
           values={['切换到单选', '切换到多选']}
           selectedIndex={this.state.multiple ? 1 : 0}
-          onChange={this.onSegChange}
+          onChange={this.onSegChange.bind(this)}
         />
         <YdyImagePicker
           files={files}

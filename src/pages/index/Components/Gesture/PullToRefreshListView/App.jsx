@@ -82,7 +82,7 @@ class Demo extends React.Component {
     }, 1500);
   }
 
-  onRefresh = () => {
+  onRefresh () {
     this.setState({ refreshing: true, isLoading: true });
     // simulate initial Ajax
     setTimeout(() => {
@@ -95,7 +95,7 @@ class Demo extends React.Component {
     }, 600);
   };
 
-  onEndReached = (event) => {
+  onEndReached (event) {
     // load new data
     // hasMore: from backend data, indicates whether it is the last page, here is false
     if (this.state.isLoading && !this.state.hasMore) {
@@ -177,9 +177,9 @@ class Demo extends React.Component {
         }}
         pullToRefresh={<PullToRefresh
           refreshing={this.state.refreshing}
-          onRefresh={this.onRefresh}
+          onRefresh={this.onRefresh.bind(this)}
         />}
-        onEndReached={this.onEndReached}
+        onEndReached={this.onEndReached.bind(this)}
         pageSize={5}
       />
     </div>);

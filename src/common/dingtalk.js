@@ -38,7 +38,7 @@ export class DingTalk {
         window.dd.biz.util.openLink({
             url: url,//要打开链接的地址
             onSuccess : result => {
-              window.baseConfig.development && alert('openLink result: ' + JSON.stringify(result));
+              // window.baseConfig.development && alert('openLink result: ' + JSON.stringify(result));
               typeof onSuccess === 'function' && onSuccess(result)
             },
             onFail : err => {
@@ -74,7 +74,7 @@ export class DingTalk {
         window.dd.biz.navigation.setTitle({
           title : title, 
           onSuccess : result => {
-            window.baseConfig.development && alert('openLink result: ' + JSON.stringify(result));
+            // window.baseConfig.development && alert('setTitle result: ' + JSON.stringify(result));
             typeof onSuccess === 'function' && onSuccess(result)
           },
           onFail : err => {

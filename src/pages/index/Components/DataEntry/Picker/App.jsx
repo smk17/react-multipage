@@ -6,21 +6,26 @@ import './App.less';
 import { Picker, List, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import arrayTreeFilter from 'array-tree-filter';
+import district from './district';
 
-import { district, provinceLite } from 'antd-mobile-demo-data';
+const provinceLite = [{"value":"bj","label":"北京市"},{"value":"zj","label":"浙江省"},{"value":"gd","label":"广东省"},{"value":"hn","label":"海南省"},{"value":"cq","label":"重庆市"},{"value":"sc","label":"四川省"}]
 
 // 如果不是使用 List.Item 作为 children
-const CustomChildren = props => (
-  <div
-    onClick={props.onClick}
-    style={{ backgroundColor: '#fff', paddingLeft: 15 }}
-  >
-    <div className="test" style={{ display: 'flex', height: '45px', lineHeight: '45px' }}>
-      <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{props.children}</div>
-      <div style={{ textAlign: 'right', color: '#888', marginRight: 15 }}>{props.extra}</div>
-    </div>
-  </div>
-);
+class CustomChildren extends React.Component {
+  render () {
+    return (
+      <div
+        onClick={this.props.onClick}
+        style={{ backgroundColor: '#fff', paddingLeft: 15 }}
+      >
+        <div className="test" style={{ display: 'flex', height: '45px', lineHeight: '45px' }}>
+          <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{this.props.children}</div>
+          <div style={{ textAlign: 'right', color: '#888', marginRight: 15 }}>{this.props.extra}</div>
+        </div>
+      </div>
+    );
+  }
+}
 
 const seasons = [
   [
@@ -46,22 +51,26 @@ const seasons = [
 ];
 
 class Test extends React.Component {
-  state = {
-    data: [],
-    cols: 1,
-    pickerValue: [],
-    asyncValue: [],
-    sValue: ['2013', '春'],
-    visible: false,
-  };
-  onClick = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      cols: 1,
+      pickerValue: [],
+      asyncValue: [],
+      sValue: ['2013', '春'],
+      visible: false,
+    };
+  }
+  
+  onClick () {
     setTimeout(() => {
       this.setState({
         data: provinceLite,
       });
     }, 120);
   };
-  onPickerChange = (val) => {
+  onPickerChange (val) {
     console.log(val);
     let colNum = 1;
     const d = [...this.state.data];
@@ -110,7 +119,7 @@ class Test extends React.Component {
     const treeChildren = arrayTreeFilter(district, (c, level) => c.value === value[level]);
     return treeChildren.map(v => v.label).join(',');
   }
-  onDingTalkClick = () => {
+  onDingTalkClick () {
     if (!(window.dd.version === null)) {
       window.dd.ready(() => {
         window.dd.biz.util.chosen({
@@ -134,11 +143,11 @@ class Test extends React.Component {
       // window.location = url
     }
   }
-  // setVal() {
-  //   this.props.form.setFieldsValue({
-  //     district: ['340000', '340800', '340822'],
-  //   });
-  // },
+  setVal() {
+    this.props.form.setFieldsValue({
+      district: ['340000', '340800', '340822'],
+    });
+  }
   render() {
     const { getFieldProps } = this.props.form;
     const SingleData = [
@@ -159,7 +168,7 @@ class Test extends React.Component {
           onOk={e => console.log('ok', e)}
           onDismiss={e => console.log('dismiss', e)}
         >
-          <List.Item arrow="horizontal">Multiple & cascader</List.Item>
+          <List.Item arrow="horizontal">Multiple and cascader</List.Item>
         </Picker>
         <Picker
           data={seasons}
@@ -175,15 +184,15 @@ class Test extends React.Component {
         <Picker data={SingleData} cols={1} {...getFieldProps('district3')} className="forss">
           <List.Item arrow="horizontal">Single</List.Item>
         </Picker>
-        <List.Item arrow="horizontal" onClick={this.onDingTalkClick}>Single DingTalk</List.Item>
+        <List.Item arrow="horizontal" onClick={this.onDingTalkClick.bind(this)}>Single DingTalk</List.Item>
         <Picker
           data={this.state.data}
           cols={this.state.cols}
           value={this.state.asyncValue}
-          onPickerChange={this.onPickerChange}
+          onPickerChange={this.onPickerChange.bind(this)}
           onOk={v => console.log(v)}
         >
-          <List.Item arrow="horizontal" onClick={this.onClick}>Multiple & async</List.Item>
+          <List.Item arrow="horizontal" onClick={this.onClick.bind(this)}>Multiple & async</List.Item>
         </Picker>
         <Picker
           title="选择地区"
@@ -225,18 +234,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    console.log(district);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('Picker 选择器');
     })
-    DingTalk.setTitle('Picker 选择器');
   }
   
   renderContent () {

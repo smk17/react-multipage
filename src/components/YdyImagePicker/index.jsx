@@ -17,7 +17,7 @@ class YdyImagePicker extends React.Component {
     };
   }
   
-  onChange = (files, type, index) => {
+  onChange (files, type, index) {
     let imgs = []
     for (let index = 0; index < files.length; index++) {
       const img = files[index].url;
@@ -30,7 +30,7 @@ class YdyImagePicker extends React.Component {
     this.props.onChange(files)
   }
   /** 添加图片, 在钉钉容器使用时，添加图片按钮将调用钉钉的 `biz.util.uploadImage` 功能，其他情况调用默认的H5事件 */
-  onAddImage = (e) => {
+  onAddImage (e) {
     if (!(window.dd.version === null)) {
       e.preventDefault();
       window.dd.ready( () => {
@@ -62,7 +62,7 @@ class YdyImagePicker extends React.Component {
     }
   }
   /** 图片预览，在钉钉容器，预览照片将调用 `biz.util.previewImage` 预览图片，其他情况未实现 */
-  onImageClick = (index, fs) => {
+  onImageClick (index, fs) {
     if (!(window.dd.version === null)) {
       window.dd.ready(() => {
         window.dd.biz.util.previewImage({
@@ -86,9 +86,9 @@ class YdyImagePicker extends React.Component {
     return (
       <ImagePicker
         files={files}
-        onChange={this.onChange}
-        onAddImageClick={this.onAddImage}
-        onImageClick={this.onImageClick}
+        onChange={this.onChange.bind(this)}
+        onAddImageClick={this.onAddImage.bind(this)}
+        onImageClick={this.onImageClick.bind(this)}
         multiple={this.props.multiple}
         selectable={this.props.selectable}
         accept={this.props.accept}

@@ -26,10 +26,10 @@ Object.keys(extra).forEach((key) => {
 });
 
 class Test extends React.Component {
-  originbodyScrollY = document.getElementsByTagName('body')[0].style.overflowY;
-
+  
   constructor(props) {
     super(props);
+    this.originbodyScrollY = document.getElementsByTagName('body')[0].style.overflowY;
     this.state = {
       en: false,
       show: false,
@@ -55,17 +55,17 @@ class Test extends React.Component {
     );
   }
 
-  changeLanguage = () => {
+  changeLanguage () {
     this.setState({
       en: !this.state.en,
     });
   }
 
-  onSelectHasDisableDate = (dates) => {
+  onSelectHasDisableDate(dates) {
     console.warn('onSelectHasDisableDate', dates);
   }
 
-  onConfirm = (startTime, endTime) => {
+  onConfirm (startTime, endTime) {
     document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
     this.setState({
       show: false,
@@ -74,7 +74,7 @@ class Test extends React.Component {
     });
   }
 
-  onCancel = () => {
+  onCancel () {
     document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
     this.setState({
       show: false,
@@ -83,7 +83,9 @@ class Test extends React.Component {
     });
   }
 
-  getDateExtra = date => extra[+date];
+  getDateExtra (date) {
+    return extra[+date]
+  } 
 
   render() {
     return (
@@ -120,10 +122,10 @@ class Test extends React.Component {
         <Calendar
           {...this.state.config}
           visible={this.state.show}
-          onCancel={this.onCancel}
-          onConfirm={this.onConfirm}
-          onSelectHasDisableDate={this.onSelectHasDisableDate}
-          getDateExtra={this.getDateExtra}
+          onCancel={this.onCancel.bind(this)}
+          onConfirm={this.onConfirm.bind(this)}
+          onSelectHasDisableDate={this.onSelectHasDisableDate.bind(this)}
+          getDateExtra={this.getDateExtra.bind(this)}
           defaultDate={now}
           minDate={new Date(+now - 5184000000)}
           maxDate={new Date(+now + 31536000000)}
@@ -144,17 +146,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('Calendar 日历');
     })
-    DingTalk.setTitle('Calendar 日历');
   }
   
   renderContent () {

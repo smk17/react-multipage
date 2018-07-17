@@ -10,7 +10,7 @@ import './App.less';
 const icon = 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png'
 
 class Components extends React.Component {
-  onClick = (el, index) => {
+  onClick (el, index) {
     DingTalk.open(el.url);
   }
   render () {
@@ -60,28 +60,28 @@ class Components extends React.Component {
     return (
       <YdyScrollView>
         <div className="sub-title">Layout </div>
-        <Grid data={dataLayout} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataLayout} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Navigation </div>
-        <Grid data={dataNavigation} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataNavigation} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Data Entry </div>
-        <Grid data={dataDataEntry} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataDataEntry} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Data Display </div>
-        <Grid data={dataDataDisplay} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataDataDisplay} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Feedback </div>
-        <Grid data={dataFeedback} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataFeedback} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Gesture </div>
-        <Grid data={dataGesture} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataGesture} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Combination </div>
-        <Grid data={dataCombination} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataCombination} activeStyle={false} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Other </div>
-        <Grid data={dataOther} activeStyle={false} onClick={this.onClick}/>
+        <Grid data={dataOther} activeStyle={false} onClick={this.onClick.bind(this)}/>
       </YdyScrollView>
       
     );
@@ -89,16 +89,16 @@ class Components extends React.Component {
 }
 
 class Api extends React.Component {
-  onChange = (key) => {
+  onChange(key) {
     console.log(key);
   }
-  onClick = (url, params = '') => {
+  onClick (url, params = '') {
     DingTalk.open(url, params ? `&type=${params}` : '');
   }
   render() {
     return (
       <div style={{ marginTop: 10, marginBottom: 10 }}>
-        <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange}>
+        <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange.bind(this)}>
           <Accordion.Panel header="开放接口">
             <List className="my-list">
               <List.Item onClick={this.onClick.bind(this, 'PayUtils', '')}>支付接口</List.Item>
@@ -180,10 +180,11 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    this.setState({
-      load: true,
-    });
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+    })
   }
   
   render() {

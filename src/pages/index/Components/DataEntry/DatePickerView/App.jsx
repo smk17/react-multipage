@@ -14,11 +14,11 @@ class DatePickerViewExample extends React.Component {
     };
   }
   
-  onChange = (value) => {
+  onChange (value) {
     console.log(value);
     this.setState({ value });
   };
-  onValueChange = (...args) => {
+  onValueChange(...args) {
     console.log(args);
   };
   render() {
@@ -26,15 +26,15 @@ class DatePickerViewExample extends React.Component {
       <div className="sub-title">Start datetime</div>
       <DatePickerView
         value={this.state.value}
-        onChange={this.onChange}
-        onValueChange={this.onValueChange}
+        onChange={this.onChange.bind(this)}
+        onValueChange={this.onValueChange.bind(this)}
       />
       <div className="sub-title">End datetime</div>
       <DatePickerView
         locale={enUs}
         value={this.state.value}
-        onChange={this.onChange}
-        onValueChange={this.onValueChange}
+        onChange={this.onChange.bind(this)}
+        onValueChange={this.onValueChange.bind(this)}
       />
     </div>);
   }
@@ -51,17 +51,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('DatePickerView 日期选择器');
     })
-    DingTalk.setTitle('DatePickerView 日期选择器');
   }
   
   renderContent () {

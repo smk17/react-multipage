@@ -19,9 +19,14 @@ if (isIPhone) {
 }
 
 class H5NumberInputExample extends React.Component {
-  state = {
-    type: 'money',
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      type: 'money',
+    };
   }
+  
   render() {
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
@@ -83,7 +88,7 @@ class BasicInputExample extends React.Component {
   componentDidMount() {
     // this.autoFocusInst.focus();
   }
-  handleClick = () => {
+  handleClick () {
     this.inputRef.focus();
   }
   render() {
@@ -106,7 +111,7 @@ class BasicInputExample extends React.Component {
           <List.Item>
             <div
               style={{ width: '100%', color: '#108ee9', textAlign: 'center' }}
-              onClick={this.handleClick}
+              onClick={this.handleClick.bind(this)}
             >
               click to focus
             </div>
@@ -227,16 +232,20 @@ class BasicInputExample extends React.Component {
 const BasicInputExampleWrapper = createForm()(BasicInputExample);
 
 class ErrorInputExample extends React.Component {
-  state = {
-    hasError: false,
-    value: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      value: '',
+    };
   }
-  onErrorClick = () => {
+  
+  onErrorClick () {
     if (this.state.hasError) {
       Toast.info('Please enter 11 digits');
     }
   }
-  onChange = (value) => {
+  onChange (value) {
     if (value.replace(/\s/g, '').length < 11) {
       this.setState({
         hasError: true,
@@ -258,8 +267,8 @@ class ErrorInputExample extends React.Component {
             type="phone"
             placeholder="input your phone"
             error={this.state.hasError}
-            onErrorClick={this.onErrorClick}
-            onChange={this.onChange}
+            onErrorClick={this.onErrorClick.bind(this)}
+            onChange={this.onChange.bind(this)}
             value={this.state.value}
           >手机号码</InputItem>
         </List>
@@ -278,17 +287,12 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    DingTalk.init()
-    // setTimeout(() => {
-    //   this.setState({
-    //     load: true,
-    //   })
-    //   DingTalk.setTitle('开始吧');
-    // }, 2000);
-    this.setState({
-      load: true,
+    DingTalk.init(() => {
+      this.setState({
+        load: true,
+      })
+      DingTalk.setTitle('InputItem 文本输入');
     })
-    DingTalk.setTitle('InputItem 文本输入');
   }
   
   renderContent () {
