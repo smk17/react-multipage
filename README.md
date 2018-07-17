@@ -58,7 +58,7 @@ DingTalk.init();
 
 #### 封装规范
 
-> 封装的每个函数必须留有 `onSuccess` 和 `onFail，` 具体可以参考已有的实现
+> 封装的每个函数必须返回类型为Promise，具体看文件
 
 ## <span id="components">components 组件</span>
 
