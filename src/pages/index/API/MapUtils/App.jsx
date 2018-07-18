@@ -87,6 +87,20 @@ class App extends React.Component {
               geolocation: geolocation
             })
           }
+          if (!(window.dd.version === null)) {
+            window.dd.util.domainStorage.setItem({
+              name: 'startGeoLocation' , // 存储信息的key值
+              value: JSON.stringify(geolocation), // 存储信息的Value值
+              onSuccess : function(info) {
+                // alert(JSON.stringify(info));
+              },
+              onFail : function(err) {
+                alert(JSON.stringify(err));
+              }
+            });
+          } else {
+            // window.location = url
+          }
         },
         onFail : (err) => {
           alert(JSON.stringify(err));
@@ -176,6 +190,44 @@ class App extends React.Component {
     }
   }
 
+  getItem () {
+    if (!(window.dd.version === null)) {
+      window.dd.util.domainStorage.getItem({
+        name: 'startGeoLocation', // 存储信息的key值
+        onSuccess : (info) => {
+          alert(JSON.stringify(info));
+          const geolocation = JSON.parse(info.value)
+          this.setState({
+            longitude: geolocation[0].longitude,
+            latitude: geolocation[0].latitude,
+            geolocation: geolocation
+          })
+        },
+        onFail : function(err) {
+          alert(JSON.stringify(err));
+        }
+      });
+    } else {
+      // window.location = url
+    }
+  }
+
+  removeItem () {
+    if (!(window.dd.version === null)) {
+      window.dd.util.domainStorage.removeItem({
+        name: 'startGeoLocation' , // 存储信息的key值
+        onSuccess : function(info) {
+          alert(JSON.stringify(info));
+        },
+        onFail : function(err) {
+          alert(JSON.stringify(err));
+        }
+      });
+    } else {
+      // window.location = url
+    }
+  }
+
   renderContent () {
     const { longitude , latitude, geolocation } = this.state;
     return (
@@ -184,10 +236,11 @@ class App extends React.Component {
         <div style={ {height: '50%', width: '100%'} }>
           <Map amapkey={'6243b3c2bb174171ca175b10b6f7588f'} center={ { longitude , latitude } }>
           <Polyline path={geolocation} />
+          <Marker position={{ longitude , latitude }} />
           { // 地图显示
-            geolocation.map((Item, index) => {
-              return <Marker key={index} position={Item} />
-            })
+            // geolocation.map((Item, index) => {
+            //   return <Marker key={index} position={Item} />
+            // })
           }
           </Map>
         </div>
@@ -209,6 +262,8 @@ class App extends React.Component {
         </div>
         <WhiteSpace />
         <WingBlank>
+          <Button onClick={this.getItem.bind(this)}>获取上次地理位数据</Button><WhiteSpace />
+          <Button type="warning" onClick={this.removeItem.bind(this)}>清理数据</Button><WhiteSpace />
           <Button type="primary" onClick={this.getGeoLocation.bind(this)}>获取当前地理位置</Button><WhiteSpace />
           <Button onClick={this.startGeoLocation.bind(this)}>连续获取当前地理位置信息</Button><WhiteSpace />
           <Button onClick={this.stopGeoLocation.bind(this)}>停止连续定位</Button><WhiteSpace />

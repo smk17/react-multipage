@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import axios from 'axios';
-import * as ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import './index.less';
 import App from './App';
 import registerServiceWorker from '@/registerServiceWorker';

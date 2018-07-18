@@ -1,11 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
 import loading from '@/assets/img/load.gif';
 import sifuoDUQdAFKAVcFGROC from '@/assets/img/sifuoDUQdAFKAVcFGROC.svg';
 import YdyTabBar, { YdyTabBarItem } from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";
 import { Accordion, List, Grid } from 'antd-mobile';
-import 'antd-mobile/dist/antd-mobile.css';
+import 'antd-mobile/lib/accordion/style/css';
+import 'antd-mobile/lib/list/style/css';
+import 'antd-mobile/lib/grid/style/css';
 import './App.less';
 
 const icon = 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png'
@@ -20,9 +22,9 @@ class Components extends React.Component {
       { icon, text: '两翼留白', url: 'WingBlank' },
       { icon, text: '上下留白', url: 'WhiteSpace' }
     ]
-    const dataNavigation = [
-      { icon, text: 'blank', url: 'blank' },
-    ]
+    // const dataNavigation = [
+    //   { icon, text: 'blank', url: 'blank' },
+    // ]
     const dataDataEntry = [
       { icon, text: '按钮', url: 'Button' },
       { icon, text: '日历', url: 'Calendar' },
@@ -33,56 +35,56 @@ class Components extends React.Component {
       { icon, text: '文本输入', url: 'InputItem' },
       { icon, text: '选择器', url: 'PickerView' },
       { icon, text: '选择器(弹窗)', url: 'Picker' },
-      { icon, text: '区域选择', url: 'Range' },
-      { icon, text: '单选框', url: 'Radio' },
-      { icon, text: '滑动开关', url: 'Switch' },
-      { icon, text: '搜索栏', url: 'SearchBar' },
-      { icon, text: '滑动输入条', url: 'Slider' },
-      { icon, text: '步进器', url: 'Stepper' },
-      { icon, text: '多行输入', url: 'TextareaItem' }
+      // { icon, text: '区域选择', url: 'Range' },
+      // { icon, text: '单选框', url: 'Radio' },
+      // { icon, text: '滑动开关', url: 'Switch' },
+      // { icon, text: '搜索栏', url: 'SearchBar' },
+      // { icon, text: '滑动输入条', url: 'Slider' },
+      // { icon, text: '步进器', url: 'Stepper' },
+      // { icon, text: '多行输入', url: 'TextareaItem' }
     ]
-    const dataDataDisplay = [
-      { icon, text: 'blank', url: 'blank' },
-    ]
-    const dataFeedback = [
-      { icon, text: 'blank', url: 'blank' },
-    ]
+    // const dataDataDisplay = [
+    //   { icon, text: 'blank', url: 'blank' },
+    // ]
+    // const dataFeedback = [
+    //   { icon, text: 'blank', url: 'blank' },
+    // ]
     const dataGesture = [
       { icon, text: 'PullToRefresh 拉动刷新', url: 'PullToRefresh' },
       { icon, text: 'ListView 下拉刷新', url: 'PullToRefreshListView' },
       { icon, text: 'SwipeAction 滑动操作', url: 'SwipeAction' },
     ]
-    const dataCombination = [
-      { icon, text: 'blank', url: 'blank' },
-    ]
-    const dataOther = [
-      { icon, text: 'blank', url: 'blank' },
-    ]
+    // const dataCombination = [
+    //   { icon, text: 'blank', url: 'blank' },
+    // ]
+    // const dataOther = [
+    //   { icon, text: 'blank', url: 'blank' },
+    // ]
     return (
       <YdyScrollView>
         <div className="sub-title">Layout </div>
         <Grid data={dataLayout} onClick={this.onClick.bind(this)}/>
 
-        <div className="sub-title">Navigation </div>
-        <Grid data={dataNavigation} onClick={this.onClick.bind(this)}/>
+        {/* <div className="sub-title">Navigation </div>
+        <Grid data={dataNavigation} onClick={this.onClick.bind(this)}/> */}
 
         <div className="sub-title">Data Entry </div>
         <Grid data={dataDataEntry} onClick={this.onClick.bind(this)}/>
 
-        <div className="sub-title">Data Display </div>
+        {/* <div className="sub-title">Data Display </div>
         <Grid data={dataDataDisplay} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Feedback </div>
-        <Grid data={dataFeedback} onClick={this.onClick.bind(this)}/>
+        <Grid data={dataFeedback} onClick={this.onClick.bind(this)}/> */}
 
         <div className="sub-title">Gesture </div>
         <Grid data={dataGesture} onClick={this.onClick.bind(this)}/>
 
-        <div className="sub-title">Combination </div>
+        {/* <div className="sub-title">Combination </div>
         <Grid data={dataCombination} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Other </div>
-        <Grid data={dataOther} onClick={this.onClick.bind(this)}/>
+        <Grid data={dataOther} onClick={this.onClick.bind(this)}/> */}
       </YdyScrollView>
       
     );
@@ -159,8 +161,24 @@ class Api extends React.Component {
 }
 
 class Friend extends React.Component {
+  onClick (el, index) {
+    DingTalk.open(el.url);
+  }
   render () {
-    return (<YdyScrollView style={{ backgroundColor: 'white' }}>朋友</YdyScrollView>);
+    const dataResult = [
+      { icon, text: '登录失败', url: 'ResultError', params: '&code=10001' },
+      { icon, text: '无权限访问', url: 'ResultError', params: '&code=70001' },
+      { icon, text: '等待处理', url: 'ResultWaiting', params: '&code=70001' },
+      { icon, text: '操作失败', url: 'ResultFailed', params: '&code=70001' },
+      { icon, text: '操作成功', url: 'ResultSuccess', params: '&code=70001' },
+    ]
+    return (
+      <YdyScrollView>
+        <div className="sub-title">Result </div>
+        <Grid data={dataResult} onClick={this.onClick.bind(this)}/>
+      </YdyScrollView>
+      
+    );
   }
 }
 

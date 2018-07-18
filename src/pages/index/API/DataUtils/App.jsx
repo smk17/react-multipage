@@ -32,7 +32,7 @@ class App extends React.Component {
         name: this.state.key , // 存储信息的key值
         value: this.state.value, // 存储信息的Value值
         onSuccess : function(info) {
-          alert(JSON.stringify(info));
+          // alert(JSON.stringify(info));
         },
         onFail : function(err) {
           alert(JSON.stringify(err));
@@ -75,6 +75,28 @@ class App extends React.Component {
     }
   }
 
+  setTimeItem () {
+    let times = []
+    setTimeout(() => {
+      if (!(window.dd.version === null)) {
+        const time = new Date()
+        times.push(time)
+        window.dd.util.domainStorage.setItem({
+          name: 'time' , // 存储信息的key值
+          value: JSON.stringify(times), // 存储信息的Value值
+          onSuccess : function(info) {
+            // alert(JSON.stringify(info));
+          },
+          onFail : function(err) {
+            alert(JSON.stringify(err));
+          }
+        });
+      } else {
+        // window.location = url
+      }
+    }, 1000);
+  }
+
   renderContent () {
     return (
       <YdyScrollView>
@@ -94,8 +116,9 @@ class App extends React.Component {
         </List><WhiteSpace />
         <WingBlank>
           <Button type="primary" onClick={this.setItem.bind(this)}>存储数据</Button><WhiteSpace />
+          <Button onClick={this.setTimeItem.bind(this)}>定时存储数据</Button><WhiteSpace />
           <Button onClick={this.getItem.bind(this)}>读取数据</Button><WhiteSpace />
-          <Button onClick={this.removeItem.bind(this)}>清理数据</Button><WhiteSpace />
+          <Button type="warning" onClick={this.removeItem.bind(this)}>清理数据</Button><WhiteSpace />
         </WingBlank>
       </YdyScrollView>
     );
