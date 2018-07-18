@@ -182,6 +182,12 @@ let webpackConfig = {
             include: paths.appSrc,
             use: [
               {
+                loader: equire.resolve('babel-loader'),
+                options: {
+                  compact: true,
+                },
+              },
+              {
                 loader: require.resolve('ts-loader'),
                 options: {
                   // disable type checker - we will use it in fork plugin

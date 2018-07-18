@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import YdyFallbackView from "@/components/YdyFallbackView";
 import './index.less';
 
 export interface YdyScrollViewPropTypes {
@@ -8,8 +9,12 @@ export interface YdyScrollViewPropTypes {
   align?: string,
   alignContent?: string,
 }
+interface YdyScrollViewStateTypes {
+  hasError?: boolean,
+  code: string
+}
 
-class YdyScrollView extends React.Component<YdyScrollViewPropTypes, any> {
+class YdyScrollView extends React.Component<YdyScrollViewPropTypes, YdyScrollViewStateTypes> {
   static defaultProps: YdyScrollViewPropTypes = {
     style: {},
     wrap: 'nowrap',
@@ -18,7 +23,25 @@ class YdyScrollView extends React.Component<YdyScrollViewPropTypes, any> {
     alignContent: 'stretch',
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, code: '' };
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ hasError: true, code: error.message });
+    // // You can also log the error to an error reporting service
+    // Service.writeLog({ error, info });
+  }
+
   render(): JSX.Element {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <YdyFallbackView code={this.state.code} onClick={() => {
+        this.setState({ hasError: false, code: '' });
+      }} />;
+    }
     return (
       // <div className="scroll" direction="column"
       //   wrap={this.props.wrap}

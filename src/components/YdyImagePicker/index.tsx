@@ -1,6 +1,5 @@
 import React from 'react';
 import { ImagePicker } from 'antd-mobile';
-import 'antd-mobile/lib/image-picker/style/css';
 import './index.less';
 
 export interface YdyImagePickerPropTypes {

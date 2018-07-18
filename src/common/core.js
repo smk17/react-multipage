@@ -1,31 +1,5 @@
 import * as moment from "moment";
 import 'whatwg-fetch';
-/**
- * 数据模式枚举
- */
-export var DataModeEnum = {
-    /**
-     * 单行数据
-     */
-    singleRow: 0,
-    /**
-     * 单表格数据
-     */
-    table: 1,
-    /**
-     * 带了聚合字段和总数信息的表格数据
-     */
-    complexTable: 2
-}
-
-/**
-* 页面打开模式
-*/
-export var PageModeEnum = {
-    add: 1,
-    modify: 2,
-    look: 4
-}
 
 /**
 * 执行服务错误处理级别枚举
@@ -47,68 +21,6 @@ export var ServiceErrorLevelEnum = {
      * 处理各种异常
      */
     allError: 4
-}
-
-/**
- * 排序类型
- */
-export var SortTypeEnum = {
-    /**
-     * 升序
-     */
-    asc: 1,
-    /**
-     * 降序
-     */
-    desc: 2
-}
-
-/**
- * 排序
- */
-export class IOrderby {
-    name;
-    sortType;
-}
-
-export class IDataInfo {
-    /**
-     * 数据id(1.系统数据源：系统id/数据源id；2.页面数据源：系统id/模块id/页面id/数据源id)
-     */
-    id;
-    pageMode;
-    mode;
-    orderby;
-    pageSize;
-    pageIndex;
-    params;
-}
-
-class IDataSource {
-    config;
-    data;
-}
-
-/**
-* 要执行的服务信息
-*/
-export class IServiceInfo {
-    /**
-     * 服务名称
-     */
-    name;
-    /**
-     * 服务参数
-     */
-    params;
-    /**
-     * 是否采用同步执行，默认为false
-     */
-    isSynch;
-    /**
-     * 是否自己处理，默认为success
-     */
-    handlingErrorLevel;
 }
 
 var s_dataSources = {}
@@ -265,7 +177,7 @@ export class Service {
                         Utility.dispose(ex);
                     }
                     else {
-                        reject(ex);
+                        // reject(ex);
                     }
                     return;
                 }
@@ -305,7 +217,6 @@ export class Service {
             else {
                 return result.data;
             }
-            return;
         }).catch(function (ex) {
             if(service.name === "/anonymity/writelog"){
                 return;
@@ -405,20 +316,6 @@ export class DataSourceManager {
 }
 
 /**
- * 控制器请求对象
- */
-export class IControllerRequest {
-    /**
-     * 当前要请求的控制器id
-     */
-    id;
-    /**
-     * 调用参数
-     */
-    params;
-}
-
-/**
  * 控制器对象
  */
 export class Controller {
@@ -446,6 +343,7 @@ export class Controller {
                     case "ExecuteService":
                         controller = new ExecuteServiceController(result);
                         break;
+                    default: break;
                 }
                 s_controllerCache[fullId] = controller;
             }

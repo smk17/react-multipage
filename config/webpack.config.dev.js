@@ -179,6 +179,13 @@ let webpackConfig = {
             include: paths.appSrc,
             use: [
               {
+                loader: require.resolve('babel-loader'),
+                options: {
+                  // disable type checker - we will use it in fork plugin
+                  cacheDirectory: true,
+                },
+              },
+              {
                 loader: require.resolve('ts-loader'),
                 options: {
                   // disable type checker - we will use it in fork plugin

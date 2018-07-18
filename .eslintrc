@@ -1,5 +1,9 @@
 {
   "extends": "react-app",
+  "rules": {
+    "no-undef": "off",
+    "no-console": "off"
+  },
   "settings": {
     "import/resolver": {
       "node": {

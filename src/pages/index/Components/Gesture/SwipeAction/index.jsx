@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './index.less';
 import App from './App';
+import YdyScrollView from "@/components/YdyScrollView";
 import registerServiceWorker from '@/registerServiceWorker';
 
 window.baseConfig = {
@@ -11,6 +12,6 @@ window.baseConfig = {
 }
 axios.get('/config.json').then(res => {
   window.baseConfig = res.data;
-  ReactDOM.render((<App />), document.getElementById('root'));
+  ReactDOM.render((<YdyScrollView><App /></YdyScrollView>), document.getElementById('root'));
 })
 registerServiceWorker();

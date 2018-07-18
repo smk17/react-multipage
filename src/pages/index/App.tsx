@@ -5,9 +5,6 @@ import sifuoDUQdAFKAVcFGROC from '@/assets/img/sifuoDUQdAFKAVcFGROC.svg';
 import YdyTabBar, { YdyTabBarItem } from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";
 import { Accordion, List, Grid } from 'antd-mobile';
-import 'antd-mobile/lib/accordion/style/css';
-import 'antd-mobile/lib/list/style/css';
-import 'antd-mobile/lib/grid/style/css';
 import './App.less';
 
 const icon = 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png'
@@ -160,24 +157,35 @@ class Api extends React.Component {
   }
 }
 
-class Friend extends React.Component {
+class Common extends React.Component<any, { throw: boolean, code: string }> {
+  constructor(props) {
+    super(props);
+    this.state = { throw: false, code: '' };
+  }
   onClick (el, index) {
-    DingTalk.open(el.url);
+    // new Array(-1);
+    // DingTalk.open(el.url);
+    this.setState({
+      throw: true,
+      code: el.params
+    })
   }
   render () {
+    if (this.state.throw) {
+      throw new Error(this.state.code);
+    }
     const dataResult = [
-      { icon, text: '登录失败', url: 'ResultError', params: '&code=10001' },
-      { icon, text: '无权限访问', url: 'ResultError', params: '&code=70001' },
-      { icon, text: '等待处理', url: 'ResultWaiting', params: '&code=70001' },
-      { icon, text: '操作失败', url: 'ResultFailed', params: '&code=70001' },
-      { icon, text: '操作成功', url: 'ResultSuccess', params: '&code=70001' },
+      { icon, text: '登录失败', params: '10001' },
+      { icon, text: '无权限访问', params: '70001' },
+      { icon, text: '等待处理', params: '60001' },
+      { icon, text: '操作失败', params: '50001' },
+      { icon, text: '操作成功', params: '40001' },
     ]
     return (
       <YdyScrollView>
         <div className="sub-title">Result </div>
         <Grid data={dataResult} onClick={this.onClick.bind(this)}/>
       </YdyScrollView>
-      
     );
   }
 }
@@ -234,13 +242,13 @@ class App extends React.Component<{}, AppStateTypes> {
         selectedIcon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg'
       },
       {
-        id: 'friend',
-        name: '朋友',
+        id: 'common',
+        name: '通用',
         size: '22px',
         selectedTab: 'greenTab',
         badge: '',
         dot: true,
-        renderContent: <Friend />,
+        renderContent: <Common />,
         icon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg',
         selectedIcon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg'
       },
@@ -258,9 +266,11 @@ class App extends React.Component<{}, AppStateTypes> {
     ];
     return (
       <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px', textAlign: 'center' }}>
+      <YdyScrollView style={{ backgroundColor: 'white' }}>
       {
         this.state.load ? <YdyTabBar tabBarItems={tabBarItems} selectedTab="blueTab"/> : LoadView
       }
+      </YdyScrollView>
       </div>
     );
   }

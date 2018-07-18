@@ -2,7 +2,6 @@ import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
-import 'antd-mobile/dist/antd-mobile.css';
 import './App.less';
 
 class App extends React.Component<any, AppStateTypes> {
