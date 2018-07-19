@@ -2,7 +2,8 @@
   "extends": "react-app",
   "rules": {
     "no-undef": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-restricted-globals": "off"
   },
   "settings": {
     "import/resolver": {

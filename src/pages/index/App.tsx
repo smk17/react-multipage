@@ -163,7 +163,7 @@ class Common extends React.Component<any, { throw: boolean, code: string }> {
     this.state = { throw: false, code: '' };
   }
   onClick (el, index) {
-    // new Array(-1);
+    new Array(-1);
     // DingTalk.open(el.url);
     this.setState({
       throw: true,
@@ -177,7 +177,7 @@ class Common extends React.Component<any, { throw: boolean, code: string }> {
     const dataResult = [
       { icon, text: '登录失败', params: '10001' },
       { icon, text: '无权限访问', params: '70001' },
-      { icon, text: '等待处理', params: '60001' },
+      { icon, text: '等待处理', params: '60001' }, 
       { icon, text: '操作失败', params: '50001' },
       { icon, text: '操作成功', params: '40001' },
     ]
