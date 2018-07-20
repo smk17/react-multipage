@@ -57,7 +57,7 @@ function _ajxResultPreprocessing(response) {
     else {
         var error = new Error(response.statusText);
         error.name = "RequestServiceException";
-        error.status = response.status;
+        error['status'] = response.status;
         throw error;
     }
 }
@@ -128,12 +128,13 @@ export class Service {
      * @param data 日志数据
      */
     static async writeLog(data) {
-        Service.executeService({
-            name: "/anonymity/writelog",
-            params: {
-                data: data
-            }
-        });
+        // Service.executeService({
+        //     name: "/anonymity/writelog",
+        //     params: {
+        //         data: data
+        //     }
+        // });
+        console.log(data);
     }
     /**
      * 登录
@@ -291,10 +292,10 @@ export class DataSourceManager {
             }
         }
         if (dataInfo.pageSize) {
-            params.pageSize = dataInfo.pageSize;
+            params['pageSize'] = dataInfo.pageSize;
         }
         if (dataInfo.pageIndex) {
-            params.pageIndex = dataInfo.pageIndex;
+            params['pageIndex'] = dataInfo.pageIndex;
         }
 
         params = {
@@ -319,6 +320,7 @@ export class DataSourceManager {
  * 控制器对象
  */
 export class Controller {
+    initData
     /**
      * 创建一个控制器
      * @param {string} id 控制器id

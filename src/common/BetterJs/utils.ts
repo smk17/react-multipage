@@ -1,3 +1,7 @@
+import 'whatwg-fetch';
+let _oldWindowError = null
+let windowError: any = null
+
 function isFunction(what) {return typeof what === 'function';}
 
 function isUndefined(what) { return what === void 0;}
@@ -98,7 +102,7 @@ var _handleFetchError = function (_window, config) {
     let _oldFetch = _window.fetch;
     _window.fetch = function () {
         return _oldFetch.apply(this, arguments)
-        .then(res => {
+        .then(function(res) {
             if (!res.ok) { // True if status is HTTP 2xx
                 config.sendError({
                     title: arguments[0],
@@ -109,7 +113,7 @@ var _handleFetchError = function (_window, config) {
             }
             return res;
         })
-        .catch(error => {
+        .catch(function(error) {
             config.sendError({
                 title: arguments[0],
                 msg: JSON.stringify({
@@ -178,7 +182,7 @@ var handleConsoleError = function (_window, config) {
     _window.console.error = function () {
         config.sendError({
             title: 'consoleError',
-            msg: JSON.stringify(arguments.join(',')),
+            msg: JSON.stringify(arguments),
             category: 'js',
             level: 'error'
         });
@@ -186,37 +190,12 @@ var handleConsoleError = function (_window, config) {
     };
 }
 
-var handleVueError = function (_window, config) {
-    var vue = _window.Vue;
-    if (!vue || !vue.config) return; // 没有找到vue实例
-    var _oldVueError = vue.config.errorHandler;
-
-    Vue.config.errorHandler = function VueErrorHandler(error, vm, info) {
-        var metaData = {};
-        if (Object.prototype.toString.call(vm) === '[object Object]') {
-            metaData.componentName = vm._isVue ? vm.$options.name || vm.$options._componentTag : vm.name;
-            metaData.propsData = vm.$options.propsData;
-        }
-        config.sendError({
-            title: 'vue Error',
-            msg: metaData + info,
-            category: 'js',
-            level: 'error'
-        });
-    
-        if (_oldVueError && isFunction(_oldVueError)) {
-          _oldOnError.call(this, error, vm, info);
-        }
-      };
-}
-
-module.exports = {
+export default {
     isFunction,
     objectMerge,
     handleWindowError,
     handleRejectPromise,
     handleConsoleError,
     handleResourceError,
-    handleAjaxError,
-    handleVueError
-};
+    handleAjaxError
+}

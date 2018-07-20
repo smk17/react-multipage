@@ -1,4 +1,5 @@
-var utils = require('./utils');
+import 'whatwg-fetch';
+import utils from "./utils";
 
 export default class BetterJs {
   static init (options) {
@@ -8,7 +9,6 @@ export default class BetterJs {
         ajaxError: true,
         consoleError: true, // console.error默认不处理
         scriptError: false, // 跨域js错误，默认不处理，因为没有任何信息
-        vue: false,
         autoReport: true,
         filters: [], // 过滤器，命中的不上报
         levels: ['info', 'warning', 'error'],
@@ -24,8 +24,9 @@ export default class BetterJs {
     var _oldSendError = config.sendError;
     config.sendError = function (title, msg, level, category, tags) {
         try {
-            var isFilter = config.filters.some(func => {
-                return utils.isFunction(func) && func.apply(this, arguments);
+            var that = this;
+            var isFilter = config.filters.some(function(func) {
+                return utils.isFunction(func) && func.apply(that, arguments);
             })
             if (isFilter) {return}
             _oldSendError.apply(this, arguments);
@@ -34,7 +35,7 @@ export default class BetterJs {
         }
         catch (e) {
             _oldSendError({
-                title: 'betterJs',
+                title: 'BetterJs',
                 msg: e,
                 category: 'js'
             })
@@ -43,7 +44,7 @@ export default class BetterJs {
 
 
     var _window = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-    var addEventListener = _window.addEventListener || _window.attachEvent;
+    var addEventListener = _window['addEventListener'] || _window['attachEvent'];
     if (config.jsError) {
         utils.handleWindowError(_window, config);
     }
@@ -59,9 +60,6 @@ export default class BetterJs {
     }
     if (config.consoleError) {
         utils.handleConsoleError(_window, config);
-    }
-    if (config.vue) {
-        utils.handleVueError(_window, config);
     }
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
-import './index.less';
+// import './index.less';
 import App from './App';
 import { Service } from "@/common/core";
 import BetterJs from "@/common/BetterJs";
@@ -13,7 +13,7 @@ window.baseConfig = {
   "development": false
 }
 BetterJs.init({
-  sendError: function(error) {
+  sendError: (error) => {
     Service.writeLog(JSON.stringify(error))
   }
 })

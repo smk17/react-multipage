@@ -28,11 +28,21 @@ yarn start
 - public 公共资源目录
   - config.json APP全局配置文件，该文件主要作用是APP编译后还可以提供该配置文件修复对应配置而不用再次编译
 
+## 异常处理机制
+
+### 针对 render 函数异常的处理
+
+每个页面的根DOM都包装了 [YdyScrollView](/src/components/YdyScrollView/README.md) ，该组件内部实现了对 render 出现异常的捕获并呈现对应的异常提示
+
+### 针对其他的异常的处理
+
+通过每个页面的入口文件执行 `BetterJs.init`， 建立全局的异常的捕获，然后通过调用 `Service.writeLog` 把异常信息上传到服务器
+
 ## <span id="common">common 公共服务</span>
 
 > 这里放置一些全局通用的类和方法
 
-### code.js
+### code.ts
 
 > 核心文件，主要使用其中的 `Service.executeService` 请求后端API
 
@@ -44,7 +54,7 @@ import { Service } from '@/common/code';
 Service.executeService(...);
 ~~~
 
-### dingtalk.js
+### dingtalk/index.ts
 
 > 基于官方 `dingtalk.js` 的一个封装
 
@@ -58,7 +68,46 @@ DingTalk.init();
 
 #### 封装规范
 
-> 封装的每个函数必须返回类型为Promise，具体看文件
+> 封装的函数必须包装在 DingTalk.execute 里面，如果函数需要传入2个以上(包括两个)必须定义接口，返回结果也必须定义接口
+
+以下有几个简单的例子：
+
+##### 无参数有返回结果的实现
+
+~~~ js
+static requestChannelAuthCode () {
+  interface Result {
+    /** 授权码，5分钟有效，且只能使用一次 */
+    code: string
+  }
+  return DingTalk.execute<Result>('channel.permission.requestAuthCode');
+}
+~~~
+
+#### 只有一个参数无返回结果的实现
+
+~~~ js
+static openLink (url: string) {
+  return DingTalk.execute<{}>('biz.util.openLink', { url }, () => { window.location.href = url });
+}
+~~~
+
+#### 多参数无返回结果的实现
+
+~~~ js
+// statement.ts
+export interface StorageSetParams {
+  /** 存储信息的key值 */
+  name: string,
+  /** 存储信息的Value值 */
+  value: string
+}
+
+// index.ts
+static setStorageItem (params: StorageSetParams) {
+  return DingTalk.execute<{}>('util.domainStorage.setItem', params);
+}
+~~~
 
 ## <span id="components">components 组件</span>
 
@@ -66,9 +115,10 @@ DingTalk.init();
 
 ### 组件列表（持续更新）
 
-- [YdyTabBar](/src/components/YdyTabBar/README.md)
-- [YdyScrollView](/src/components/YdyScrollView/README.md)
-- [YdyImagePicker](/src/components/YdyImagePicker/README.md)
+- [YdyTabBar](/src/components/YdyTabBar/README.md) 标签栏
+- [YdyScrollView](/src/components/YdyScrollView/README.md) 滚动视图
+- [YdyFallbackView](/src/components/YdyFallbackView/README.md) 异常视图组件
+- [YdyImagePicker](/src/components/YdyImagePicker/README.md) 图片选择器
 
 ### 创建组件规范
 
@@ -106,4 +156,4 @@ PS： `blank`空白模板一般不会有太大的变化
 
 ### 页面过多导致运行时过慢
 
-> 可以把已经开放完成的模块移动到 `template` 目录
+> 可以把已经开发完成的模块移动到 `template` 目录

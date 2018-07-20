@@ -182,7 +182,7 @@ let webpackConfig = {
             include: paths.appSrc,
             use: [
               {
-                loader: equire.resolve('babel-loader'),
+                loader: require.resolve('babel-loader'),
                 options: {
                   compact: true,
                 },

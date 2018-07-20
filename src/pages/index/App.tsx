@@ -1,7 +1,6 @@
 import React from 'react';
 import { DingTalk } from '@/common/dingtalk';
 import loading from '@/assets/img/load.gif';
-import sifuoDUQdAFKAVcFGROC from '@/assets/img/sifuoDUQdAFKAVcFGROC.svg';
 import YdyTabBar, { YdyTabBarItem } from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";
 import { Accordion, List, Grid } from 'antd-mobile';
@@ -98,35 +97,15 @@ class Api extends React.Component {
   render() {
     return (
       <div style={{ marginTop: 10, marginBottom: 10 }}>
+      <div className="sub-title">接口 </div>
         <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange.bind(this)}>
           <Accordion.Panel header="开放接口">
             <List className="my-list">
               <List.Item onClick={this.onClick.bind(this, 'PayUtils', '')}>支付接口</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'UserInfo')}>获取用户信息</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'requestAuthCode')}>获取微应用免登授权码</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'requestOperateAuthCode')}>获取微应用反馈式操作的临时授权码</List.Item>
+              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', '')}>获取信息</List.Item>
             </List>
           </Accordion.Panel>
-          <Accordion.Panel header="导航栏">
-            <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'Navigation', '')}>导航</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetTitle', '')}>设置界面标题</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetIcon', '')}>标题栏添加问号Icon</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'SetMenu', '')}>设置导航栏按钮</List.Item>
-            </List>
-          </Accordion.Panel>
-          <Accordion.Panel header="设备">
-            <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'getPhoneInfo')}>获取手机基础信息</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'getUUID')}>获取通用唯一识别码</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'getInterface')}>获取热点接入信息</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'getWifiStatus')}>获取Wifi状态</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'getNetworkType')}>获取当前网络类型</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'nfcRead')}>读取NFC芯片内容</List.Item>
-              <List.Item onClick={this.onClick.bind(this, 'ViewUtils', 'nfcWrite')}>写NFC芯片</List.Item>
-            </List>
-          </Accordion.Panel>
-          <Accordion.Panel header="界面">
+          {/* <Accordion.Panel header="界面">
             <List className="my-list">
               <List.Item onClick={this.onClick.bind(this, 'UIUtils', '')}>界面</List.Item>
             </List>
@@ -140,7 +119,7 @@ class Api extends React.Component {
             <List className="my-list">
               <List.Item onClick={this.onClick.bind(this, 'MediaUtils', '')}>媒体</List.Item>
             </List>
-          </Accordion.Panel>
+          </Accordion.Panel> */}
           <Accordion.Panel header="地图">
             <List className="my-list">
               <List.Item onClick={this.onClick.bind(this, 'MapUtils', '')}>地图</List.Item>
@@ -163,8 +142,6 @@ class Common extends React.Component<any, { throw: boolean, code: string }> {
     this.state = { throw: false, code: '' };
   }
   onClick (el, index) {
-    new Array(-1);
-    // DingTalk.open(el.url);
     this.setState({
       throw: true,
       code: el.params
@@ -185,14 +162,35 @@ class Common extends React.Component<any, { throw: boolean, code: string }> {
       <YdyScrollView>
         <div className="sub-title">Result </div>
         <Grid data={dataResult} onClick={this.onClick.bind(this)}/>
+        <div className="sub-title">Error </div>
+        <Grid data={[ { icon, text: '报错' } ]} onClick={() => { new Array(-1); }}/>
       </YdyScrollView>
     );
   }
 }
 
 class Me extends React.Component {
+  onClick (el, index) {
+    DingTalk.open(el.url);
+  }
+  onDevClick (el, index) {
+    DingTalk.openLink(el.url);
+  }
   render () {
-    return (<YdyScrollView style={{ backgroundColor: 'white' }}> 我的</YdyScrollView>);
+    const apps = [
+      { icon, text: '合同管理', url: 'ContractManagement' },
+    ]
+    const devApps = [
+      { icon, text: 'AntDevDemo', url: 'http://192.168.0.128:3000/index.html?corpid=dingc86162eab28e8abc35c2f4657eb6378f&dd_nav_bgcolor=F00094ff' },
+    ]
+    return (
+      <YdyScrollView>
+        <div className="sub-title">应用 </div>
+        <Grid data={apps} onClick={this.onClick.bind(this)}/>
+        <div className="sub-title">应用调试 </div>
+        <Grid data={devApps} onClick={this.onDevClick.bind(this)}/>
+      </YdyScrollView>
+    );
   }
 }
 
@@ -227,8 +225,8 @@ class App extends React.Component<{}, AppStateTypes> {
         badge: 1,
         dot: false,
         renderContent: <Components />,
-        icon: sifuoDUQdAFKAVcFGROC,
-        selectedIcon: 'https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg'
+        icon: require("@/assets/img/components.svg"),
+        selectedIcon: require("@/assets/img/components_HL.svg")
       },
       {
         id: 'api',
@@ -238,8 +236,19 @@ class App extends React.Component<{}, AppStateTypes> {
         badge: 'new',
         dot: false,
         renderContent: <Api />,
-        icon: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg',
-        selectedIcon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg'
+        icon: require("@/assets/img/api.svg"),
+        selectedIcon: require("@/assets/img/api_HL.svg")
+      },
+      {
+        id: 'appstore',
+        name: '应用',
+        size: '22px',
+        selectedTab: 'yellowTab',
+        badge: '',
+        dot: false,
+        renderContent: <Me />,
+        icon: require("@/assets/img/appstore.svg"),
+        selectedIcon: require("@/assets/img/appstore_HL.svg")
       },
       {
         id: 'common',
@@ -249,26 +258,15 @@ class App extends React.Component<{}, AppStateTypes> {
         badge: '',
         dot: true,
         renderContent: <Common />,
-        icon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg',
-        selectedIcon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg'
-      },
-      {
-        id: 'me',
-        name: '我的',
-        size: '22px',
-        selectedTab: 'yellowTab',
-        badge: '',
-        dot: false,
-        renderContent: <Me />,
-        icon: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg',
-        selectedIcon: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg'
+        icon: require("@/assets/img/compass.svg"),
+        selectedIcon: require("@/assets/img/compass_HL.svg")
       }
     ];
     return (
       <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px', textAlign: 'center' }}>
       <YdyScrollView style={{ backgroundColor: 'white' }}>
       {
-        this.state.load ? <YdyTabBar tabBarItems={tabBarItems} selectedTab="blueTab"/> : LoadView
+        this.state.load ? <YdyTabBar tabBarItems={tabBarItems} selectedTab="yellowTab"/> : LoadView
       }
       </YdyScrollView>
       </div>
