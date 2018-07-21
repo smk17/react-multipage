@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './index.less';
-import App from './App';
+import App from '@/pages/index/Components/Gesture/PullToRefresh/App';
 import YdyScrollView from "@/components/YdyScrollView";
 import registerServiceWorker from '@/registerServiceWorker';
 

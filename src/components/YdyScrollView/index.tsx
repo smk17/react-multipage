@@ -39,7 +39,7 @@ class YdyScrollView extends React.Component<YdyScrollViewPropTypes, YdyScrollVie
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return <YdyFallbackView code={this.state.code} onClick={() => {
-        this.setState({ hasError: false, code: '' });
+        window.history.back()
       }} />;
     }
     return (

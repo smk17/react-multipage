@@ -45,7 +45,7 @@ class App extends React.Component<any, ViewUtilsStateTypes> {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>
+      <YdyScrollView>
         <WingBlank>
           <Button type="primary" onClick={this.onClick.bind(this, 'requestAuthCode')}>获取微应用免登授权码</Button><WhiteSpace />
           <Button type="primary" onClick={this.onClick.bind(this, 'getPhoneInfo')}>获取手机基础信息</Button><WhiteSpace />

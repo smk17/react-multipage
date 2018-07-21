@@ -45,11 +45,14 @@ class YdyFallbackView extends React.Component<{code: string, onClick?: Function}
     return (
       <div className="YdyFallbackView">
         <Result img={img} title={title} message={message} /><WhiteSpace />
-        <Button inline onClick={
-          () => {
-            this.props.onClick && this.props.onClick()
-          }
-        }>返回</Button><WhiteSpace />
+        <div className="back-btn">
+          <Button inline onClick={
+            () => {
+              this.props.onClick && this.props.onClick()
+            }
+          }>返回</Button>
+        </div>
+        <WhiteSpace />
       </div>
     );
   }

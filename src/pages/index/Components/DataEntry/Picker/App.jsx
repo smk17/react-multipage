@@ -6,7 +6,7 @@ import './App.less';
 import { Picker, List, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import arrayTreeFilter from 'array-tree-filter';
-import district from './district';
+import district from '@/pages/index/Components/DataEntry/Picker/district';
 
 const provinceLite = [{"value":"bj","label":"北京市"},{"value":"zj","label":"浙江省"},{"value":"gd","label":"广东省"},{"value":"hn","label":"海南省"},{"value":"cq","label":"重庆市"},{"value":"sc","label":"四川省"}]
 
@@ -244,7 +244,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>
+      <YdyScrollView>
         <TestWrapper />
       </YdyScrollView>
     );

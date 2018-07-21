@@ -32,7 +32,7 @@ class YdyTabBarExample extends React.Component {
         selectedTab: 'blueTab', // 选中时对应的唯一标识
         badge: 1, // 徽标数
         dot: false, // 是否在右上角显示小红点（在设置badge的情况下失效）
-        renderContent: <YdyScrollView style={{ backgroundColor: 'white' }}>blueTab</YdyScrollView>, // 对应的页面
+        renderContent: <YdyScrollView>blueTab</YdyScrollView>, // 对应的页面
         icon: 'https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg', // 默认展示图片
         selectedIcon: 'https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg' // 选中后的展示图片
       },
@@ -43,7 +43,7 @@ class YdyTabBarExample extends React.Component {
         selectedTab: 'redTab',
         badge: 'new',
         dot: false,
-        renderContent: <YdyScrollView style={{ backgroundColor: 'white' }}>redTab</YdyScrollView>,
+        renderContent: <YdyScrollView>redTab</YdyScrollView>,
         icon: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg',
         selectedIcon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg'
       },
@@ -54,7 +54,7 @@ class YdyTabBarExample extends React.Component {
         selectedTab: 'greenTab',
         badge: '',
         dot: true,
-        renderContent: <YdyScrollView style={{ backgroundColor: 'white' }}>greenTab</YdyScrollView>,
+        renderContent: <YdyScrollView>greenTab</YdyScrollView>,
         icon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg',
         selectedIcon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg'
       },
@@ -65,7 +65,7 @@ class YdyTabBarExample extends React.Component {
         selectedTab: 'yellowTab',
         badge: '',
         dot: false,
-        renderContent: <YdyScrollView style={{ backgroundColor: 'white' }}>yellowTab</YdyScrollView>,
+        renderContent: <YdyScrollView>yellowTab</YdyScrollView>,
         icon: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg',
         selectedIcon: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg'
       }

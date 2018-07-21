@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from '@/pages/index/Components/DataEntry/Picker/App';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

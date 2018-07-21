@@ -64,7 +64,7 @@ class App extends React.Component<any, DataUtilsStateTypes> {
         <WingBlank>
           <Button type="primary" onClick={() => DingTalk.setStorageItem({ name: key, value: value })}>存储数据</Button><WhiteSpace />
           <Button onClick={this.setTimeItem.bind(this)}>定时存储数据</Button><WhiteSpace />
-          <Button onClick={() => DingTalk.getStorageItem(key).then(res => window.alert(JSON.stringify(res)))}>读取数据</Button><WhiteSpace />
+          <Button onClick={() => DingTalk.getStorageItem(key).then(res => DingTalk.alert(JSON.stringify(res)))}>读取数据</Button><WhiteSpace />
           <Button type="warning" onClick={() => DingTalk.removeStorageItem(key)}>清理数据</Button><WhiteSpace />
         </WingBlank>
       </YdyScrollView>

@@ -147,7 +147,7 @@ class Test extends React.Component {
         console.log(this.props.form.getFieldsValue());
       } else {
         console.log(error);
-        alert('Validation failed');
+        DingTalk.alert('Validation failed');
       }
     });
   }

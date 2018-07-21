@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import utils from "./utils";
+import utils from "@/common/BetterJs/utils";
 
 export default class BetterJs {
   static init (options) {

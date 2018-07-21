@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './index.less';
 import App from './App';
-import { Service } from "@/common/core";
+import { Service } from "@/common/Service";
 import BetterJs from "@/common/BetterJs";
 import YdyScrollView from "@/components/YdyScrollView";
 import registerServiceWorker from '@/registerServiceWorker';

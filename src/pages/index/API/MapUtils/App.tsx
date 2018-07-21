@@ -95,7 +95,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
 
   statusGeoLocation () {
     DingTalk.statusGeolocation(['startGeoLocation']).then(result => {
-      alert(JSON.stringify(result));
+      DingTalk.alert(JSON.stringify(result));
     })
   }
 
@@ -122,7 +122,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
       window.dd.util.domainStorage.getItem({
         name: 'startGeoLocation', // 存储信息的key值
         onSuccess : (info) => {
-          alert(JSON.stringify(info));
+          DingTalk.alert(JSON.stringify(info));
           const geolocation = JSON.parse(info.value)
           this.setState({
             longitude: geolocation[0].longitude,
@@ -131,7 +131,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
           })
         },
         onFail : function(err) {
-          alert(JSON.stringify(err));
+          DingTalk.alert(JSON.stringify(err));
         }
       });
     } else {
@@ -144,10 +144,10 @@ class App extends React.Component<any, MapUtilsStateTypes> {
       window.dd.util.domainStorage.removeItem({
         name: 'startGeoLocation' , // 存储信息的key值
         onSuccess : function(info) {
-          alert(JSON.stringify(info));
+          DingTalk.alert(JSON.stringify(info));
         },
         onFail : function(err) {
-          alert(JSON.stringify(err));
+          DingTalk.alert(JSON.stringify(err));
         }
       });
     } else {

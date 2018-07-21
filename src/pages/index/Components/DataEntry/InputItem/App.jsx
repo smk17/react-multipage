@@ -297,7 +297,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>
+      <YdyScrollView>
         <H5NumberInputExampleWrapper />
         <BasicInputExampleWrapper />
         <ErrorInputExample />

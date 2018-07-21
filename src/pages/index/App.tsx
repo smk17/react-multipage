@@ -50,9 +50,9 @@ class Components extends React.Component {
       { icon, text: 'ListView 下拉刷新', url: 'PullToRefreshListView' },
       { icon, text: 'SwipeAction 滑动操作', url: 'SwipeAction' },
     ]
-    // const dataCombination = [
-    //   { icon, text: 'blank', url: 'blank' },
-    // ]
+    const dataCombination = [
+      { icon, text: '自定义容器长列表', url: 'CustomizeListView' },
+    ]
     // const dataOther = [
     //   { icon, text: 'blank', url: 'blank' },
     // ]
@@ -76,10 +76,10 @@ class Components extends React.Component {
         <div className="sub-title">Gesture </div>
         <Grid data={dataGesture} onClick={this.onClick.bind(this)}/>
 
-        {/* <div className="sub-title">Combination </div>
+        <div className="sub-title">Combination </div>
         <Grid data={dataCombination} onClick={this.onClick.bind(this)}/>
 
-        <div className="sub-title">Other </div>
+        {/* <div className="sub-title">Other </div>
         <Grid data={dataOther} onClick={this.onClick.bind(this)}/> */}
       </YdyScrollView>
       
@@ -101,7 +101,7 @@ class Api extends React.Component {
         <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange.bind(this)}>
           <Accordion.Panel header="开放接口">
             <List className="my-list">
-              <List.Item onClick={this.onClick.bind(this, 'PayUtils', '')}>支付接口</List.Item>
+              {/* <List.Item onClick={this.onClick.bind(this, 'PayUtils', '')}>支付接口</List.Item> */}
               <List.Item onClick={this.onClick.bind(this, 'ViewUtils', '')}>获取信息</List.Item>
             </List>
           </Accordion.Panel>
@@ -178,7 +178,7 @@ class Me extends React.Component {
   }
   render () {
     const apps = [
-      { icon, text: '合同管理', url: 'ContractManagement' },
+      { icon, text: '合同管理', url: 'ContractPayback' },
     ]
     const devApps = [
       { icon, text: 'AntDevDemo', url: 'http://192.168.0.128:3000/index.html?corpid=dingc86162eab28e8abc35c2f4657eb6378f&dd_nav_bgcolor=F00094ff' },
@@ -264,7 +264,7 @@ class App extends React.Component<{}, AppStateTypes> {
     ];
     return (
       <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px', textAlign: 'center' }}>
-      <YdyScrollView style={{ backgroundColor: 'white' }}>
+      <YdyScrollView>
       {
         this.state.load ? <YdyTabBar tabBarItems={tabBarItems} selectedTab="yellowTab"/> : LoadView
       }

@@ -24,7 +24,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>新的页面从这里开始吧！</YdyScrollView>
+      <YdyScrollView>新的页面从这里开始吧！</YdyScrollView>
     );
   }
   

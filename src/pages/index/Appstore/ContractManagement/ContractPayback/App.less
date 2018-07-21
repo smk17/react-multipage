@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(245, 245, 249, 1);
+  &-loading{
+    margin-top: 200px;
+    width: 50%;
+  }
+  &-plus{
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    .ydy-icon-lg{
+      font-size: 48px !important;
+    }
+  }
+  .am-list-header{
+    padding: 0;
+  }
+  // &-list{
+  //   .am-list-line{
+  //     border-top: 1px solid #ddd;
+  //   }
+  // }
+}
+
+.report{
+  font-size: 16px;
+  background-color: #ffffff; 
+
+  &-all{
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-total{
+    width: 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction:column;
+  }
+
+  &-right{
+    align-items: flex-end;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ddd;
+    border-top: 0px; 
+    border-bottom: 0px;
+    border-right: 0px;
+  }
+}
+
+.info{
+  font-size: 16px;
+  background-color: #ffffff;
+  &-border{
+    border-top: 1px solid #ddd ;
+  }
+  
+  &-all{
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  &-left{
+    font-size: 15px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction:column;
+    color: red;
+    flex: 1;
+  }
+  
+  &-right{
+    display: flex;
+    align-items: flex-start;
+    flex-direction:column;
+    flex: 6;
+  }
+  
+  &-right-top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction:column;
+  }
+  
+  &-right-bottom{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction:column;
+  }
+  
+  &-font{
+    font-size: 14px;
+    color: #999;
+  }
+}

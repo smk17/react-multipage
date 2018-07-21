@@ -89,7 +89,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}><Demo /></YdyScrollView>
+      <YdyScrollView><Demo /></YdyScrollView>
     );
   }
   

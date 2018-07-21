@@ -1,6 +1,7 @@
 import axios from 'axios';
-import jsApiList from './jsApiList';
-import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams } from './statement';
+import jsApiList from '@/common/dingtalk/jsApiList';
+import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult, AlertParams } from '@/common/dingtalk/statement';
+import { DateHelper } from '@/common/Utils';
 
 export class DingTalk {
   /**
@@ -242,6 +243,40 @@ export class DingTalk {
    */
   static viewMap (params: ViewMapParams) {
     return DingTalk.execute<{}>('biz.map.view', params);
+  }
+
+  /**
+   * 下拉控件
+   * @param params 测试
+   */
+  static chosenPicker (params: PickerParams) {
+    return DingTalk.execute<PickerResult>('biz.util.chosen', params);
+  }
+
+  /**
+   * 日期选择器
+   * 注意：format只支持android系统规范，即2015-03-31格式为yyyy-MM-dd
+   * @param value 默认显示日期 
+   * @param format format只支持android系统规范，即2015-03-31格式为yyyy-MM-dd 
+   */
+  static chosenDatePicker (value: string = DateHelper.format(new Date()), format = 'yyyy-MM-dd') {
+    interface Result {
+      /** 返回选择的日期 */
+      value: string
+    }
+    return DingTalk.execute<Result>('biz.util.datepicker', { value, format });
+  }
+
+  /**
+   * 
+   * @param message 消息内容
+   * @param title 弹窗标题
+   * @param buttonName 按钮名称
+   */
+  static alert (message: string, title: string = '提示', buttonName: string = '好的') {
+    return DingTalk.execute<{}>('device.notification.alert', { message, title, buttonName }, () => {
+      console.log(JSON.stringify(message))
+    });
   }
 
   /**

@@ -5,6 +5,34 @@ export interface StorageSetParams {
   value: string
 }
 
+export interface PickerResult {
+  /** 返回选择的文本 */
+  key: string,
+  /** 返回选择的值 */
+  value: string
+}
+
+export interface PickerParams {
+  source: PickerResult[],
+  selectedKey: string
+}
+
+export interface AlertParams {
+  /** 消息内容 */
+  message: string
+  /** 弹窗标题 */
+  title?: string
+  /** 按钮名称 */
+  buttonName?: string
+}
+
+export interface DatePickerParams {
+  /** format只支持android系统规范，即2015-03-31格式为yyyy-MM-dd */
+  format: string
+  /** 默认显示日期 */
+  value: string
+}
+
 export interface LocateMapParams {
   /** 非必须字段，需要和longitude组合成合法经纬度，高德坐标 */
   latitude?: number,

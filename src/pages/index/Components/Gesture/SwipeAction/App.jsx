@@ -26,7 +26,7 @@ class App extends React.Component {
   
   renderContent () {
     return (
-      <YdyScrollView style={{ backgroundColor: 'white' }}>
+      <YdyScrollView>
       <List>
         <SwipeAction
           style={{ backgroundColor: 'gray' }}
