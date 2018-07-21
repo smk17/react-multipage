@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import loading from '@/assets/img/load.gif';
 import YdyScrollView from "@/components/YdyScrollView";
 import { Icon, List, WingBlank, WhiteSpace, Badge, ListView, PullToRefresh, SwipeAction } from 'antd-mobile';

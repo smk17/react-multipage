@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Marker, Polyline } from 'react-amap';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import { Button, WhiteSpace, WingBlank } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';

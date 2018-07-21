@@ -1,6 +1,6 @@
 import axios from 'axios';
-import jsApiList from '@/common/dingtalk/jsApiList';
-import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult, AlertParams } from '@/common/dingtalk/statement';
+import jsApiList from '@/common/DingTalk/jsApiList';
+import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult, AlertParams } from '@/common/DingTalk/statement';
 import { DateHelper } from '@/common/Utils';
 
 export class DingTalk {

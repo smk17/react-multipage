@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import loading from '@/assets/img/load.gif';
 import YdyTabBar, { YdyTabBarItem } from '@/components/YdyTabBar';
 import YdyScrollView from "@/components/YdyScrollView";

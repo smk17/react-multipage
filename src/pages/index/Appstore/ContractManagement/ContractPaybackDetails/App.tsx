@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import { createForm, formShape } from 'rc-form';
 import YdyScrollView from "@/components/YdyScrollView";
 import { List, WingBlank, WhiteSpace, Badge, Button, TextareaItem } from 'antd-mobile';

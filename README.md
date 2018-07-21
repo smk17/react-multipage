@@ -61,7 +61,7 @@ Service.executeService(...);
 #### 引用
 
 ~~~ js
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 
 DingTalk.init();
 ~~~

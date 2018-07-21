@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImagePicker } from 'antd-mobile';
 import './index.less';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 
 export interface YdyImagePickerPropTypes {
   files?: Array<{}>, // 图片文件数组,元素为对象

@@ -1,6 +1,6 @@
 import React from 'react';
 import YdyScrollView from "@/components/YdyScrollView";
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import loading from '@/assets/img/load.gif';
 import './App.less';
 import { List, Checkbox, Flex } from 'antd-mobile';

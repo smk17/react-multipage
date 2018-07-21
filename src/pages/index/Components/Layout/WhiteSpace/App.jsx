@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import { WhiteSpace } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';

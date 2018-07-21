@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import { List, Switch, Calendar } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import enUS from 'antd-mobile/lib/calendar/locale/en_US';

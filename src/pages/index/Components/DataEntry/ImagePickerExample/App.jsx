@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import YdyImagePicker from "@/components/YdyImagePicker";
 import { WingBlank, SegmentedControl } from 'antd-mobile';
 import loading from '@/assets/img/load.gif';

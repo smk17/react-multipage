@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabBar } from 'antd-mobile';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import './index.less';
 
 export interface YdyTabBarItem {

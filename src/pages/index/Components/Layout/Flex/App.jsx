@@ -1,5 +1,5 @@
 import React from 'react';
-import { DingTalk } from '@/common/dingtalk';
+import { DingTalk } from '@/common/DingTalk';
 import { Flex, WhiteSpace } from 'antd-mobile';
 import loading from '@/assets/img/load.gif';
 import './App.less';
