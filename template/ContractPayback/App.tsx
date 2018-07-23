@@ -1,12 +1,14 @@
+import './App.less';
 import React from 'react';
 import ReactDOM from "react-dom";
 import { DingTalk } from '@/common/DingTalk';
 import loading from '@/assets/img/load.gif';
 import YdyScrollView from "@/components/YdyScrollView";
-import { Icon, List, WingBlank, WhiteSpace, Badge, ListView, PullToRefresh, SwipeAction } from 'antd-mobile';
-import { Service } from '@/common/Service';
-import './App.less';
+import { List, WingBlank, WhiteSpace, Badge, ListView, PullToRefresh, SwipeAction } from 'antd-mobile';
 import YdyIcon from '@/components/YdyIcon';
+import ContractService from '../ContractService';
+import { ContractPaybackInfo } from '../statement';
+import { PickerResult } from '@/common/DingTalk/statement';
 
 interface ContractPaybackStateTypes extends AppStateTypes {
   showHeader: boolean,
@@ -16,47 +18,25 @@ interface ContractPaybackStateTypes extends AppStateTypes {
   refreshing: boolean,
   /** 数据源 */
   dataSource: any,
-  begindate: string,
-  enddate: string,
+  beginDate: string,
+  endDate: string,
   user: string,
-}
-interface DateListTypes {
-  id: number;
-  title: string;
-  icon: string;
-  days: number;
-  companyname: string;
-  moeny: number;
-  typename: string;
-}
-let dateList: DateListTypes[] = [
-  {
-    id: 0,
-    title:'测试标题',
-    icon:'',
-    days:176,
-    companyname:'测试公司',
-    moeny:899088089,
-    typename:'付款条件达到一致',
-  }
-]
-for (let index = 1; index < 10; index++) {
-  dateList.push(
-    {
-      id: index,
-      title:'测试标题' + index,
-      icon:'',
-      days:17 * index,
-      companyname:'测试公司' + index,
-      moeny:88089 * index,
-      typename:'付款条件达到一致',
-    }
-  )
+  /** 超过60天账龄款项数 */
+  total: number,
+  /** 本期应收未收金额 */
+  uncollected: number
 }
 
 class App extends React.Component<any, ContractPaybackStateTypes> {
-  _lv: ListView | null = null
-  _data: DateListTypes[] = [];
+  /** 列表实例 */
+  private _lv: ListView | null = null
+  /** 列表数据源 */
+  private _data: ContractPaybackInfo[] = [];
+  /** 责任人Id */
+  private _userId: string = ''
+  private _pageIndex: number = 0
+  private _hasMore: boolean = true
+
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -68,9 +48,11 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
       width: window.innerWidth,
       height: window.innerHeight,
       dataSource,
-      begindate: '',
-      enddate: '',
+      beginDate: '',
+      endDate: '',
       user:'全部',
+      total: 0,
+      uncollected: 0
     };
   }
 
@@ -79,59 +61,56 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
       this.setState({
         load: true,
       });
-      this._data = this._data.concat(dateList);
       DingTalk.setTitle('合同回款')
+      this.initList()
+    })
+  }
+
+  async initList (pageIndex: number = 0) {
+    const { beginDate, endDate } = this.state;
+    await ContractService.getContractList({
+      beginDate,
+      endDate,
+      userId: this._userId,
+      pageIndex: pageIndex
+    })
+    .then(res => {
+      this._pageIndex = pageIndex
+      if (pageIndex === 0) {
+        this._data = []
+        this._hasMore = true
+      }
+      if (res.list.length === 0) {
+        this._hasMore = false
+        // return;
+      }
+      this._data = this._data.concat(res.list);
       this.setState({
+        load: true,
         dataSource: this.state.dataSource.cloneWithRows(this._data),
         refreshing: false,
         isLoading: false,
+        total: res.total,
+        uncollected: res.uncollected
       });
-    })
-    // this.getUserList();
-  }
-
-  getUserList = () =>{
-    Service.executeService({
-      name: '/service/controller/execute?_ajax=1',
-      params: {
-        id: 'getData',
-        pageAddress: {"pageMode":0,"pageId":"Preview","moduleId":"Main","systemId":"IndexBuilder"},
-      }
-    }).then(result => {
-      window.baseConfig.development && alert('getData : ' + JSON.stringify(result));
-    }).catch(err => {
-      window.baseConfig.development && alert('getData err: ' + JSON.stringify(err));
+      return;
     })
   }
 
   /** 下拉刷新 */
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });
-    // simulate initial Ajax
-    setTimeout(() => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(dateList),
-        refreshing: false,
-        isLoading: false,
-      });
-    }, 600);
+    this.initList();
   };
 
   /** 上拉加载更多 */
   onEndReached(event) {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading) {
+    if (this.state.isLoading && !this._hasMore) {
       return;
     }
     this.setState({ isLoading: true });
-    setTimeout(() => {
-      this._data = this._data.concat(dateList);
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this._data),
-        isLoading: false
-      });
-    }, 2000);
+    this._pageIndex++
+    this.initList(this._pageIndex);
   }
 
   onScroll = (event) => {
@@ -150,21 +129,34 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
   }
 
   renderHeader (position = false) {
-    const { begindate, enddate, user } = this.state;
+    const { beginDate, endDate, user, total, uncollected } = this.state;
     const chosenDate = (date: string, key: string) => {
       let state: any = {}
       DingTalk.chosenDatePicker(date).then(res => {
         state[key] = res.value
         this.setState(state)
+        this.initList()
       })
     }
     const chosenUser = () => {
-      DingTalk.chosenPicker({
-        source: [ { key: '全部', value: '全部' }, { key: '张三', value: '张三' }, { key: '李四', value: '李四' } ],
-        selectedKey: this.state.user
-      }).then(res => {
-        this.setState({
-          user: res.key
+      ContractService.getPrincipalList().then(res => {
+        let userList: PickerResult[] = [{ key: '全部', value: '' }]
+        for (let index = 0; index < res.length; index++) {
+          const element = res[index];
+          userList.push({
+            key: element.username,
+            value: element.id
+          })
+        }
+        DingTalk.chosenPicker({
+          source: userList,
+          selectedKey: this.state.user
+        }).then(res => {
+          this._userId = res.value
+          this.setState({
+            user: res.key
+          })
+          this.initList()
         })
       })
     }
@@ -178,8 +170,8 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
     return (
       <YdyScrollView style={ position ? style : {} }>
         <List className="App-list">
-          <List.Item arrow="horizontal" extra={begindate || '请选择'} onClick={ () => chosenDate(begindate, 'begindate') }>应收日期</List.Item>
-          <List.Item arrow="horizontal" extra={enddate || '请选择'}  onClick={ () => chosenDate(enddate, 'enddate') }> </List.Item>
+          <List.Item arrow="horizontal" extra={beginDate || '请选择'} onClick={ () => chosenDate(beginDate, 'beginDate') }>应收日期</List.Item>
+          <List.Item arrow="horizontal" extra={endDate || '请选择'}  onClick={ () => chosenDate(endDate, 'endDate') }> </List.Item>
           <List.Item arrow="horizontal" extra={user || '请选择'}  onClick={chosenUser}>负责人</List.Item>
         </List>
         <WhiteSpace size="lg" />
@@ -189,12 +181,12 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
               <div className="report-total">
                 <div className="info-font">超过60天账龄款项数</div>
                 <WhiteSpace size="sm" />
-                <div>30 个</div>
+                <div>{total} 个</div>
               </div>
               <div className="report-total report-right">
                 <div className="info-font">本期应收未收金额</div>
                 <WhiteSpace size="sm" />
-                <div>10,000,000.00 元</div>
+                <div>{uncollected} 元</div>
               </div>
             </div>
           </WingBlank>
@@ -206,7 +198,7 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
   
   render() {
     const { showHeader } = this.state;
-    const ListRow = (rowData: DateListTypes, sectionID, rowID, highlightRow) => {
+    const ListRow = (rowData: ContractPaybackInfo, sectionID, rowID, highlightRow) => {
       return (
         <SwipeAction key={rowID} style={{ backgroundColor: 'gray' }} autoClose
         right={[
@@ -240,16 +232,16 @@ class App extends React.Component<any, ContractPaybackStateTypes> {
                   color: 'red',
                   border: '2px solid red',
                 }}></Badge>
-                <WhiteSpace size="xs" />{rowData.days}天</div>
+                <WhiteSpace size="xs" />{rowData.agingday}天</div>
                 <div className="info-right">
-                  <div className="info-right-top">{rowData.title}</div>
+                  <div className="info-right-top">{rowData.customname}</div>
                   <WhiteSpace size="sm" />
                   <div className="info-right-bottom info-font">
-                    <div>业主单位：{rowData.companyname}</div>
+                    <div>款项名称 ：{rowData.moneytypename}</div>
                     <WhiteSpace size="xs" />
-                    <div>欠款金额：{rowData.moeny}</div>
+                    <div>应收未收金额 ：{rowData.uncollected}</div>
                     <WhiteSpace size="xs" />
-                    <div>回款进度：{rowData.typename}</div>
+                    <div>付款条件 ：{rowData.accordancename}</div>
                     <WhiteSpace size="xs" />
                   </div>
                 </div>

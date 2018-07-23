@@ -7,7 +7,7 @@ export default class BetterJs {
         jsError: true,
         resourceError: true,
         ajaxError: true,
-        consoleError: true, // console.error默认不处理
+        consoleError: true,
         scriptError: false, // 跨域js错误，默认不处理，因为没有任何信息
         autoReport: true,
         filters: [], // 过滤器，命中的不上报

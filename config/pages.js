@@ -47,4 +47,5 @@ const getPages = (() => {
 //   const element = getPages[key];
 //   console.log(element);
 // }
+// console.log(getPages);
 module.exports = getPages;

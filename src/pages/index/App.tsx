@@ -178,7 +178,7 @@ class Me extends React.Component {
   }
   render () {
     const apps = [
-      { icon, text: '合同管理', url: 'ContractPayback' },
+      { icon, text: '合同管理', url: 'Contract' },
     ]
     const devApps = [
       { icon, text: 'AntDevDemo', url: 'http://192.168.0.128:3000/index.html?corpid=dingc86162eab28e8abc35c2f4657eb6378f&dd_nav_bgcolor=F00094ff' },

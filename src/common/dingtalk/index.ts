@@ -1,30 +1,49 @@
-import axios from 'axios';
 import jsApiList from '@/common/DingTalk/jsApiList';
-import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult, AlertParams } from '@/common/DingTalk/statement';
+import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult } from '@/common/DingTalk/statement';
 import { DateHelper } from '@/common/Utils';
+import HttpService from '@/common/HttpService';
 
 export class DingTalk {
+  static corpId = ''
   /**
    * 初始化钉钉容器，配置jsApiList方可有权限使用其中的API
    * @param onSuccess 成功回调函数
    */
-  static init () {
+  static async init () {
+    if (!(window.dd.version === null) && window.location.search.length > 0 ) {
+      await DingTalk.config()
+      await DingTalk.login()
+      return;
+    } else {
+      return;
+    }
+  }
+
+  /**
+   * JSAPI权限验证配置
+   * 需要鉴权的JSAPI必须进行dd.config验证后才能调用
+   */
+  static config () {
     return new Promise<{}>((resolve, rejct) => {
       try {
         if (!(window.dd.version === null) && window.location.search.length > 0 ) {
           let corpid =  window.location.search;
           corpid = corpid.substring(1).split('&', 1)[0];
           corpid = corpid.split('=')[1];
-          let url = 'http://dd.smk17.cn/getConfig.php?corpid=' + corpid;
-          url += '&url=' + encodeURIComponent(window.location.href.split('#')[0]);
-          axios.get(url).then(res => {
-            res.data['jsApiList'] = jsApiList
-            window.dd.config(res.data);
-            window.dd.error(error => {
-              rejct(error);
-              window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
-            });
-            resolve()
+          DingTalk.corpId = corpid;
+          HttpService.config2DingTalk(DingTalk.corpId).then(res => {
+            if (res) {
+              console.log(res);
+              res['jsApiList'] = jsApiList
+              window.dd.config(res);
+              window.dd.error(error => {
+                rejct(error);
+                window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
+              });
+              resolve()
+            }
+          }).catch(error => {
+            rejct(error);
           })
         } else {
           resolve()
@@ -33,6 +52,17 @@ export class DingTalk {
         rejct(error);
       }
     })
+  }
+
+  static login () {
+    return new Promise<{}>((resolve, rejct) => {
+      DingTalk.requestAuthCode().then(res => {
+        HttpService.login2DingTalk(DingTalk.corpId, res.code).then(res => {
+          resolve()
+        }).catch(err => rejct(err))
+      }).catch(err => rejct(err))
+    })
+    
   }
 
   /**
@@ -74,7 +104,7 @@ export class DingTalk {
             window.baseConfig.development &&  alert(api + 'err: ' + JSON.stringify(err));
             rejct(err)
           }
-          console.dir(params);
+          // console.dir(params)
           window.dd.ready(() => {
             DingTalk.getApi(api)(params);
           });
@@ -96,7 +126,7 @@ export class DingTalk {
       /** 授权码，5分钟有效，且只能使用一次 */
       code: string
     }
-    return DingTalk.execute<Result>('runtime.permission.requestAuthCode');
+    return DingTalk.execute<Result>('runtime.permission.requestAuthCode', { corpId: DingTalk.corpId });
   }
   
   /**
