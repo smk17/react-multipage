@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import moment from "moment"
 import { IServiceInfo } from "./statement";
+import { DingTalk } from '@/common/DingTalk';
 
 /**
 * 执行服务错误处理级别枚举
@@ -61,6 +62,45 @@ function _ajxResultPreprocessing(response) {
         throw error;
     }
 }
+export class Utility {
+  /**
+  * 异常处理.如果是"UserException"异常,则会直接弹出异常信息;否则会写入异常日志,并弹出"操作失败，请关闭重试！"
+  * @param ex 异常对象
+  */
+  static dispose(ex) {
+    if (!ex) { return; }
+    console.log('dispose: ' + JSON.stringify(ex));
+    switch (ex.name) {
+      case "PassException":
+        return;
+      case "BusinessException":
+        switch (ex.type) {
+          case "ReferencedDataException":
+            {
+              var datas = ex.referencedDatas;
+              if (datas.length > 5) {
+                datas[5] = "等";
+              }
+              DingTalk.alert("被使用的数据：" + datas.join("，"), ex.message)
+            }
+            break;
+          default:
+            DingTalk.alert(ex.message)
+            break;
+        }
+        break;
+      case "SystemException":
+      case "AuthorizationException":
+      case "ClientDisposeException":
+      case "OpenDBConnectionException":
+        DingTalk.alert(ex.message)
+        break;
+      default:
+        // Service.writeLog(ex);
+        break;
+    }
+  }
+}
 export class Service {
     /**
      * 写日志
@@ -100,7 +140,7 @@ export class Service {
             }
             catch (ex) {
               if (handlingErrorLevel >= ServiceErrorLevelEnum.fail) {
-                rejct(ex);
+                Utility.dispose(ex);
               } else {
                 rejct(ex);
               }
@@ -128,13 +168,11 @@ export class Service {
             if (ex) {
               if (ex.name === "BusinessException") {
                 if (handlingErrorLevel >= ServiceErrorLevelEnum.allError) {
-                  rejct(ex);
-                  return;
+                  Utility.dispose(ex);
                 }
               }
               else if (handlingErrorLevel >= ServiceErrorLevelEnum.allError) {
-                rejct(ex);
-                return;
+                Utility.dispose(ex);
               }
               rejct(ex);
             }
@@ -146,8 +184,7 @@ export class Service {
               return;
             }
             if (handlingErrorLevel >= ServiceErrorLevelEnum.fail) {
-              rejct(ex);
-              return;
+              Utility.dispose(ex);
             }
             rejct(ex);
         });

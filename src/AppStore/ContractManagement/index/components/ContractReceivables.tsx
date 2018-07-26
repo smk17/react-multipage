@@ -1,21 +1,21 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import { DingTalk } from '@/common/DingTalk';
 import YdyScrollView from "@/components/YdyScrollView";
-import { List, WingBlank, WhiteSpace, Badge, ListView, PullToRefresh, SwipeAction } from 'antd-mobile';
+import { List, WingBlank, WhiteSpace, Badge, SwipeAction } from 'antd-mobile';
 import ContractService from '../../ContractService';
 import { ContractReceivablesInfo } from '../../statement';
 import { PickerResult } from '@/common/DingTalk/statement';
+import YdyListView from '@/components/YdyListView';
 
 interface ContractReceivablesStateTypes extends AppStateTypes {
   showHeader: boolean,
   /** 数据加载是否完成 */
-  isLoading: boolean,
+  // isLoading: boolean,
   hasMore: boolean,
   /** 下拉刷新是否完成 */
-  refreshing: boolean,
+  // refreshing: boolean,
   /** 数据源 */
-  dataSource: any,
+  // dataSource: any,
   beginDate: string,
   endDate: string,
   user: string,
@@ -23,29 +23,23 @@ interface ContractReceivablesStateTypes extends AppStateTypes {
   total: number,
   /** 本期应收未收金额 */
   uncollected: number
+  /** 列表数据源 */
+  data: ContractReceivablesInfo[]
 }
 
 class ContractReceivables extends React.Component<any, ContractReceivablesStateTypes> {
-  /** 列表实例 */
-  private _lv: ListView | null = null
-  /** 列表数据源 */
-  private _data: ContractReceivablesInfo[] = [];
   /** 责任人Id */
   private _userId: string = ''
-  private _pageIndex: number = 0
 
   constructor(props) {
     super(props);
-    const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
+      data: [],
       load: false,
       showHeader: false,
       hasMore: true,
-      isLoading: true,
-      refreshing: false,
       width: window.innerWidth,
       height: window.innerHeight - 50,
-      dataSource,
       beginDate: '',
       endDate: '',
       user:'全部',
@@ -65,65 +59,32 @@ class ContractReceivables extends React.Component<any, ContractReceivablesStateT
 
   async initList (pageIndex: number = 0) {
     const { beginDate, endDate } = this.state;
-    await ContractService.getContractReceivablesList({
+    let result = await ContractService.getContractReceivablesList({
       beginDate,
       endDate,
       userId: this._userId,
       pageIndex: pageIndex
     })
-    .then(res => {
-      let hasMore = true;
-      this._pageIndex = pageIndex
-      if (pageIndex === 0) {
-        this._data = []
-        hasMore = true
-      }
-      if (res.list.length === 0) {
-        hasMore = false
-        // return;
-      }
-      this._data = this._data.concat(res.list);
-      this.setState({
-        hasMore,
-        load: true,
-        dataSource: this.state.dataSource.cloneWithRows(this._data),
-        refreshing: false,
-        isLoading: false,
-        total: res.total,
-        uncollected: res.uncollected
-      });
-      return;
-    })
-  }
-
-  /** 下拉刷新 */
-  onRefresh = () => {
-    this.setState({ refreshing: true, isLoading: true });
-    this.initList();
-  };
-
-  /** 上拉加载更多 */
-  onEndReached(event) {
-    if (this.state.isLoading && !this.state.hasMore) {
-      return;
+    let { data } = this.state;
+    let hasMore = true;
+    if (pageIndex === 0) {
+      data = []
+      hasMore = true
     }
-    this.setState({ isLoading: true });
-    this._pageIndex++
-    this.initList(this._pageIndex);
-  }
-
-  onScroll = (event) => {
-    if (this._lv) {
-      let lv: Element = ReactDOM.findDOMNode(this._lv) as Element;
-      if (lv.scrollTop > 20) {
-        this.setState({
-          showHeader: true
-        })
-      } else {
-        this.setState({
-          showHeader: false
-        })
-      }
+    if (result.list.length === 0) {
+      hasMore = false
+      // return;
+    }
+    data = data.concat(result.list);
+    this.setState({
+      data,
+      hasMore,
+      load: true,
+      total: result.total,
+      uncollected: result.uncollected
+    });
+    return {
+      pageIndex: pageIndex
     }
   }
 
@@ -196,7 +157,7 @@ class ContractReceivables extends React.Component<any, ContractReceivablesStateT
   }
   
   render() {
-    const { showHeader } = this.state;
+    const { showHeader, hasMore, height, data } = this.state;
     const ListRow = (rowData: ContractReceivablesInfo, sectionID, rowID, highlightRow) => {
       return (
         <SwipeAction key={rowID} style={{ backgroundColor: 'gray' }} autoClose
@@ -256,35 +217,21 @@ class ContractReceivables extends React.Component<any, ContractReceivablesStateT
     return (
       <div>
         {showHeader && this.renderHeader(true)}
-        <ListView ref={ el => this._lv = el }
-          dataSource={this.state.dataSource}
-          renderHeader={() => this.renderHeader()}
-          renderFooter={() => (<div style={{ padding: 10, textAlign: 'center' }}>
-            {this.state.isLoading ? '加载中...' : ( this.state.hasMore ? '加载完成' : '没有更多数据了' )}
-          </div>)}
-          renderRow={ListRow}
-          style={{
-            height: this.state.height,
-            overflow: 'auto',
-          }}
-          pageSize={4}
-          scrollRenderAheadDistance={500}
-          onScroll={this.onScroll}
-          pullToRefresh={
-            <PullToRefresh
-              indicator={{
-                // activate: <div>activate</div>,
-                // deactivate: <div>deactivate</div>,
-                release: <div>加载中...</div>,
-                // finish: <div>finish</div>,
-              }}
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh}
-            />
+        <YdyListView renderHeader={this.renderHeader()}  
+        initList={this.initList.bind(this)} data={data}
+        ListRow={ListRow} hasMore={hasMore} height={height} onScroll={
+          (lv: Element) => {
+            if (lv.scrollTop > 20) {
+              this.setState({
+                showHeader: true
+              })
+            } else {
+              this.setState({
+                showHeader: false
+              })
+            }
           }
-          onEndReached={this.onEndReached.bind(this)}
-          onEndReachedThreshold={10}
-        />
+        }/>
         {/* <div className="App-plus"><YdyIcon size="lg" type="plus-circle-fill" color="#29A1F7" /></div> */}
       </div>
     );

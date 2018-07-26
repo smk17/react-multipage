@@ -13,6 +13,7 @@ export class DingTalk {
     if (!(window.dd.version === null) && window.location.search.length > 0 ) {
       await DingTalk.config()
       await DingTalk.login()
+      window.dd.ui.webViewBounce.disable()
       return;
     } else {
       return;
@@ -33,7 +34,6 @@ export class DingTalk {
           DingTalk.corpId = corpid;
           HttpService.config2DingTalk(DingTalk.corpId).then(res => {
             if (res) {
-              console.log(res);
               res['jsApiList'] = jsApiList
               window.dd.config(res);
               window.dd.error(error => {
@@ -93,20 +93,23 @@ export class DingTalk {
    * @param params 参数
    * @param noDingTalk 在没有钉钉容器下要这些的操作
    */
-  private static execute<T>(api: string, params: any = {}, noDingTalk: () => void = () => {}) {
+  private static execute<T>(api: string, params: any = null, noDingTalk: () => void = () => {}) {
     return new Promise<T>((resolve, rejct) => {
       try {
         if (!(window.dd.version === null)) {
-          params.onSuccess = (result: T) => {
-            resolve(result)
-          }
-          params.onFail = err => {
-            window.baseConfig.development &&  alert(api + 'err: ' + JSON.stringify(err));
-            rejct(err)
-          }
-          // console.dir(params)
           window.dd.ready(() => {
-            DingTalk.getApi(api)(params);
+            if (params === null) {
+              DingTalk.getApi(api)();
+            } else {
+              params.onSuccess = (result: T) => {
+                resolve(result)
+              }
+              params.onFail = err => {
+                window.baseConfig.development &&  alert(api + 'err: ' + JSON.stringify(err));
+                rejct(err)
+              }
+              DingTalk.getApi(api)(params);
+            }
           });
         } else {
           noDingTalk()
@@ -305,7 +308,7 @@ export class DingTalk {
    */
   static alert (message: string, title: string = '提示', buttonName: string = '好的') {
     return DingTalk.execute<{}>('device.notification.alert', { message, title, buttonName }, () => {
-      console.log(JSON.stringify(message))
+      window.alert(JSON.stringify(message))
     });
   }
 

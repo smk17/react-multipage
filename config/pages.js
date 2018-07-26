@@ -9,8 +9,8 @@ const getPages = (() => {
     pages,  
     tempSet  
   ] = [  
-    ['src/pages/**/index.html', 'template'], // 入口模板正则  
-    ['src/pages/**/index.{tsx,jsx}', 'entry'], // 入口脚本正则  
+    ['src/AppStore/IndexCustomize/**/index.html', 'template'], // 入口模板正则  
+    ['src/AppStore/IndexCustomize/**/index.{tsx,jsx}', 'entry'], // 入口脚本正则  
     Object.create(null),  
     new Set()  
   ]  

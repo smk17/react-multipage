@@ -22,7 +22,7 @@ yarn start
   - assets 静态资源目录
   - [common 公共服务目录](#common)
   - [components 组件目录](#components)
-  - [pages](#pages) 页面目录
+  - [AppStore](#AppStore) app目录
   - typings 声明文件，这是为以后`Flow`或`TypeScript`预留的
 - [template 页面模板目录](/src/template/README.md)
 - public 公共资源目录
@@ -130,9 +130,9 @@ static setStorageItem (params: StorageSetParams) {
 
 组件创建成功许要更新 `总 README.md` 文件的 `组件列表`
 
-## <span id="pages">pages 页面目录</span>
+## <span id="AppStore">AppStore app目录</span>
 
-> 多页面构造基于该目录每个文件，请保证该目录下至少有一个目录，并且`index`是必须的，`blank`是一个空白模板
+> 多页面构造基于该目录下某个文件夹的每个文件，请保证该目录下下某个文件夹中至少有一个目录，并且`index`是必须的，`blank`是一个空白模板
 
 ### 快速创建一个页面
 
