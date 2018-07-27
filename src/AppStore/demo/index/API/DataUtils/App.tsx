@@ -4,6 +4,7 @@ import { List, InputItem, Button, WhiteSpace, WingBlank } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import { JsonHelper } from '@/common/Utils';
 
 interface DataUtilsStateTypes extends AppStateTypes {
   key: string,
@@ -38,7 +39,7 @@ class App extends React.Component<any, DataUtilsStateTypes> {
       times.push(time)
       DingTalk.setStorageItem({
         name: 'time',
-        value: JSON.stringify(time)
+        value: JsonHelper.toJson(time)
       })
     }, 1000);
   }
@@ -64,7 +65,7 @@ class App extends React.Component<any, DataUtilsStateTypes> {
         <WingBlank>
           <Button type="primary" onClick={() => DingTalk.setStorageItem({ name: key, value: value })}>存储数据</Button><WhiteSpace />
           <Button onClick={this.setTimeItem.bind(this)}>定时存储数据</Button><WhiteSpace />
-          <Button onClick={() => DingTalk.getStorageItem(key).then(res => DingTalk.alert(JSON.stringify(res)))}>读取数据</Button><WhiteSpace />
+          <Button onClick={() => DingTalk.getStorageItem(key).then(res => DingTalk.alert(JsonHelper.toJson(res)))}>读取数据</Button><WhiteSpace />
           <Button type="warning" onClick={() => DingTalk.removeStorageItem(key)}>清理数据</Button><WhiteSpace />
         </WingBlank>
       </YdyScrollView>

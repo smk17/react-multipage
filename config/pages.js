@@ -2,15 +2,16 @@ const path = require('path');
 const glob = require('glob');
 
 /** 获取多页的入口脚本和模板 */  
-const getPages = (() => {  
+const getPages = (() => {
+  const app = process.env.APP || 'demo'
   const [  
     globPathHtml,  
     globPathJs,  
     pages,  
     tempSet  
   ] = [  
-    ['src/AppStore/IndexCustomize/**/index.html', 'template'], // 入口模板正则  
-    ['src/AppStore/IndexCustomize/**/index.{tsx,jsx}', 'entry'], // 入口脚本正则  
+    [`src/AppStore/${app}/**/index.html`, 'template'], // 入口模板正则  
+    [`src/AppStore/${app}/**/index.{tsx,jsx}`, 'entry'], // 入口脚本正则  
     Object.create(null),  
     new Set()  
   ]  
@@ -43,9 +44,5 @@ const getPages = (() => {
     console.log('获取多页数据错误：', err)  
   }  
 })()
-// for (const key in getPages) {
-//   const element = getPages[key];
-//   console.log(element);
-// }
-// console.log(getPages);
+
 module.exports = getPages;

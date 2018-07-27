@@ -2,6 +2,7 @@ import React from 'react';
 import { ImagePicker } from 'antd-mobile';
 import './index.less';
 import { DingTalk } from '@/common/DingTalk';
+import { JsonHelper } from '@/common/Utils';
 
 export interface YdyImagePickerPropTypes {
   files?: Array<{}>, // 图片文件数组,元素为对象
@@ -85,7 +86,7 @@ class YdyImagePicker extends React.Component<YdyImagePickerPropTypes, YdyImagePi
             this.props.onChange && this.props.onChange(this.state.files)
           },
           onFail : (err) => {
-            window.baseConfig.development && DingTalk.alert(JSON.stringify(err))
+            window.baseConfig.development && DingTalk.alert(JsonHelper.toJson(err))
           }
         })
       });
@@ -99,10 +100,10 @@ class YdyImagePicker extends React.Component<YdyImagePickerPropTypes, YdyImagePi
           urls: this.state.imgs,
           current: this.state.imgs[index],//当前显示的图片链接
           onSuccess : (result) => {
-            // window.baseConfig.development && DingTalk.alert(JSON.stringify(result))
+            // window.baseConfig.development && DingTalk.alert(JsonHelper.toJson(result))
           },
           onFail : (err) => {
-            window.baseConfig.development && DingTalk.alert(JSON.stringify(err))
+            window.baseConfig.development && DingTalk.alert(JsonHelper.toJson(err))
           }
         })
       })

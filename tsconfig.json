@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "outDir": "build/dist",
     "module": "esnext",
-    "target": "es3",
+    "target": "es5",
     "lib": ["es5", "es6", "dom"],
     "sourceMap": true,
     "allowJs": true,

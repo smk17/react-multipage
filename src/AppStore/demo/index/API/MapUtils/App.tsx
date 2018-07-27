@@ -5,6 +5,7 @@ import { Button, WhiteSpace, WingBlank } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import { JsonHelper } from '@/common/Utils';
 
 interface MapUtilsStateTypes extends AppStateTypes {
   longitude: number,
@@ -84,7 +85,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
       }
       DingTalk.setStorageItem({
         name: 'startGeoLocation',
-        value: JSON.stringify(geolocation),
+        value: JsonHelper.toJson(geolocation),
       })
     })
   }
@@ -95,7 +96,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
 
   statusGeoLocation () {
     DingTalk.statusGeolocation(['startGeoLocation']).then(result => {
-      DingTalk.alert(JSON.stringify(result));
+      DingTalk.alert(JsonHelper.toJson(result));
     })
   }
 
@@ -122,8 +123,8 @@ class App extends React.Component<any, MapUtilsStateTypes> {
       window.dd.util.domainStorage.getItem({
         name: 'startGeoLocation', // 存储信息的key值
         onSuccess : (info) => {
-          DingTalk.alert(JSON.stringify(info));
-          const geolocation = JSON.parse(info.value)
+          DingTalk.alert(JsonHelper.toJson(info));
+          const geolocation = JsonHelper.parseJson(info.value)
           this.setState({
             longitude: geolocation[0].longitude,
             latitude: geolocation[0].latitude,
@@ -131,7 +132,7 @@ class App extends React.Component<any, MapUtilsStateTypes> {
           })
         },
         onFail : function(err) {
-          DingTalk.alert(JSON.stringify(err));
+          DingTalk.alert(JsonHelper.toJson(err));
         }
       });
     } else {
@@ -144,10 +145,10 @@ class App extends React.Component<any, MapUtilsStateTypes> {
       window.dd.util.domainStorage.removeItem({
         name: 'startGeoLocation' , // 存储信息的key值
         onSuccess : function(info) {
-          DingTalk.alert(JSON.stringify(info));
+          DingTalk.alert(JsonHelper.toJson(info));
         },
         onFail : function(err) {
-          DingTalk.alert(JSON.stringify(err));
+          DingTalk.alert(JsonHelper.toJson(err));
         }
       });
     } else {

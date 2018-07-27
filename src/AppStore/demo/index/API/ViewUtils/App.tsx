@@ -4,6 +4,7 @@ import { Button, WhiteSpace, WingBlank } from 'antd-mobile';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import { JsonHelper } from '@/common/Utils';
 
 interface ViewUtilsStateTypes extends AppStateTypes {
   showText: string
@@ -32,7 +33,7 @@ class App extends React.Component<any, ViewUtilsStateTypes> {
   onClick (api: string) {
     const onSuccess = res => {
       this.setState({
-        showText: JSON.stringify(res),
+        showText: JsonHelper.toJson(res),
       })
     }
     switch (api) {

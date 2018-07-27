@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import 'es6-set/implement';
+import 'es6-map/implement';
 import ReactDOM from 'react-dom';
 // import './index.less';
 import App from './App';

@@ -56,23 +56,35 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
     }
     return content
   }
+
+  blockClick (block: IndexCustomizeInfo) {
+    if (block.type === 3) {
+      block.property.url && DingTalk.openLink(block.property.url + '&timestamp=' + (new Date().getTime()))
+    } else if (block.type === 0) {
+      block.property.agentId && DingTalk.openMicroApp(block.property.agentId)
+    } 
+  }
   
   renderContent () {
     const { width, data } = this.state
+    const _width = width - 32
+    const pixel = (width / 310);
     return (
       <YdyScrollView>
       {
         data.map((Item, index) => {
           let style: React.CSSProperties = {
-            width: width * (Item.width / 100),
-            height: Item.height,
-            top: Item.top,
-            left: width * (Item.left / 100),
+            width: _width * (Item.width / 100),
+            height: Item.height * pixel,
+            top: Item.top * pixel,
+            left: _width * (Item.left / 100),
             position: 'absolute'
           }
           let content = this.format(Item)
           return (
-            <div key={index} style={objectAssign(style, Item.style)} dangerouslySetInnerHTML={{ __html: content}}></div>
+            <div key={index} onClick={() => this.blockClick(Item)}
+              style={objectAssign(style, Item.style)} 
+              dangerouslySetInnerHTML={{ __html: content}}></div>
           );
         })
       }
@@ -81,11 +93,12 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
   }
   
   render() {
+    const { width, height } = this.state
     const LoadView = (
       <img className="App-loading" src={loading} alt="" />
     );
     return (
-      <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px' }}>
+      <div className="App" style={{ width: width - 32 + 'px', height: height - 32 + 'px', padding: 16 }}>
         {
           this.state.load ? this.renderContent() : LoadView
         }

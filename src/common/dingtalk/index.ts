@@ -1,6 +1,6 @@
 import jsApiList from '@/common/DingTalk/jsApiList';
 import { StorageSetParams, GeolocationGetParams, GeolocationResult, GeolocationStartParams, LocateMapParams, MapPOIResult, SearchMapParams, ViewMapParams, PickerParams, PickerResult } from '@/common/DingTalk/statement';
-import { DateHelper } from '@/common/Utils';
+import { DateHelper, JsonHelper } from '@/common/Utils';
 import HttpService from '@/common/HttpService';
 
 export class DingTalk {
@@ -38,7 +38,7 @@ export class DingTalk {
               window.dd.config(res);
               window.dd.error(error => {
                 rejct(error);
-                window.baseConfig.development && alert('dd error: ' + JSON.stringify(error));
+                window.baseConfig.development && alert('dd error: ' + JsonHelper.toJson(error));
               });
               resolve()
             }
@@ -105,7 +105,7 @@ export class DingTalk {
                 resolve(result)
               }
               params.onFail = err => {
-                window.baseConfig.development &&  alert(api + 'err: ' + JSON.stringify(err));
+                window.baseConfig.development &&  alert(api + 'err: ' + JsonHelper.toJson(err));
                 rejct(err)
               }
               DingTalk.getApi(api)(params);
@@ -308,7 +308,7 @@ export class DingTalk {
    */
   static alert (message: string, title: string = '提示', buttonName: string = '好的') {
     return DingTalk.execute<{}>('device.notification.alert', { message, title, buttonName }, () => {
-      window.alert(JSON.stringify(message))
+      window.alert(JsonHelper.toJson(message))
     });
   }
 
@@ -321,12 +321,30 @@ export class DingTalk {
   }
 
   /**
+   * 打开钉钉微应用
+   * @param agentid 钉钉微应用Id
+   */
+  static openMicroApp (agentid: string) {
+    return DingTalk.openLink(`dingtalk://dingtalkclient/action/switchtab?index=2&name=work&scene=1&corpid=${DingTalk.corpId}&agentid=${agentid}`)
+  }
+
+  /**
    * 打开应用内页面
    * @param url 内部页面名称
    * @param params 需要传递的参数，格式：&id=1&userid=10000
    */
   static open (url: string, params: string = '') {
     return DingTalk.openLink(`${window.location.origin}/${url}.html${window.location.search}${params}`)
+  }
+
+  /**
+   * 图片浏览器
+   * 调用此api，将显示一个图片浏览器
+   * @param urls 图片地址列表
+   * @param current 当前显示的图片链接
+   */
+  static previewImage (urls: string[], current: string) {
+    return DingTalk.execute<{}>('biz.util.previewImage', { urls, current });
   }
 
   /**

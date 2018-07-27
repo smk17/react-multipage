@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import moment from "moment"
 import { IServiceInfo } from "./statement";
 import { DingTalk } from '@/common/DingTalk';
+import { JsonHelper } from '@/common/Utils';
 
 /**
 * 执行服务错误处理级别枚举
@@ -45,15 +46,16 @@ function _toParamString(val) {
             }
             if (typeof val === "object") {
               for (var key in val) {
-                typeof val[key] === "object" && (val[key] = JSON.stringify(val[key]))
+                typeof val[key] === "object" && (val[key] = JsonHelper.toJson(val[key]))
               }
             }
-            return JSON.stringify(val);
+            return JsonHelper.toJson(val);
     }
 }
 function _ajxResultPreprocessing(response) {
     if (response.status >= 200 && response.status < 300) {
-        return response.json();
+      window.baseConfig.development && console.log(response);
+      return response.json();
     }
     else {
         var error = new Error(response.statusText);
@@ -69,7 +71,6 @@ export class Utility {
   */
   static dispose(ex) {
     if (!ex) { return; }
-    console.log('dispose: ' + JSON.stringify(ex));
     switch (ex.name) {
       case "PassException":
         return;
@@ -113,7 +114,8 @@ export class Service {
         //         data: data
         //     }
         // });
-        console.log(data);
+        // console.log(data);
+        // window.alert(JsonHelper.toJson(data))
     }
     /**
      * 执行指定的服务
@@ -141,6 +143,7 @@ export class Service {
             catch (ex) {
               if (handlingErrorLevel >= ServiceErrorLevelEnum.fail) {
                 Utility.dispose(ex);
+                console.error('FormData format error: ' + ex);
               } else {
                 rejct(ex);
               }
@@ -185,6 +188,7 @@ export class Service {
             }
             if (handlingErrorLevel >= ServiceErrorLevelEnum.fail) {
               Utility.dispose(ex);
+              console.error('response.json() FormData error: ' + ex);
             }
             rejct(ex);
         });

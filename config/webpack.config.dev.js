@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -38,7 +39,7 @@ const env = getClientEnvironment(publicUrl);
 let webpackConfig = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
@@ -358,6 +359,16 @@ for (const key in pages) {
     })
   )
 }
-// console.log(webpackConfig);
+const app = process.env.APP || 'demo'
+const fromPath = `../src/AppStore/${app}/config.json`
+webpackConfig.plugins.push(
+  new CopyWebpackPlugin([
+    {
+      from: path.resolve(__dirname, fromPath),
+      to: '.',
+      ignore: ['.*']
+    }
+  ])
+)
 
 module.exports = webpackConfig;

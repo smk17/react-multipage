@@ -3,10 +3,11 @@ import { DingTalk } from '@/common/DingTalk';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import { JsonHelper } from '@/common/Utils';
 import { Picker, List, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import arrayTreeFilter from 'array-tree-filter';
-import district from '@/pages/index/Components/DataEntry/Picker/district';
+import district from './district';
 
 const provinceLite = [{"value":"bj","label":"北京市"},{"value":"zj","label":"浙江省"},{"value":"gd","label":"广东省"},{"value":"hn","label":"海南省"},{"value":"cq","label":"重庆市"},{"value":"sc","label":"四川省"}]
 
@@ -132,10 +133,10 @@ class Test extends React.Component {
           }],
          selectedKey:'选项2' , // 默认选中的key
          onSuccess : function(result) {
-          window.baseConfig.development && alert('chosen result: ' + JSON.stringify(result));
+          window.baseConfig.development && alert('chosen result: ' + JsonHelper.toJson(result));
          },
          onFail : function(err) {
-          window.baseConfig.development && alert('chosen err: ' + JSON.stringify(err));
+          window.baseConfig.development && alert('chosen err: ' + JsonHelper.toJson(err));
          }
         })
       });

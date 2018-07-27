@@ -157,3 +157,25 @@ PS： `blank`空白模板一般不会有太大的变化
 ### 页面过多导致运行时过慢
 
 > 可以把已经开发完成的模块移动到 `template` 目录
+
+## Bug 修复汇总
+
+### 修复在 `Chrome 33.0.0.0` 版本中出现 `Set is not defined` 的异常
+
+> 经考察，安卓模拟器的 `Chrome内核版本` 统一在 `33.0.0.0`
+
+在每个页面初始化时， `import ReactDOM` 请添加 `es6-set` 和 `es6-map`
+
+~~~ js
+import 'es6-set/implement';
+import 'es6-map/implement';
+import ReactDOM from 'react-dom';
+~~~
+
+### 修复在 `Chrome 42.0.0.0` 版本以下中出现 `fetch is not defined` 的异常
+
+在使用到 fetch 的文件添加 whatwg-fetch
+
+~~~ js
+import 'whatwg-fetch';
+~~~

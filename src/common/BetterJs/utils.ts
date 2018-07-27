@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { JsonHelper } from '@/common/Utils';
 let _oldWindowError = null
 let windowError: any = null
 
@@ -50,7 +51,7 @@ var handleWindowError = function (_window, config) {
         } else if (typeof msg === 'string') {
             config.sendError({
                 title: msg,
-                msg: JSON.stringify({
+                msg: JsonHelper.toJson({
                     resourceUrl: url,
                     rowNum: line,
                     colNum: col
@@ -106,7 +107,7 @@ var _handleFetchError = function (_window, config) {
             if (!res.ok) { // True if status is HTTP 2xx
                 config.sendError({
                     title: arguments[0],
-                    msg: JSON.stringify(res),
+                    msg: JsonHelper.toJson(res),
                     category: 'ajax',
                     level: 'error'
                 });
@@ -116,7 +117,7 @@ var _handleFetchError = function (_window, config) {
         .catch(function(error) {
             config.sendError({
                 title: arguments[0],
-                msg: JSON.stringify({
+                msg: JsonHelper.toJson({
                     message: error.message,
                     stack: error.stack
                 }),
@@ -146,7 +147,7 @@ var handleAjaxError = function (_window, config) {
         if (event && event.currentTarget && event.currentTarget.status !== 200) {
             config.sendError({
                 title: event.target.responseURL,
-                msg: JSON.stringify({
+                msg: JsonHelper.toJson({
                     response: event.target.response,
                     responseURL:  event.target.responseURL,
                     status: event.target.status,
@@ -182,7 +183,7 @@ var handleConsoleError = function (_window, config) {
     _window.console.error = function () {
         config.sendError({
             title: 'consoleError',
-            msg: JSON.stringify(arguments),
+            msg: JsonHelper.toJson(arguments),
             category: 'js',
             level: 'error'
         });

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import 'es6-set/implement'; import 'es6-map/implement'; import ReactDOM from 'react-dom';
 import { DingTalk } from '@/common/DingTalk';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';

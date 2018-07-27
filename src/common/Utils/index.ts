@@ -392,7 +392,13 @@ export class JsonHelper {
         if (data.toJSON) {
             return data.toJSON();
         }
-        return JSON.stringify(data);
+        try {
+            return JSON.stringify(data);
+        } catch (error) {
+            console.log(error);
+            return ''
+        }
+        
     }
 
     /**
@@ -402,7 +408,12 @@ export class JsonHelper {
     */
     static parseJson(json: string): any {
         if (json && json !== "null" && json !== "undefined") {
-            return JSON.parse(json);
+            try {
+                return JSON.parse(json);
+            } catch (error) {
+                console.log(error);
+                return {}
+            }
         }
         return null;
     }

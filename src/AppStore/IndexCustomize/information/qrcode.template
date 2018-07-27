@@ -1,0 +1,20 @@
+<p style="text-align: center;">
+    <img src="https://tp.smk17.cn:444/img/qrcode0.jpg" _src="https://tp.smk17.cn:444/img/qrcode0.jpg">
+</p>
+<div style="height: 1px;width: 250px;background-color: #000;margin: 0 auto;"></div>
+<div style="width: 250px;margin: 0 auto;">
+    <div class="flexRow" style="margin-top: 20px;">
+        <img style="height: 72px;width: 72px;" src="https://tp.smk17.cn:444/img/add.png" alt="">
+        <div class="flexColumn" style="align-items: flex-start;">
+            <span style="font-size: 20px; color: rgba(13, 174, 168, 1);">添加公众账号</span>
+            <span style="font-size: 13px;">微信号：tmjpdqh</span>
+        </div>
+    </div>
+    <div class="flexRow" style="margin-top: 20px;">
+        <img style="height: 72px;width: 72px;" src="https://tp.smk17.cn:444/img/sys.png" alt="">
+        <div class="flexColumn" style="align-items: flex-start;">
+            <span style="font-size: 20px; color: rgba(13, 174, 168, 1);">扫一扫</span>
+            <span style="font-size: 13px;">其他手机扫描二维码</span>
+        </div>
+    </div>
+</div>

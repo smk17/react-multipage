@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'es6-set/implement';
 import 'es6-map/implement';
 import ReactDOM from 'react-dom';
+import 'lib-flexible';
 // import './index.less';
 import App from './App';
 import { Service } from "@/common/Service";
@@ -19,7 +20,7 @@ axios.get<BaseConfig>('/config.json').then(res => {
   if (!window.baseConfig.development) {
     BetterJs.init({
       sendError: (error) => {
-        Service.writeLog(JSON.stringify(error))
+        Service.writeLog(error)
       }
     })
   }

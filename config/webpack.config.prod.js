@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -463,6 +464,15 @@ for (const key in pages) {
     })
   )
 }
-// console.log(webpackConfig);
-
+const app = process.env.APP || 'demo'
+const fromPath = `../src/AppStore/${app}/config.json`
+webpackConfig.plugins.push(
+  new CopyWebpackPlugin([
+    {
+      from: path.resolve(__dirname, fromPath),
+      to: '.',
+      ignore: ['.*']
+    }
+  ])
+)
 module.exports = webpackConfig;

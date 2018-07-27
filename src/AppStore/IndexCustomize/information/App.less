@@ -4,15 +4,26 @@
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  position: relative;
   &-loading{
     margin-top: 200px;
     width: 50%;
+  }
+  &-content{
+    font-size: 16px; /*px*/
+    user-select: text;
+    text-align: start;
+    line-height: 1.5;
+  }
+  .flexRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
   }
   .flexColumn{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
   }
 }
