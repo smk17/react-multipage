@@ -215,7 +215,7 @@ class ContractReceivables extends React.Component<any, ContractReceivablesStateT
       );
     }
     return (
-      <div>
+      <div style={ { width: window.innerWidth } }>
         {showHeader && this.renderHeader(true)}
         <YdyListView renderHeader={this.renderHeader()}  
         initList={this.initList.bind(this)} data={data}

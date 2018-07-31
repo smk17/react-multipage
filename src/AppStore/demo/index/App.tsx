@@ -18,9 +18,9 @@ class Components extends React.Component {
       { icon, text: '两翼留白', url: 'WingBlank' },
       { icon, text: '上下留白', url: 'WhiteSpace' }
     ]
-    // const dataNavigation = [
-    //   { icon, text: 'blank', url: 'blank' },
-    // ]
+    const dataNavigation = [
+      { icon, text: '标签栏', url: 'TabBar' }
+    ]
     const dataDataEntry = [
       { icon, text: '按钮', url: 'Button' },
       { icon, text: '日历', url: 'Calendar' },
@@ -61,8 +61,8 @@ class Components extends React.Component {
         <div className="sub-title">Layout </div>
         <Grid data={dataLayout} onClick={this.onClick.bind(this)}/>
 
-        {/* <div className="sub-title">Navigation </div>
-        <Grid data={dataNavigation} onClick={this.onClick.bind(this)}/> */}
+        <div className="sub-title">Navigation </div>
+        <Grid data={dataNavigation} onClick={this.onClick.bind(this)}/>
 
         <div className="sub-title">Data Entry </div>
         <Grid data={dataDataEntry} onClick={this.onClick.bind(this)}/>

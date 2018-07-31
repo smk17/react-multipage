@@ -2,6 +2,7 @@ import React from 'react';
 import objectAssign from "object-assign";
 import { DingTalk } from '@/common/DingTalk';
 import YdyScrollView from "@/components/YdyScrollView";
+// import { Flex, WhiteSpace } from 'antd-mobile';
 import loading from '@/assets/img/load.gif';
 import './App.less';
 import IndexService from '../IndexService';
@@ -9,6 +10,7 @@ import { IndexCustomizeInfo } from '../statement';
 
 interface IndexCustomizeStateTypes extends AppStateTypes{
   data: IndexCustomizeInfo[]
+  preview: boolean
 }
 
 class App extends React.Component<any, IndexCustomizeStateTypes> {
@@ -16,6 +18,7 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
     super(props);
     this.state = {
       load: false,
+      preview: false,
       data: [],
       width: window.innerWidth,
       height: window.innerHeight
@@ -35,14 +38,15 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
     }
     if (preview) {
       IndexService.getData(preview).then(res => {
-        this.setState({ load: true, data: res })
+        this.setState({ load: true, data: res, preview })
         DingTalk.setTitle('主页定制')
       })
     } else {
       DingTalk.init().then(() => {
         DingTalk.setTitle('主页定制')
         IndexService.getData(preview).then(res => {
-          this.setState({ load: true, data: res })
+          console.log(res);
+          this.setState({ load: true, data: res, preview })
         })
       })
     }
@@ -58,11 +62,13 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
   }
 
   blockClick (block: IndexCustomizeInfo) {
-    if (block.type === 3) {
-      block.property.url && DingTalk.openLink(block.property.url + '&timestamp=' + (new Date().getTime()))
-    } else if (block.type === 0) {
-      block.property.agentId && DingTalk.openMicroApp(block.property.agentId)
-    } 
+    if (!this.state.preview) {
+      if (block.type === 3) {
+        block.property.url && DingTalk.openLink(block.property.url + '&timestamp=' + (new Date().getTime()))
+      } else if (block.type === 0) {
+        block.property.agentId && DingTalk.openMicroApp(block.property.agentId)
+      } 
+    }
   }
   
   renderContent () {
@@ -78,13 +84,19 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
             height: Item.height * pixel,
             top: Item.top * pixel,
             left: _width * (Item.left / 100),
-            position: 'absolute'
+            position: "absolute"
           }
           let content = this.format(Item)
           return (
-            <div key={index} onClick={() => this.blockClick(Item)}
-              style={objectAssign(style, Item.style)} 
-              dangerouslySetInnerHTML={{ __html: content}}></div>
+            <div id={Item.property.name} key={index} style={objectAssign(style, Item.style)}
+            onClick={() => this.blockClick(Item)}>
+              <div 
+                style={{position: 'absolute', width: '100%', height: '100%', top: 0}} 
+                dangerouslySetInnerHTML={{ __html: content}}
+              >
+              </div>
+              <span style={{color: 'transparent'}}>{Item.property.name}</span>
+            </div>
           );
         })
       }

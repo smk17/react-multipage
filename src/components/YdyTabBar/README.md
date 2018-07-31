@@ -80,4 +80,23 @@ class YdyTabBarExample extends React.Component {
 ReactDOM.render(<YdyTabBarExample />, mountNode);
 ~~~
 
+## Bug 修复汇总
+
+### 修复在部分安卓机中以下中出现 `页面排版布局` 的异常
+
+如果选项中的 tabBarItems 的 renderContent 是外面引用的组件，该组件应为以下格式
+
+~~~ js
+class Item extends React.Component {
+  render() {
+    return (
+      // 在较低版本的安卓机上，div没有设置width默认为0导致布局异常
+      <div style={ { width: window.innerWidth } }>
+      ...
+      </div>
+    );
+  }
+}
+~~~
+
 PS: 基于[TabBar](https://mobile.ant.design/components/tab-bar-cn/)实现

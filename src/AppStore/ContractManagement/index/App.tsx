@@ -74,7 +74,7 @@ class App extends React.Component<any, AppStateTypes> {
       }
     ];
     return (
-      <YdyTabBar tabBarItems={tabBarItems} selectedTab="ContractReceivablesTab"/>
+      <YdyTabBar tabBarItems={tabBarItems} selectedTab="ContractTab"/>
     );
   }
   
