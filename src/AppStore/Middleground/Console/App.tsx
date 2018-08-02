@@ -30,6 +30,7 @@ class App extends React.Component<any, AppStateTypes> {
       console.log(reslut);
       MiddlegroundService.Login(reslut).then(res => {
         console.log(res);
+        window.location.href="Tenant.html";
         this.setState({
           load: true,
         })
