@@ -54,7 +54,7 @@ class YdyMainLayout extends React.Component<any, any> {
         children: [
           {
             name: '应用列表',
-            path: 'AppStore.html',
+            path: 'Application.html',
           },
         ],
       },

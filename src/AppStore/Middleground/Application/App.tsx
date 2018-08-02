@@ -1,6 +1,6 @@
 import React from 'react';
 import { DingTalk } from '@/common/DingTalk';
-import YdyScrollView from "@/components/YdyScrollView";
+import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
 import './App.less';
 import { Card, List } from 'antd';
@@ -28,7 +28,7 @@ class App extends React.Component<any, AppStateTypes> {
 
     const { list } = this.props;
     return (
-      <YdyScrollView>   
+      <YdyMainLayout>   
         <div className="cardList">
           <List
             rowKey="id"
@@ -53,7 +53,7 @@ class App extends React.Component<any, AppStateTypes> {
             }
           />
         </div>
-      </YdyScrollView>
+      </YdyMainLayout>
     );
   }
   
