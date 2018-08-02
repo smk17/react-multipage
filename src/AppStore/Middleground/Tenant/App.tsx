@@ -1,5 +1,5 @@
 import React from 'react';
-import YdyScrollView from "@/components/YdyScrollView";
+import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
 import { Form, Input, Card,Button, } from 'antd';
 import './App.less';
@@ -79,7 +79,7 @@ class App extends React.Component<any, AppTenantState> {
     };
 
     return (
-      <YdyScrollView>   
+      <YdyMainLayout>   
         <Card bordered={false}>
           <Form  onSubmit={this.handleSubmit}>
           <FormItem {...formItemLayout} label="公司名称">
@@ -161,7 +161,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
           </Form>
         </Card>
-      </YdyScrollView>
+      </YdyMainLayout>
     );
   }
   
