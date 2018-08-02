@@ -95,7 +95,7 @@ class App extends React.Component<any, IndexCustomizeStateTypes> {
                 dangerouslySetInnerHTML={{ __html: content}}
               >
               </div>
-              <span style={{color: 'transparent'}}>{Item.property.name}</span>
+              <span style={{color: 'transparent'}}>{Item.property.url ? Item.property.name : ''}</span>
             </div>
           );
         })

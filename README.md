@@ -132,7 +132,15 @@ static setStorageItem (params: StorageSetParams) {
 
 ## <span id="AppStore">AppStore app目录</span>
 
-> 多页面构造基于该目录下某个文件夹的每个文件，请保证该目录下下某个文件夹中至少有一个目录，并且`index`是必须的，`blank`是一个空白模板
+> 一个App基于该目录下某个文件夹，多页面构造基于该文件夹的每个文件，请保证该文件夹中至少有一个目录
+
+### 创建app规范
+
+> 一个App目录下，必须又以下文件夹和文件：
+
+- index目录 App主入口页面
+- config.json App的全局配置
+- README.md App的描述文档
 
 ### 快速创建一个页面
 
@@ -144,7 +152,7 @@ PS： `blank`空白模板一般不会有太大的变化
 
 ### 创建页面规范
 
-> pages目录下每一个文件夹，对应一个页面，创建一个页面文件夹，以下三个文件：
+> App目录下每一个文件夹，对应一个页面，创建一个页面文件夹，以下三个文件：
 
 - index.jsx 页面主入口
 - index.less 页面全局样式

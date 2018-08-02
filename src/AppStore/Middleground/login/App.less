@@ -4,8 +4,167 @@
   flex-direction: column;
   align-items: center;
   background-color: rgba(245, 245, 249, 1);
+  background-image: url("https://img.alicdn.com/tps/TB1pfG4IFXXXXc6XXXXXXXXXXXX.jpg");
+  // background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  // &-title, &-action{
+  //   height: 20px;
+  // }
+  &-action {
+    font-size: 18px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    // div{
+    //   display: block;
+    //   cursor: pointer;
+    // }
+    a{
+      color: #3296FA;
+      &:visited{
+        color: #3296FA;
+      }
+    }
+  }
   &-loading{
     margin-top: 200px;
     width: 50%;
+  }
+  &-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+  }
+  &-login-body{
+    width: 990px;
+    margin: auto;
+    position: relative;
+    height: 388px;
+    padding: 74px 0 118px;
+    text-align: center;
+  }
+  &-login{
+    width: 340px;
+    height: 388px;
+    padding-top: 22px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    position: absolute;
+    right: 0;
+    z-index: 99;
+    background-color: #ffffff;
+    .hd{
+      position: relative;
+      height: 20px;
+      h2 {
+        display: block;
+        cursor: pointer;
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .quick {
+        background: url(https://img.alicdn.com/tfs/TB1yztPRFXXXXXxXpXXXXXXXXXX-72-72.png) no-repeat;
+      }
+      .static {
+        background: url(https://img.alicdn.com/tfs/TB1FEXORFXXXXcUXXXXXXXXXXXX-70-70.png) no-repeat;
+      }
+      .static, .quick {
+        background-size: 40px 40px;
+        text-indent: -99999px;
+        width: 40px;
+        height: 40px;
+      }
+      .static-tip, .quick-tip {
+        position: absolute;
+        top: 0;
+        right: 45px;
+        .poptip {
+          padding: 5px 10px;
+          background: #E6F9FC;
+          border: 1px solid #14C2DD;
+          height: 16px;
+          line-height: 16px;
+          position: relative;
+          z-index: 9999;
+          .poptip-arrow {
+            top: 8px;
+            right: 0;
+            position: absolute;
+            z-index: 10;
+            em, span {
+              position: absolute;
+              width: 0;
+              height: 0;
+              border-color: rgba(255,255,255,0);
+              border-color: transparent \0;
+              _border-color: tomato;
+              _filter: chroma(color=tomato);
+              border-style: solid;
+              overflow: hidden;
+              top: 0;
+              left: 0;
+            }
+            span{
+              border-left-color: #E6F9FC;
+              border-width: 6px 0 6px 6px;
+            }
+            em {
+              top: 0;
+              left: 1px;
+              border-left-color: #14C2DD;
+              border-width: 6px 0 6px 6px;
+            }
+          }
+          .poptip-content {
+            color: #14C2DD;
+            font-size: 12px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .title{
+      font-size: 18px;
+      color: #373D41;
+      line-height: 24px;
+      width: 100px;
+      position: absolute;
+      top: 22px;
+      left: 20px;
+      display: block;
+    }
+    .hd.login-quick {
+      .static, .static-tip {
+        display: none;
+      }
+    }
+    .hd.login-static {
+      .quick, .quick-tip{
+        display: none;
+      }
+    }
+    #login_qrcode{
+      width: 300px;
+      height: 300px;
+      margin: auto;
+    }
+  }
+  .antd-pro-page-header-pageHeader{
+    background: rgba(255, 255, 255, 0.98);
+  }
+  .antd-pro-page-header-detail{
+    height: 50px;
+    .antd-pro-page-header-action{
+      display: flex;
+      height: 36px;
+      justify-content: flex-end;
+    }
   }
 }

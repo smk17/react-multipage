@@ -3,7 +3,9 @@ import axios from 'axios';
 import 'es6-set/implement';
 import 'es6-map/implement';
 import ReactDOM from 'react-dom';
-// import './index.less';
+import './index.less';
+import '@/assets/css/cssreset-min.css'
+import 'ant-design-pro/dist/ant-design-pro.css';
 import App from './App';
 import { Service } from "@/common/Service";
 import BetterJs from "@/common/BetterJs";

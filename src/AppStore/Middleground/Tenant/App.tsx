@@ -1,5 +1,4 @@
 import React from 'react';
-import { DingTalk } from '@/common/DingTalk';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
 import './App.less';
@@ -15,10 +14,8 @@ class App extends React.Component<any, AppStateTypes> {
   }
 
   componentDidMount () {
-    DingTalk.init().then(() => {
-      this.setState({
-        load: true,
-      })
+    this.setState({
+      load: true,
     })
   }
   
