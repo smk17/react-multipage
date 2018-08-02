@@ -49,7 +49,7 @@ class App extends React.Component<any, LoginStateTypes> {
       if (origin == "https://login.dingtalk.com") { //判断是否来自ddLogin扫码事件。
           var loginTmpCode = event.data; //拿到loginTmpCode后就可以在这里构造跳转链接进行跳转了
           console.log("loginTmpCode", loginTmpCode);
-          const STATE = Date.now()
+          const STATE = Date.now()     
           window.location.href = `https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=${appid}&response_type=code&scope=snsapi_login&state=${STATE}&redirect_uri=${window.location.origin}/Console.html&loginTmpCode=${loginTmpCode}`;
       }
     };

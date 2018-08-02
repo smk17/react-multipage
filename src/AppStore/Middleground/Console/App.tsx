@@ -30,6 +30,9 @@ class App extends React.Component<any, AppStateTypes> {
       console.log(reslut);
       MiddlegroundService.Login(reslut).then(res => {
         console.log(res);
+        sessionStorage.setItem("userId",reslut.userId);
+        sessionStorage.setItem("tenantId",reslut.tenantId);
+        sessionStorage.setItem("appId",reslut.appId);
         window.location.href="Tenant.html";
         this.setState({
           load: true,
