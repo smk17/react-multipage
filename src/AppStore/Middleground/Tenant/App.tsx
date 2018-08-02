@@ -1,7 +1,7 @@
 import React from 'react';
 import YdyScrollView from "@/components/YdyScrollView";
 import loading from '@/assets/img/load.gif';
-import { Form,Input,Card,} from 'antd';
+import { Form, Input, Card } from 'antd';
 import { createForm } from 'rc-form';
 import './App.less';
 
