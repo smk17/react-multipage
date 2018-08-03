@@ -182,17 +182,18 @@ class App extends React.Component<any, AppState> {
   }
 
   getStyle(item:AppInfo):CSSProperties{
-    let _style:any={};
+    let _style:CSSProperties={
+      right: -40
+    };
     switch(item.applyState){
       case 2:
-        _style={ backgroundColor: '#faad14' };
-      break;
+        _style.backgroundColor = '#faad14';
+        break;
       case 3:
-        _style={ backgroundColor: '#52c41a' };
-      break;
+        _style.backgroundColor = '#52c41a';
+        break;
       default:
-        _style={};
-      break;
+        break;
     }
     return _style;
   }

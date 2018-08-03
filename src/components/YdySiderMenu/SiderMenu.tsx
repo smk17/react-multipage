@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import pathToRegexp from 'path-to-regexp';
 import './index.less';
-import { urlToList } from '@/common/Utils';
 import { CollapseType } from 'antd/lib/layout/Sider';
 
 const { Sider } = Layout;
@@ -223,7 +221,12 @@ export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
         collapsible
         collapsed={collapsed}
         breakpoint="lg"
-        onCollapse={onCollapse}
+        onCollapse={(collapsed, type) => {
+          onCollapse && onCollapse(collapsed, type)
+          this.setState({
+            openKeys: this.getDefaultCollapsedSubMenus(this.props),
+          });
+        }}
         width={196}
         className="sider"
       >
