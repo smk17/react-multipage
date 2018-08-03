@@ -10,6 +10,14 @@
         {
           "name": "租户信息",
           "path": "/Tenant.html"
+        },
+        {
+          "name": "管理员信息",
+          "path": "/Manager.html"
+        },
+        {
+          "name": "管理员登陆信息",
+          "path": "/ManagerLogin.html"
         }
       ]
     },
