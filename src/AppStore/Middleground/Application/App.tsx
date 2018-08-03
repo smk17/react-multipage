@@ -56,8 +56,8 @@ const CreateForm = Form.create()((props:AppApplyForm) => {
     },
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 12 },
-      md: { span: 10 },
+      sm: { span: 17 },
+      md: { span: 17 },
     },
   };
   return (
