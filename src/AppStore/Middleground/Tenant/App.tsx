@@ -37,7 +37,7 @@ class App extends React.Component<any, AppTenantState> {
           id: sessionStorage.getItem("tenantId"),
           name:values.companyName,
           conpanyname:values.companyName,
-          address:values.address,
+          area:values.area,
           contact:values.contact,
         };
         console.log(tenantParams);
@@ -88,16 +88,16 @@ class App extends React.Component<any, AppTenantState> {
                 ],
               })(<Input placeholder="请输入企业名称" maxLength={30} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="地址">
-              {getFieldDecorator('address', {
+            <FormItem {...formItemLayout} label="地区">
+              {getFieldDecorator('area', {
                 rules: [
                   {
                     required: true,
-                    message: '地址名不能为空',
+                    message: '地区不能为空',
                     whitespace:true,
                   },
                 ],
-              })(<Input placeholder="请输入地址" maxLength={200} />)}
+              })(<Input placeholder="请输入地区" maxLength={200} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="联系方式">
               {getFieldDecorator('contact', {

@@ -6,8 +6,8 @@ export interface TenantParams {
   name?: string
   /** 企业名称 */
   conpanyname?: string
-  /** 地址 */
-  address?: string
+  /** 地区 */
+  area?: string
   /** 联系方式 */
   contact?: string
 }
