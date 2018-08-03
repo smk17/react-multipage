@@ -2,23 +2,34 @@
 export interface TenantParams {
   /** 租户id */
   id?: string | null
-  /** 公司名称 */
+  /** 租户名称 */
   name?: string
+  /** 企业名称 */
+  conpanyname?: string
+  /** 地址 */
+  address?: string
+  /** 联系方式 */
+  contact?: string
 }
 
 export interface UserParams {
   /** 用户id */
   id?: string | null
-  /** 登陆名 */
-  code?: string
-  /** 密码 */
-  password?: string
   /** 姓名 */
   name?: string
   /** 邮箱 */
   email?: string
   /** 手机 */
   mobile?: string
+}
+
+export interface UserPasswordParams {
+  /** 用户id */
+  id?: string | null
+  /** 登陆名 */
+  code?: string
+  /** 密码 */
+  password?: string
 }
 
 /** 合同 */

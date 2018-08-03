@@ -46,6 +46,14 @@ class YdyMainLayout extends React.Component<any, any> {
             path: '/Tenant.html',
           },
           {
+            name: '管理员信息',
+            path: '/Manager.html',
+          },
+          {
+            name: '管理员登陆信息',
+            path: '/ManagerLogin.html',
+          },
+          {
             name: '测试租户信息',
             path: '/dashboard/Tenant.html',
           },
