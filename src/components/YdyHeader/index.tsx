@@ -6,6 +6,7 @@ import Debounce from 'lodash-decorators/debounce';
 import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
 import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
 import 'antd/dist/antd.css';
+import 'ant-design-pro/dist/ant-design-pro.css';
 import './index.less';
 
 export default class YdyHeader extends PureComponent<any, any> {
@@ -67,10 +68,13 @@ export default class YdyHeader extends PureComponent<any, any> {
       onNoticeVisibleChange,
       onMenuClick,
       onNoticeClear,
+      showSearch,
+      showQuestion,
+      showNoticeIcon
     } = this.props;
     const menu = (
       <Menu className="menu" selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item disabled>
+        {/* <Menu.Item disabled>
           <Icon type="user" />个人中心
         </Menu.Item>
         <Menu.Item disabled>
@@ -79,7 +83,7 @@ export default class YdyHeader extends PureComponent<any, any> {
         <Menu.Item key="triggerError">
           <Icon type="close-circle" />触发报错
         </Menu.Item>
-        <Menu.Divider />
+        <Menu.Divider /> */}
         <Menu.Item key="logout">
           <Icon type="logout" />退出登录
         </Menu.Item>
@@ -100,7 +104,7 @@ export default class YdyHeader extends PureComponent<any, any> {
           onClick={this.toggle}
         />
         <div className="right">
-          <HeaderSearch
+          {showSearch && (<HeaderSearch
             className="action search"
             placeholder="站内搜索"
             dataSource={['搜索提示一', '搜索提示二', '搜索提示三']}
@@ -110,8 +114,8 @@ export default class YdyHeader extends PureComponent<any, any> {
             onPressEnter={value => {
               console.log('enter', value); // eslint-disable-line
             }}
-          />
-          <Tooltip title="使用文档">
+          />)}
+          {showQuestion && (<Tooltip title="使用文档">
             <a
               target="_blank"
               href="http://pro.ant.design/docs/getting-started"
@@ -120,8 +124,8 @@ export default class YdyHeader extends PureComponent<any, any> {
             >
               <Icon type="question-circle-o" />
             </a>
-          </Tooltip>
-          <NoticeIcon
+          </Tooltip>)}
+          {showNoticeIcon && (<NoticeIcon
             className="action"
             count={currentUser.notifyCount}
             onItemClick={(item, tabProps) => {
@@ -150,7 +154,7 @@ export default class YdyHeader extends PureComponent<any, any> {
               emptyText="你已完成所有待办"
               emptyImage="https://gw.alipayobjects.com/zos/rmsportal/HsIsxMZiWKrNUavQUXqx.svg"
             />
-          </NoticeIcon>
+          </NoticeIcon>)}
           {currentUser.name ? (
             <Dropdown overlay={menu}>
               <span className="action account">

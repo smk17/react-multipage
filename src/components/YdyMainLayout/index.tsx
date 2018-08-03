@@ -56,37 +56,8 @@ class YdyMainLayout extends React.Component<any, any> {
   render () {
     const { children } = this.props;
     const { isMobile: mb, collapsed, notices, fetchingNotices } = this.state;
-    const menuData = [
-      {
-        name: '租户管理',
-        icon: 'dashboard',
-        path: 'Tenant',
-        key: 'Tenant',
-        children: [
-          {
-            name: '租户信息',
-            path: '/Tenant.html',
-          },
-          // {
-          //   name: '测试租户信息',
-          //   path: '/Tenant-Test.html',
-          // },
-        ],
-      },
-      {
-        name: '应用管理',
-        icon: 'dashboard',
-        path: 'Application',
-        key: 'Application',
-        children: [
-          {
-            name: '应用列表',
-            path: '/Application.html',
-          },
-        ],
-      },
-    ]
-    const currentUser = {name: "Serati Ma", avatar: "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png", userid: "00000001", notifyCount: 12}
+    const menuData = window.baseConfig.menu ? window.baseConfig.menu : []
+    const currentUser = {name: "王成培", avatar: "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png", userid: "00000001", notifyCount: 12}
     const layout = (
       <Layout>
         <YdySiderMenu

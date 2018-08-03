@@ -8,20 +8,6 @@ import { CollapseType } from 'antd/lib/layout/Sider';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-export interface MenuDataSubItem {
-  name: string;
-  path: string;
-  key: string;
-}
-
-export interface MenuDataItem {
-  name: string;
-  icon: string;
-  path: string;
-  key: string;
-  children?: MenuDataSubItem[];
-}
-
 export interface SiderMenuPropTypes {
   Authorized?
   logo?
@@ -59,18 +45,6 @@ export const getFlatMenuKeys = menu =>
     return keys;
   }, []);
 
-/**
- * Find all matched menu keys based on paths
- * @param  flatMenuKeys: [/abc, /abc/:id, /abc/:id/info]
- * @param  paths: [/abc, /abc/11, /abc/11/info]
- */
-export const getMenuMatchKeys = (flatMenuKeys, paths) =>
-  paths.reduce(
-    (matchKeys, path) =>
-      matchKeys.concat(flatMenuKeys.filter(item => pathToRegexp(item).test(path))),
-    []
-  );
-
 export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
   flatMenuKeys
   constructor(props) {
@@ -90,20 +64,10 @@ export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
         });
       }
     }
-    
   }
 
-  /**
-   * Convert pathname to openKeys
-   * /list/search/articles = > ['list','/list/search']
-   * @param  props
-   */
-  getDefaultCollapsedSubMenus(props) {
-    const {
-      location: { pathname },
-    } =
-      props || this.props;
-    return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
+  getDefaultCollapsedSubMenus (props: SiderMenuPropTypes) {
+    return []
   }
 
   /**
@@ -175,9 +139,12 @@ export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
   };
 
   // Get the currently selected menu
-  getSelectedMenuKeys = () => {
+  getSelectedMenuKeys = (): string[] => {
     const { location } = this.props;
-    return location ? getMenuMatchKeys(this.flatMenuKeys, urlToList(location.pathname)) : ['']
+    if (location) {
+      return []
+    }
+    return []
   };
 
   // conversion Path
