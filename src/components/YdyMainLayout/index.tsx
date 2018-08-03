@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { enquireScreen } from 'enquire-js';
 import DocumentTitle from 'react-document-title';
 import './index.less'
-import logo from '@/assets/img/ydy.svg';
+import logo from '@/assets/img/ydy-logo.svg';
 import { Layout, Icon } from 'antd';
 import { GlobalFooter } from 'ant-design-pro';
 import YdySiderMenu from '@/components/YdySiderMenu';
@@ -39,22 +39,26 @@ class YdyMainLayout extends React.Component<any, any> {
       {
         name: '租户管理',
         icon: 'dashboard',
-        path: 'Tenant',
+        path: 'dashboard',
         children: [
           {
             name: '租户信息',
-            path: 'Tenant.html',
+            path: '/Tenant.html',
+          },
+          {
+            name: '测试租户信息',
+            path: '/dashboard/Tenant.html',
           },
         ],
       },
       {
         name: '应用管理',
         icon: 'dashboard',
-        path: 'AppStore',
+        path: '/Application.html',
         children: [
           {
             name: '应用列表',
-            path: 'Application.html',
+            path: '/Application.html',
           },
         ],
       },

@@ -1,5 +1,5 @@
 import React from 'react';
-import YdyScrollView from "@/components/YdyScrollView";
+import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
 import './App.less';
 
@@ -21,7 +21,7 @@ class App extends React.Component<any, AppStateTypes> {
   
   renderContent () {
     return (
-      <YdyScrollView>新的页面从这里开始吧！</YdyScrollView>
+      <YdyMainLayout>新的页面从这里开始吧！</YdyMainLayout>
     );
   }
   

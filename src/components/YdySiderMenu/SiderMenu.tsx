@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-import styles from './index.less';
+import './index.less';
 import { urlToList } from '@/common/Utils';
 
 const { Sider } = Layout;
@@ -14,7 +14,7 @@ const { SubMenu } = Menu;
 const getIcon = icon => {
   if (typeof icon === 'string') {
     if (icon.indexOf('http') === 0) {
-      return <img src={icon} alt="icon" className={`${styles.icon} sider-menu-item-img`} />;
+      return <img src={icon} alt="icon" className={`icon sider-menu-item-img`} />;
     }
     return <Icon type={icon} />;
   }
@@ -209,13 +209,12 @@ export default class SiderMenu extends PureComponent<any, any> {
         collapsed={collapsed}
         breakpoint="lg"
         onCollapse={onCollapse}
-        width={256}
-        className={styles.sider}
+        width={196}
+        className="sider"
       >
-        <div className={styles.logo} key="logo">
-          <a href="index.html">
-            <img src={logo} alt="logo" />
-          </a>
+        <div className="logo" key="logo">
+          <img src={logo} alt="logo" />
+          <h1>源钉云</h1>
         </div>
         <Menu
           key="Menu"
