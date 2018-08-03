@@ -3,9 +3,33 @@ import { Layout, Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp';
 import './index.less';
 import { urlToList } from '@/common/Utils';
+import { CollapseType } from 'antd/lib/layout/Sider';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
+
+export interface MenuDataSubItem {
+  name: string;
+  path: string;
+  key: string;
+}
+
+export interface MenuDataItem {
+  name: string;
+  icon: string;
+  path: string;
+  key: string;
+  children?: MenuDataSubItem[];
+}
+
+export interface SiderMenuPropTypes {
+  Authorized?
+  logo?
+  collapsed?: boolean
+  location?: Location
+  menuData?: MenuDataItem[]
+  onCollapse?: (collapsed: boolean, type: CollapseType) => void;
+}
 
 // Allow menu.js config icon as string or ReactNode
 //   icon: 'setting',
@@ -47,7 +71,7 @@ export const getMenuMatchKeys = (flatMenuKeys, paths) =>
     []
   );
 
-export default class SiderMenu extends PureComponent<any, any> {
+export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
   flatMenuKeys
   constructor(props) {
     super(props);
@@ -59,11 +83,14 @@ export default class SiderMenu extends PureComponent<any, any> {
 
   componentWillReceiveProps(nextProps) {
     const { location } = this.props;
-    if (nextProps.location.pathname !== location.pathname) {
-      this.setState({
-        openKeys: this.getDefaultCollapsedSubMenus(nextProps),
-      });
+    if (location) {
+      if (nextProps.location.pathname !== location.pathname) {
+        this.setState({
+          openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+        });
+      }
     }
+    
   }
 
   /**
@@ -149,10 +176,8 @@ export default class SiderMenu extends PureComponent<any, any> {
 
   // Get the currently selected menu
   getSelectedMenuKeys = () => {
-    const {
-      location: { pathname },
-    } = this.props;
-    return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
+    const { location } = this.props;
+    return location ? getMenuMatchKeys(this.flatMenuKeys, urlToList(location.pathname)) : ['']
   };
 
   // conversion Path
@@ -177,7 +202,7 @@ export default class SiderMenu extends PureComponent<any, any> {
 
   isMainMenu = key => {
     const { menuData } = this.props;
-    return menuData.some(item => key && (item.key === key || item.path === key));
+    return menuData ? menuData.some(item => key && (item.key === key || item.path === key)): false
   };
 
   handleOpenChange = openKeys => {
@@ -195,13 +220,16 @@ export default class SiderMenu extends PureComponent<any, any> {
     const menuProps = collapsed
       ? {}
       : {
-          openKeys,
+          // openKeys: ["Tenant", "/Tenant.html", "/Tenant-Test.html"],
+          openKeys
         };
     // if pathname can't match, use the nearest parent's key
     let selectedKeys = this.getSelectedMenuKeys();
     if (!selectedKeys.length) {
       selectedKeys = [openKeys[openKeys.length - 1]];
     }
+    console.log(openKeys);
+    console.log(selectedKeys);
     return (
       <Sider
         trigger={null}
@@ -213,8 +241,10 @@ export default class SiderMenu extends PureComponent<any, any> {
         className="sider"
       >
         <div className="logo" key="logo">
-          <img src={logo} alt="logo" />
-          <h1>源钉云</h1>
+          <a href="">
+            <img src={logo} alt="logo" />
+            <h1>源钉云</h1>
+          </a>
         </div>
         <Menu
           key="Menu"
