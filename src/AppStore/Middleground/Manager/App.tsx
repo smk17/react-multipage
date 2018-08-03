@@ -10,6 +10,7 @@ const FormItem = Form.Item;
 
 interface AppTenantState extends AppStateTypes{
   submitting: boolean,
+  userParams?: UserParams,
 };
 
 class App extends React.Component<any, AppTenantState> {
@@ -26,6 +27,7 @@ class App extends React.Component<any, AppTenantState> {
   componentDidMount () {
     this.setState({
       load: true,
+      userParams:MiddlegroundService.getUser(),
     })
   }
 
@@ -78,6 +80,7 @@ class App extends React.Component<any, AppTenantState> {
           <Form  onSubmit={this.handleSubmit}>
             <FormItem {...formItemLayout} label="姓名">
               {getFieldDecorator('name', {
+                initialValue:this.state.userParams ? this.state.userParams.name:'',
                 rules: [
                   {
                     required: true,
@@ -89,6 +92,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱">
               {getFieldDecorator('email', {
+                initialValue:this.state.userParams ? this.state.userParams.email:'',
                 rules: [
                   {
                     type: 'email', message: '邮箱格式不正确',
@@ -103,6 +107,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="手机">
               {getFieldDecorator('mobile', {
+                initialValue:this.state.userParams ? this.state.userParams.mobile:'',
                 rules: [
                   {
                     pattern: /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/, message: '手机格式不正确',
