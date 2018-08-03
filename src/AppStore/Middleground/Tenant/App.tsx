@@ -10,6 +10,7 @@ const FormItem = Form.Item;
 
 interface AppTenantState extends AppStateTypes{
   submitting: boolean,
+  tenantParams?:TenantParams,
 };
 
 class App extends React.Component<any, AppTenantState> {
@@ -24,8 +25,10 @@ class App extends React.Component<any, AppTenantState> {
   }
 
   componentDidMount () {
+
     this.setState({
       load: true,
+      tenantParams:MiddlegroundService.getTenant(),
     })
   }
 
@@ -79,6 +82,7 @@ class App extends React.Component<any, AppTenantState> {
           <Form  onSubmit={this.handleSubmit}>
           <FormItem {...formItemLayout} label="企业名称">
               {getFieldDecorator('companyName', {
+                initialValue:this.state.tenantParams ? this.state.tenantParams.conpanyname:'',
                 rules: [
                   {
                     required: true,
@@ -90,6 +94,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="地区">
               {getFieldDecorator('area', {
+                initialValue:this.state.tenantParams ? this.state.tenantParams.area:'',
                 rules: [
                   {
                     required: true,
@@ -101,6 +106,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="联系方式">
               {getFieldDecorator('contact', {
+                initialValue:this.state.tenantParams ? this.state.tenantParams.contact:'',
                 rules: [
                   {
                     required: true,

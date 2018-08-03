@@ -10,6 +10,7 @@ const FormItem = Form.Item;
 
 interface AppTenantState extends AppStateTypes{
   submitting: boolean,
+  userPasswordParams?: UserPasswordParams,
 };
 
 class App extends React.Component<any, AppTenantState> {
@@ -26,6 +27,7 @@ class App extends React.Component<any, AppTenantState> {
   componentDidMount () {
     this.setState({
       load: true,
+      userPasswordParams:MiddlegroundService.getUserPassword(),
     })
   }
 
@@ -77,6 +79,7 @@ class App extends React.Component<any, AppTenantState> {
           <Form  onSubmit={this.handleSubmit}>
             <FormItem {...formItemLayout} label="登陆名">
               {getFieldDecorator('code', {
+                initialValue:this.state.userPasswordParams ? this.state.userPasswordParams.code:'',
                 rules: [
                   {
                     required: true,
@@ -88,6 +91,7 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="密码">
               {getFieldDecorator('password', {
+                initialValue:this.state.userPasswordParams ? this.state.userPasswordParams.password:'',
                 rules: [
                   {
                     required: true,
