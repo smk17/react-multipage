@@ -52,12 +52,12 @@ const CreateForm = Form.create()((props:AppApplyForm) => {
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
-      sm: { span: 7 },
+      sm: { span: 8 },
     },
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 17 },
-      md: { span: 17 },
+      sm: { span: 16 },
+      md: { span: 16 },
     },
   };
   return (
