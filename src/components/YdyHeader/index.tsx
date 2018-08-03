@@ -103,6 +103,7 @@ export default class YdyHeader extends PureComponent<any, any> {
           type={collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.toggle}
         />
+        <div className="title left">{document.title}</div>
         <div className="right">
           {showSearch && (<HeaderSearch
             className="action search"
