@@ -14,6 +14,7 @@ export interface SiderMenuPropTypes {
   collapsed?: boolean
   location?: Location
   menuData?: MenuDataItem[]
+  setPageTitle?: (title: string) => void;
   onCollapse?: (collapsed: boolean, type: CollapseType) => void;
 }
 
@@ -36,20 +37,23 @@ const getIcon = icon => {
  * [{path:string},{path:string}] => [path,path2]
  * @param  menu
  */
-export const getFlatMenuKeys = menu =>
+export const getFlatMenuKeys = (menu, path = ''): {path: string, father: string, name: string}[] =>
   menu.reduce((keys, item) => {
-    keys.push(item.path);
+    keys.push({path: item.path, father: path ? path : item.path, name: item.name});
     if (item.children) {
-      return keys.concat(getFlatMenuKeys(item.children));
+      return keys.concat(getFlatMenuKeys(item.children, item.path));
     }
     return keys;
   }, []);
 
+const getSelectedMenuKeys = menu =>
+  menu.reduce((keys, item) => {
+    keys.push(item.path);
+    return keys;
+  }, []);
 export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
-  flatMenuKeys
   constructor(props) {
     super(props);
-    this.flatMenuKeys = getFlatMenuKeys(props.menuData);
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
@@ -67,7 +71,23 @@ export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
   }
 
   getDefaultCollapsedSubMenus (props: SiderMenuPropTypes) {
-    return []
+    const { menuData, location, setPageTitle } = props;
+    if (!location) return []
+    if (!menuData) return []
+    let flatMenuKeys = getFlatMenuKeys(menuData)
+    let fatherMenuKey = ''
+    for (let index = 0; index < flatMenuKeys.length; index++) {
+      const menuKey = flatMenuKeys[index];
+      if (location.pathname === menuKey.path) {
+        fatherMenuKey = menuKey.father
+        setPageTitle && setPageTitle(menuKey.name)
+      }
+    }
+    if (!fatherMenuKey) return []
+    let selectedKeys = flatMenuKeys.filter((item) => {
+      return item.father === fatherMenuKey
+    })
+    return getSelectedMenuKeys(selectedKeys)
   }
 
   /**
@@ -142,7 +162,7 @@ export default class SiderMenu extends PureComponent<SiderMenuPropTypes, any> {
   getSelectedMenuKeys = (): string[] => {
     const { location } = this.props;
     if (location) {
-      return []
+      return [location.pathname]
     }
     return []
   };
