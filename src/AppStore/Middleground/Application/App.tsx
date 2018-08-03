@@ -6,7 +6,8 @@ import { Form,Card, List,Badge , Modal,Button, InputNumber } from 'antd';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { AppInfo,TenantAppApplyInfo } from '../statement';
 import MiddlegroundService from '../MiddlegroundService';
-import moment, { max } from 'moment';
+import moment from 'moment';
+import { FormComponentProps } from '../../../../node_modules/antd/lib/form';
 
 
 const AppRemark=(props => {
@@ -15,17 +16,16 @@ const AppRemark=(props => {
     <Modal
       title="应用信息"
       visible={modalVisible}
-      onOk={() => handleModalVisible()}
-      onCancel={() => handleModalVisible()}
+      onOk={() => handleModalVisible(false)}
+      onCancel={() => handleModalVisible(false)}
       wrapClassName="vertical-center-modal"
       footer={[
-        <Button key="submit" type="primary" onClick={() => handleModalVisible()}>
+        <Button key="submit" type="primary" onClick={() => handleModalVisible(false)}>
           确定
         </Button>,
       ]}
     >
-      <div dangerouslySetInnerHTML={{ __html: Remark}}>
-      
+      <div dangerouslySetInnerHTML={{ __html: Remark}}>      
       </div>
     </Modal>
   );
@@ -33,7 +33,14 @@ const AppRemark=(props => {
   
 const FormItem = Form.Item;
 
-const CreateForm = Form.create()(props => {
+interface AppApplyForm extends FormComponentProps{
+  handleAdd:(fields:any)=>void,
+  handleModalVisible:(flag:any)=>void,
+  modalVisible:boolean,
+  loading:boolean,
+};
+
+const CreateForm = Form.create()((props:AppApplyForm) => {
   const { modalVisible, form, handleAdd,loading, handleModalVisible } = props;
   const okHandle = () => {
       form.validateFields((err, fieldsValue) => {
@@ -59,9 +66,9 @@ const CreateForm = Form.create()(props => {
       closable={false}
       visible={modalVisible}
       onOk={okHandle}
-      onCancel={() => handleModalVisible()}
+      onCancel={() => handleModalVisible(false)}
       footer={[
-        <Button key="back" onClick={() => handleModalVisible()}>取消</Button>,
+        <Button key="back" onClick={() => handleModalVisible(false)}>取消</Button>,
         <Button key="submit" type="primary" loading={loading} onClick={okHandle}>
           保存
         </Button>,
