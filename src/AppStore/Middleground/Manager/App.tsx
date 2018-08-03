@@ -25,6 +25,7 @@ class App extends React.Component<any, AppTenantState> {
   }
 
   componentDidMount () {
+    MiddlegroundService.hasLoginInfo();
     this.setState({
       load: true,
       userParams:MiddlegroundService.getUser(),
@@ -75,7 +76,7 @@ class App extends React.Component<any, AppTenantState> {
     };
 
     return (
-      <YdyMainLayout>   
+      <YdyMainLayout handleLoginOut={MiddlegroundService.handleLoginOut}>   
         <Card bordered={false}>
           <Form  onSubmit={this.handleSubmit}>
             <FormItem {...formItemLayout} label="姓名">

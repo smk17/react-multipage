@@ -11,10 +11,6 @@ import BetterJs from "@/common/BetterJs";
 import YdyScrollView from "@/components/YdyScrollView";
 import registerServiceWorker from '@/registerServiceWorker';
 
-window.baseConfig = {
-  "host": "http://fly3c.wicp.net:20000",
-  "development": false
-}
 axios.get<BaseConfig>('/config.json').then(res => {
   window.baseConfig = res.data;
   if (!window.baseConfig.development) {

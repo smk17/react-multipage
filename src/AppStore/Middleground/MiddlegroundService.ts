@@ -17,6 +17,22 @@ export default class MiddlegroundService {
     })
   }
 
+  static hasLoginInfo () {
+    var userId= sessionStorage.getItem("userId");
+    var tenantId= sessionStorage.getItem("tenantId");
+    var appId= sessionStorage.getItem("appId");
+    if(!userId && !tenantId && !appId){
+      window.location.href="login.html";
+    }
+  }
+
+  static handleLoginOut (key:any) {
+    sessionStorage.setItem("userId",'');
+    sessionStorage.setItem("tenantId",'');
+    sessionStorage.setItem("appId",'');  
+    window.location.href="login.html";
+  }
+
     /** 获取租户信息 */
     static getTenant () {
       // let filter: any[] = []

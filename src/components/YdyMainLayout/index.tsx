@@ -43,7 +43,9 @@ class YdyMainLayout extends React.Component<any, any> {
   };
 
   handleMenuClick = ({ key }) => {
+    const { handleLoginOut } = this.props;  
     console.log(key);
+    handleLoginOut(key);
   };
 
   handleNoticeVisibleChange = visible => {
@@ -99,12 +101,12 @@ class YdyMainLayout extends React.Component<any, any> {
                   href: 'index.html',
                   blankTarget: true,
                 },
-                {
-                  key: 'github',
-                  title: <Icon type="github" />,
-                  href: 'https://github.com/ant-design/ant-design-pro',
-                  blankTarget: true,
-                },
+                // {
+                //   key: 'github',
+                //   title: <Icon type="github" />,
+                //   href: 'https://github.com/ant-design/ant-design-pro',
+                //   blankTarget: true,
+                // },
                 {
                   key: '条款',
                   title: '条款',
