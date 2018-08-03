@@ -199,7 +199,7 @@ class App extends React.Component<any, AppState> {
 
   renderContent () {
     return (
-      <YdyMainLayout>   
+      <YdyMainLayout handleLoginOut={MiddlegroundService.handleLoginOut}>   
         <div className="cardList">
           <List
             rowKey="id"
