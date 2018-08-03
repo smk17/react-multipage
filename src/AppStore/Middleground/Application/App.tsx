@@ -235,7 +235,7 @@ class App extends React.Component<any, AppState> {
       <img className="App-loading" src={loading} alt="" />
     );
     return (
-      <div className="App" style={{ width: this.state.width + 'px', height: this.state.height + 'px' }}>
+      <div className="App" style={{ width: '100%', height: '100%' }}>
         {
           this.state.load ? this.renderContent() : LoadView
         }

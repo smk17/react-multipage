@@ -68,6 +68,7 @@ export default class YdyHeader extends PureComponent<any, any> {
       onNoticeVisibleChange,
       onMenuClick,
       onNoticeClear,
+      title,
       showSearch,
       showQuestion,
       showNoticeIcon
@@ -103,6 +104,7 @@ export default class YdyHeader extends PureComponent<any, any> {
           type={collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.toggle}
         />
+        <div className="title left">{title}</div>
         <div className="right">
           {showSearch && (<HeaderSearch
             className="action search"
