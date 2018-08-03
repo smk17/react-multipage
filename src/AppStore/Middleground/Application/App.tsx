@@ -7,7 +7,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { AppInfo,TenantAppApplyInfo } from '../statement';
 import MiddlegroundService from '../MiddlegroundService';
 import moment from 'moment';
-import { FormComponentProps } from '../../../../node_modules/antd/lib/form';
+import { FormComponentProps } from 'antd/lib/form';
 
 
 const AppRemark=(props => {
