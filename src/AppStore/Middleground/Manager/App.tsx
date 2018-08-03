@@ -3,7 +3,7 @@ import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
 import { Form, Input, Card,Button, } from 'antd';
 import './App.less';
-import { TenantParams } from '../statement';
+import { UserParams } from '../statement';
 import MiddlegroundService from '../MiddlegroundService';
 
 const FormItem = Form.Item;
@@ -32,17 +32,16 @@ class App extends React.Component<any, AppTenantState> {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {   
-        const tenantParams: TenantParams={
-          id: sessionStorage.getItem("tenantId"),
-          name:values.companyName,
-          conpanyname:values.companyName,
-          area:values.area,
-          contact:values.contact,
+      if (!err) {
+        const  userParams: UserParams={
+          id: sessionStorage.getItem("userId"),
+          name:values.name,
+          email:values.email,
+          mobile:values.mobile,
         };
-        console.log(tenantParams);
+        console.log(userParams);
        this.setState({submitting:true});
-       MiddlegroundService.saveTenant(tenantParams).then(res => {
+       MiddlegroundService.saveUser(userParams).then(res => {
         console.log(res);
         this.setState({submitting:false});
       })
@@ -77,38 +76,44 @@ class App extends React.Component<any, AppTenantState> {
       <YdyMainLayout>   
         <Card bordered={false}>
           <Form  onSubmit={this.handleSubmit}>
-          <FormItem {...formItemLayout} label="企业名称">
-              {getFieldDecorator('companyName', {
+            <FormItem {...formItemLayout} label="姓名">
+              {getFieldDecorator('name', {
                 rules: [
                   {
                     required: true,
-                    message: '企业名称不能为空',
+                    message: '姓名不能为空',
                     whitespace:true,
                   },
                 ],
-              })(<Input placeholder="请输入企业名称" maxLength={30} />)}
+              })(<Input placeholder="请输入姓名" maxLength={20}/>)}
             </FormItem>
-            <FormItem {...formItemLayout} label="地区">
-              {getFieldDecorator('area', {
+            <FormItem {...formItemLayout} label="邮箱">
+              {getFieldDecorator('email', {
                 rules: [
                   {
+                    type: 'email', message: '邮箱格式不正确',
+                  },
+                  {
                     required: true,
-                    message: '地区不能为空',
+                    message: '邮箱不能为空',
                     whitespace:true,
                   },
                 ],
-              })(<Input placeholder="请输入地区" maxLength={200} />)}
+              })(<Input placeholder="请输入邮箱" maxLength={50}/>)}
             </FormItem>
-            <FormItem {...formItemLayout} label="联系方式">
-              {getFieldDecorator('contact', {
+            <FormItem {...formItemLayout} label="手机">
+              {getFieldDecorator('mobile', {
                 rules: [
                   {
+                    pattern: /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/, message: '手机格式不正确',
+                  },
+                  {
                     required: true,
-                    message: '联系方式不能为空',
+                    message: '手机不能为空',
                     whitespace:true,
                   },
                 ],
-              })(<Input placeholder="请输入联系方式" maxLength={50}/>)}
+              })(<Input addonBefore="+86" placeholder="请输入手机" maxLength={11} />)}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={this.state.submitting}>

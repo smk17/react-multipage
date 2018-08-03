@@ -1,6 +1,6 @@
 import {Service} from '@/common/Service';
 import HttpService from '@/common/HttpService';
-import { TenantParams, UserParams, } from './statement';
+import { TenantParams, UserParams,UserPasswordParams } from './statement';
 
 export default class MiddlegroundService {
   static oauthLogin (code: string) {
@@ -18,30 +18,26 @@ export default class MiddlegroundService {
   }
 
   /**
-   * 更新组合和用户
+   * 更新租户信息
    * @param tenantParams 需要更新租户数据
-   * @param userParams 需要更新用户数据*
    */
-  static async saveTenantAndUser (tenantParams: TenantParams, userParams:UserParams) {
-    let get = await HttpService.getController<{id?: string, type?: string, params?: object, hasRights?: boolean}>({
-      id: 'save',
-      pageAddress: { pageMode: 2, pageId: 'Main', moduleId: 'Tenant', systemId: 'MutiTenancy' }
-    })
-    console.log(get);
-    if (get) {
-      tenantParams['_dataState'] = 2
-      userParams['_dataState'] = 2
-      let save = await HttpService.executeController<{id: string}>({
-        id: 'save',
-        pageAddress: { pageMode: 2, pageId: 'Main', moduleId: 'Tenant', systemId: 'MutiTenancy' },
-        params: {
-          _param_0: userParams,
-          _param_1: tenantParams,
-        }
-      })
-      console.log(save);
-      return save ;
-    }
-    return;
+  static async saveTenant (tenantParams: TenantParams) {
+      return true ;
   }
+
+    /**
+   * 更新管理员信息
+   * @param userParams 需要更新管理员数据
+   */
+  static async saveUser (userParams: UserParams) {
+    return true ;
+  }
+
+  /**
+   * 更新租户信息
+   * @param userPasswordParams 需要更新管理员登陆名和密码数据
+   */
+  static async saveUserPassword (userPasswordParams: UserPasswordParams) {
+    return true ;
+  } 
 }
