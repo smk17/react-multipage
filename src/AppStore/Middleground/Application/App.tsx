@@ -165,10 +165,10 @@ class App extends React.Component<any, AppState> {
     let _count:string='';
     switch(item.applyState){
       case 2:
-        _count='审核中...';
+        _count='已申请';
       break;
       case 3:
-        _count='已申请';
+        _count='已开通';
       break;
       default:
         _count='未申请';
