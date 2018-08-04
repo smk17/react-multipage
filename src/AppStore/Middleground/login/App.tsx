@@ -107,7 +107,7 @@ class App extends React.Component<any, LoginStateTypes> {
           <div className="App-login">
             <div className={loginType === LoginType.static ? 'hd login-quick' : 'hd login-static'} style={{height: 36}}>
               <h2 className="quick" onClick={loginSwitch}>快速登录</h2>
-              <h2 className="static" onClick={loginSwitch}>账密登录</h2>
+              {/* <h2 className="static" onClick={loginSwitch}>账密登录</h2> */}
               <div className="quick-tip">
                 <div className="poptip">
                   <div className="poptip-arrow">
@@ -117,7 +117,7 @@ class App extends React.Component<any, LoginStateTypes> {
                   <div className="poptip-content">扫码登录</div>
                 </div>
               </div>
-              <div className="static-tip">
+              {/* <div className="static-tip">
                 <div className="poptip">
                   <div className="poptip-arrow">
                     <em></em>
@@ -125,15 +125,15 @@ class App extends React.Component<any, LoginStateTypes> {
                   </div>
                   <div className="poptip-content">密码登录</div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="qrcode-login" style={{display: loginType === LoginType.quick ? '' : 'none'}}>
               <div className="title">扫码登录</div>
               <div id="login_qrcode"></div>
             </div>
-            <div className="static-login" style={{display: loginType === LoginType.quick ? 'none' : ''}}>
+            {/* <div className="static-login" style={{display: loginType === LoginType.quick ? 'none' : ''}}>
               <div className="title">密码登录</div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="App-footer">
