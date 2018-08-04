@@ -77,12 +77,14 @@ class App extends React.Component<any, LoginStateTypes> {
       title: '帮助',
       href: '',
       blankTarget: true,
-    }, {
-      key: 'github',
-      title: <Icon type="github" />,
-      href: 'https://github.com/ant-design/ant-design-pro',
-      blankTarget: true,
-    }, {
+    }, 
+    // {
+    //   key: 'github',
+    //   title: <Icon type="github" />,
+    //   href: 'https://github.com/ant-design/ant-design-pro',
+    //   blankTarget: true,
+    // }, 
+    {
       key: '条款',
       title: '条款',
       href: '',
