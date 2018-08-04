@@ -63,16 +63,12 @@ const CreateForm = Form.create()((props:AppApplyForm) => {
   return (
     <Modal
       title="应用申请"
-      closable={false}
       visible={modalVisible}
-      onOk={okHandle}
-      onCancel={() => handleModalVisible(false)}
-      footer={[
-        <Button key="back" onClick={() => handleModalVisible(false)}>取消</Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={okHandle}>
-          保存
-        </Button>,
-      ]}
+      confirmLoading={loading}
+      okText={'提交'}
+      cancelText={'关闭'}
+      onOk={okHandle}     
+      onCancel={() => loading?'':handleModalVisible(false)}     
     >
       <FormItem {...formItemLayout} label="申请使用时长(小时)">
         {form.getFieldDecorator('useTo', {
