@@ -1,16 +1,18 @@
 import React from 'react';
 import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
-import { Form, Input, Card,Button, } from 'antd';
+import { Form, Input, Card,Button,Cascader  } from 'antd';
 import './App.less';
 import { TenantParams } from '../statement';
 import MiddlegroundService from '../MiddlegroundService';
+import Area from "@/common/Area";
 
 const FormItem = Form.Item;
 
 interface AppTenantState extends AppStateTypes{
   submitting: boolean,
   tenantParams?:TenantParams,
+  areaOptions:any,
 };
 
 class App extends React.Component<any, AppTenantState> {
@@ -21,10 +23,12 @@ class App extends React.Component<any, AppTenantState> {
       width: window.innerWidth,
       height: window.innerHeight,
       submitting:false,
+      areaOptions:Area,
     };
   }
 
   componentDidMount () {
+    console.log(this.state.areaOptions);
     MiddlegroundService.hasLoginInfo();
     this.setState({
       load: true,
@@ -44,11 +48,11 @@ class App extends React.Component<any, AppTenantState> {
           contact:values.contact,
         };
         console.log(tenantParams);
-       this.setState({submitting:true});
-       MiddlegroundService.saveTenant(tenantParams).then(res => {
-        console.log(res);
-        this.setState({submitting:false});
-      })
+        this.setState({submitting:true});
+          MiddlegroundService.saveTenant(tenantParams).then(res => {
+          console.log(res);
+          this.setState({submitting:false});
+        })
       }
     });
   };
@@ -102,7 +106,7 @@ class App extends React.Component<any, AppTenantState> {
                     whitespace:true,
                   },
                 ],
-              })(<Input placeholder="请输入地区" maxLength={200} />)}
+              })(<Cascader options={this.state.areaOptions} placeholder="请选择地区" changeOnSelect  />)}
             </FormItem>
             <FormItem {...formItemLayout} label="联系方式">
               {getFieldDecorator('contact', {
