@@ -57,7 +57,7 @@ export default class MiddlegroundService {
       id: sessionStorage.getItem("tenantId"),
       name:'测试公司',
       conpanyname:'测试公司',
-      area:'XX',
+      area:[],
       contact:'21313131321',
     };
   }

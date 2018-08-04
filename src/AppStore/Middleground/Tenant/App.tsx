@@ -98,15 +98,14 @@ class App extends React.Component<any, AppTenantState> {
             </FormItem>
             <FormItem {...formItemLayout} label="地区">
               {getFieldDecorator('area', {
-                initialValue:this.state.tenantParams ? this.state.tenantParams.area:'',
+                initialValue:this.state.tenantParams ? this.state.tenantParams.area:[],
                 rules: [
                   {
                     required: true,
                     message: '地区不能为空',
-                    whitespace:true,
                   },
                 ],
-              })(<Cascader options={this.state.areaOptions} placeholder="请选择地区" changeOnSelect  />)}
+              })(<Cascader style={{textAlign:'left'}} options={this.state.areaOptions} placeholder="请选择地区" changeOnSelect  />)}
             </FormItem>
             <FormItem {...formItemLayout} label="联系方式">
               {getFieldDecorator('contact', {
