@@ -4,7 +4,7 @@
   "menu": [
     {
       "name": "租户管理",
-      "icon": "dashboard",
+      "icon": "user",
       "path": "Tenant",
       "key": "Tenant",
       "children": [
@@ -24,7 +24,7 @@
     },
     {
       "name": "应用管理",
-      "icon": "dashboard",
+      "icon": "profile",
       "path": "Application",
       "key": "Application",
       "children": [
