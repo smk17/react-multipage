@@ -1,3 +1,8 @@
 {
-  "root": "./docs"
+  "title": "开发文档",
+  "root": "./docs",
+  "plugins": ["expandable-chapters"],
+  "pluginsConfig": {
+    "expandable-chapters":{}
+  }
 }
