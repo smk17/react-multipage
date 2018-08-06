@@ -96,7 +96,7 @@ class App extends React.Component<any, AppDingState> {
               })(<Input placeholder="请输入CorpId" maxLength={30} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="CorpSecret">
-              {getFieldDecorator('CorpSecret', {
+              {getFieldDecorator('corpSecret', {
                 initialValue:this.state.dingCorpParams ? this.state.dingCorpParams.corpSecret:'',
                 rules: [
                   {
