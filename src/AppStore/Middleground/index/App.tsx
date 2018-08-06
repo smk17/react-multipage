@@ -2,6 +2,7 @@ import React from 'react';
 import YdyMainLayout from "@/components/YdyMainLayout";
 import loading from '@/assets/img/load.gif';
 import './App.less';
+import MiddlegroundService from '../MiddlegroundService';
 
 class App extends React.Component<any, AppStateTypes> {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends React.Component<any, AppStateTypes> {
   }
 
   componentDidMount () {
+    MiddlegroundService.hasLoginInfo();
     this.setState({
       load: true,
     })
@@ -21,7 +23,7 @@ class App extends React.Component<any, AppStateTypes> {
   
   renderContent () {
     return (
-      <YdyMainLayout>新的页面从这里开始吧！</YdyMainLayout>
+      <YdyMainLayout handleLoginOut={MiddlegroundService.handleLoginOut}>新的页面从这里开始吧！</YdyMainLayout>
     );
   }
   
