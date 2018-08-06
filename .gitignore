@@ -8,6 +8,7 @@
 
 # production
 /build
+/_book
 
 # misc
 .DS_Store

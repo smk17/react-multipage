@@ -95,6 +95,12 @@ class YdyListView extends React.Component<YdyListViewPropTypes, YdyListViewState
           onScroll={this.onScroll.bind(this)}
           pullToRefresh={
             <PullToRefresh
+              direction="down"
+              distanceToRefresh={25}
+              damping={100}
+              getScrollContainer={() => {
+                return this._lv ? this._lv : <div></div>
+              }}
               indicator={{
                 // activate: <div>activate</div>,
                 // deactivate: <div>deactivate</div>,
@@ -103,7 +109,8 @@ class YdyListView extends React.Component<YdyListViewPropTypes, YdyListViewState
               }}
               refreshing={this.state.refreshing}
               onRefresh={this.onRefresh}
-            />
+            >
+            </PullToRefresh>
           }
           onEndReached={this.onEndReached.bind(this)}
           onEndReachedThreshold={10}

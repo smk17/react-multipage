@@ -16,7 +16,7 @@
     "react"
   ],
   "plugins": [
-    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": true }, "ant"],
-    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "lib", "style": true }, "antd-mobile"]
+    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "lib", "style": true }, "antd-mobile"],
+    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": true }, "ant"]
   ]
 }
