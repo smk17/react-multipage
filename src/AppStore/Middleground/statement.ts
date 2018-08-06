@@ -32,6 +32,17 @@ export interface UserPasswordParams {
   password?: string
 }
 
+export interface DingCorpParams {
+  /** id **/
+  id?: string | null
+  /** 租户id **/
+  tenantId?: string | null
+  /** corpId **/
+  corpId?: string
+  /** corpSecret **/
+  corpSecret?: string
+}
+
 /** 应用 */
 export interface AppInfo {
   /** 应用id **/
@@ -55,7 +66,7 @@ export interface AppInfo {
 }
 
 /** 应用申请 */
-export interface TenantAppApplyInfo {
+export interface TenantAppApplyParams {
   /** 租户ID **/
   tenantId?: string | null
   /** 应用ID **/

@@ -19,6 +19,10 @@
         {
           "name": "管理员登陆信息",
           "path": "/ManagerLogin.html"
+        },
+        {
+          "name": "钉钉授权",
+          "path": "/Ding.html"
         }
       ]
     },

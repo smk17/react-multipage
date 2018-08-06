@@ -4,7 +4,7 @@ import loading from '@/assets/img/load.gif';
 import './App.less';
 import { Form,Card, List,Badge , Modal,Button, InputNumber } from 'antd';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import { AppInfo,TenantAppApplyInfo } from '../statement';
+import { AppInfo,TenantAppApplyParams } from '../statement';
 import MiddlegroundService from '../MiddlegroundService';
 import moment from 'moment';
 import { FormComponentProps } from 'antd/lib/form';
@@ -82,7 +82,7 @@ const CreateForm = Form.create()((props:AppApplyForm) => {
 interface AppState extends AppStateTypes{
   submitting: boolean,
   applist?:any[],
-  tenantAppApplyInfoParams?: TenantAppApplyInfo,
+  tenantAppApplyInfoParams?: TenantAppApplyParams,
   modalVisible:boolean,
   modalVisibleForm:boolean,
   selectApp?:AppInfo,
@@ -102,14 +102,19 @@ class App extends React.Component<any, AppState> {
   }
 
   componentDidMount () {
+    MiddlegroundService.hasLoginInfo();
     this.setState({
       load: true,
-      applist:MiddlegroundService.getAppList(),
-    })
+    });
+    MiddlegroundService.getAppList().then(res=>{
+      this.setState({
+        applist:res,
+      })
+    });
   }
   
   handleAdd = fields => {  
-    const tenantAppApplyInfo:TenantAppApplyInfo={
+    const tenantAppApplyInfo:TenantAppApplyParams={
       tenantId: sessionStorage.getItem("tenantId"),
       appId:this.state.selectApp?this.state.selectApp.id:'',
       applyOn: moment().toDate(),

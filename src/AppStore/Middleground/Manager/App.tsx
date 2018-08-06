@@ -28,8 +28,12 @@ class App extends React.Component<any, AppTenantState> {
     MiddlegroundService.hasLoginInfo();
     this.setState({
       load: true,
-      userParams:MiddlegroundService.getUser(),
-    })
+    });
+    MiddlegroundService.getUser().then(res=>{
+      this.setState({
+        userParams:res,
+      })
+    });
   }
 
   handleSubmit = e => {

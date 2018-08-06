@@ -1,6 +1,7 @@
 import {Service} from '@/common/Service';
 import HttpService from '@/common/HttpService';
-import { TenantParams, UserParams, UserPasswordParams, TenantAppApplyInfo } from './statement';
+import { TenantParams, UserParams, UserPasswordParams, DingCorpParams,TenantAppApplyParams } from './statement';
+import { promises } from 'fs';
 
 export default class MiddlegroundService {
 
@@ -39,7 +40,7 @@ export default class MiddlegroundService {
   }
 
   /** 获取租户信息 */
-  static getTenant () {
+  static async getTenant (){
     // let filter: any[] = []
     // filter.push({ dataType: 6, left: 'id', op: 1, title: '租户ID', right: sessionStorage.getItem("tenantId")})
     // return HttpService.getPageData<{username: string, id: string}[]>({
@@ -63,7 +64,7 @@ export default class MiddlegroundService {
   }
 
   /** 获取管理员信息 */
-  static getUser () {
+  static async getUser () {
     // let filter: any[] = []
     // filter.push({ dataType: 6, left: 'id', op: 1, title: '管理员ID', right: sessionStorage.getItem("userId")})
     // return HttpService.getPageData<{username: string, id: string}[]>({
@@ -86,7 +87,7 @@ export default class MiddlegroundService {
   }
 
   /** 获取管理员登陆信息 */
-  static getUserPassword () {
+  static async getUserPassword () {
     // let filter: any[] = []
     // filter.push({ dataType: 6, left: 'id', op: 1, title: '管理员ID', right: sessionStorage.getItem("userId")})
     // return HttpService.getPageData<{username: string, id: string}[]>({
@@ -104,6 +105,30 @@ export default class MiddlegroundService {
       id: sessionStorage.getItem("userId"),
       code:'test',
       password:'123456',
+    };
+  }
+
+  
+  /** 获取钉钉授权信息 */
+  static async getDingCorp () {
+    // let filter: any[] = []
+    // filter.push({ dataType: 6, left: 'id', op: 1, title: '管理员ID', right: sessionStorage.getItem("userId")})
+    // return HttpService.getPageData<{username: string, id: string}[]>({
+    //   id: '管理员密码',
+    //   pageAddress: { pageMode: 0, pageId: 'Main', moduleId: 'Tenant', systemId: 'MutiTenancy' },
+    //   mode: 0,
+    //   attachParams: {
+    //     filter: {
+    //       type: 1,
+    //       expressions: filter
+    //     }
+    //   }
+    // });
+    return {
+      id: '000000000000000001',
+      tenantId:sessionStorage.getItem("tenantId"),
+      corpId:'asdadadadadadaxzca',
+      corpSecret:'asdsadadaxzxczczsdaada'
     };
   }
 
@@ -176,8 +201,31 @@ export default class MiddlegroundService {
     return true ;
   } 
 
+    /**
+   * 更新租户信息
+   * @param userPasswordParams 需要更新管理员登陆名和密码数据
+   */
+  static async saveDingCorp (params: DingCorpParams) {
+    // let get = await HttpService.getController<{id?: string, type?: string, params?: object, hasRights?: boolean}>({
+    //   id: 'save',
+    //   pageAddress: { pageMode: 2, pageId: 'Main', moduleId: 'Ding', systemId: 'MutiTenancy' }
+    // })
+    // if (get) {
+    //   params['_dataState'] = 2
+    //   let save = await HttpService.executeController<{id: string}>({
+    //     id: 'save',
+    //     pageAddress: { pageMode: 2, pageId: 'Main', moduleId: 'Ding', systemId: 'MutiTenancy' },
+    //     params: {
+    //       _param_0: params,
+    //     }
+    //   })
+    //   return save;
+    // }
+    return true ;
+  } 
+
   /** 获取应用信息 */
-  static getAppList () {
+  static async getAppList () {
     // let filter: any[] = []
     // filter.push({ dataType: 6, left: 'id', op: 1, title: '租户ID', right: sessionStorage.getItem("tenantId")})
     // return HttpService.getPageData<{username: string, id: string}[]>({
@@ -229,7 +277,7 @@ export default class MiddlegroundService {
    * 保存租户应用申请
    * @param TenantAppApplyInfo 需要保存租户应用申请数据
    */
-  static async saveTenantAppApply (params: TenantAppApplyInfo) {
+  static async saveTenantAppApply (params: TenantAppApplyParams) {
     // let get = await HttpService.getController<{id?: string, type?: string, params?: object, hasRights?: boolean}>({
     //   id: 'save',
     //   pageAddress: { pageMode: 2, pageId: 'Main', moduleId: 'Tenant', systemId: 'MutiTenancy' }
