@@ -107,6 +107,9 @@ class App extends React.Component<any, AppDingState> {
                 ],
               })(<Input placeholder="请输入CorpSecret" maxLength={50}/>)}
             </FormItem>
+            <FormItem {...formItemLayout} label=" " colon={false} style={{textAlign:'left'}}>
+              <a href={'https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.3k06YP&treeId=385&articleId=106926&docType=1#s0'} target={'_blank'}>获取CorpSecret等开发信息</a>
+            </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={this.state.submitting}>
                 提交
